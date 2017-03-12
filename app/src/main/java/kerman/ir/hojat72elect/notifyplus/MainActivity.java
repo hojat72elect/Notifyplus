@@ -1,5 +1,6 @@
 package kerman.ir.hojat72elect.notifyplus;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SettingsFragment content=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,16 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_settings) {
+//TODO inja anjamesh midam.
+            if (content == null) {
+                content=new SettingsFragment();
+
+            }
+            if (!content.isVisible()) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.maincontent, content).commit();//
+            }
+
 
         } else if (id == R.id.nav_aboutapp) {
 
