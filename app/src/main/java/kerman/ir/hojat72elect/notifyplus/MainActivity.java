@@ -23,8 +23,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SettingsFragment content=null;
-
+    private SettingsFragment sf=null;
+    private HomeFragnent hf=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+       if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
+           callhomefragment();
+        }
+
+
+
+
+
     }//end of onCreate.
 
     @Override
@@ -91,28 +100,40 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+         callhomefragment();
         } else if (id == R.id.nav_settings) {
-//TODO inja anjamesh midam.
-            if (content == null) {
-                content=new SettingsFragment();
-
-            }
-            if (!content.isVisible()) {
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.maincontent, content).commit();//
-            }
-
-
+            callsettongsfragment();
         } else if (id == R.id.nav_aboutapp) {
 
         } else if (id == R.id.nav_likeus) {
 
         } else if (id == R.id.nav_exit) {
-
+            super.onBackPressed();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void callhomefragment() {
+        if (hf == null) {
+            hf=new HomeFragnent();
+
+        }
+        if (!hf.isVisible()) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.maincontent, hf).commit();//
+        }
+    }
+
+    private void callsettongsfragment() {
+        if (sf == null) {
+            sf=new SettingsFragment();
+
+        }
+        if (!sf.isVisible()) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.maincontent, sf).commit();//
+        }
     }
 }
