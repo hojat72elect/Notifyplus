@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
 
     private SettingsFragment sf=null;
     private HomeFragnent hf=null;
-
+    private AboutappFragment af=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,9 +102,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
          callhomefragment();
         } else if (id == R.id.nav_settings) {
-            callsettongsfragment();
+            callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
-
+             callaboutapp();
         } else if (id == R.id.nav_likeus) {
 
         } else if (id == R.id.nav_exit) {
@@ -113,6 +113,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void callaboutapp() {
+        if (af == null) {
+            af= new AboutappFragment();
+
+        }
+        if (!af.isVisible()) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.maincontent, af).commit();//
+        }
     }
 
     private void callhomefragment() {
@@ -126,7 +137,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void callsettongsfragment() {
+    private void callsettingsfragment() {
         if (sf == null) {
             sf=new SettingsFragment();
 
