@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SettingsFragment sf=null;
-    private HomeFragnent hf=null;
+    private HomeFragment hf=null;
     private AboutappFragment af=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +104,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
-             callaboutapp();
+             callaboutappfragment();
         } else if (id == R.id.nav_likeus) {
-
+//TODO bayad inja yek intent baraye raftan be safheye app dar market ra ijad konam.
         } else if (id == R.id.nav_exit) {
             super.onBackPressed();
         }
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void callaboutapp() {
+    private void callaboutappfragment() {
         if (af == null) {
             af= new AboutappFragment();
 
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity
 
     private void callhomefragment() {
         if (hf == null) {
-            hf=new HomeFragnent();
+            hf=new HomeFragment();
 
         }
         if (!hf.isVisible()) {
