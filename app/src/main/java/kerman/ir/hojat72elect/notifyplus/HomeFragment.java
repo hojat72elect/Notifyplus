@@ -1,5 +1,6 @@
 package kerman.ir.hojat72elect.notifyplus;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
@@ -21,11 +22,20 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 /**
  * Created by hojat72elect on doshanbe 23 esfand 1395 in kerman.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener,RadioGroup.OnCheckedChangeListener {
 
+
+    public interface listenerfordialog{
+        public void ondialogshow(int bc);
+    }
+
+
+    listenerfordialog mListener;
     private Button bnoton;
     private Button bnotoff;
 
@@ -103,6 +113,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
 
 
     }
+
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (listenerfordialog) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
+        }
+    }
+
+
+
+
+
 
     private void preconfigbuttons() { //this function , shows the apps which are chosen earlier in the row in app's main page.
 
@@ -264,9 +291,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
     }//end of service_notify.
 
 
-    private void showlist( ) {
+    private void showlist(int bc ) {
 
         //TODO dar in method bayad be activity begooid ta yek dialogfragment ra rah andazi konad
+          mListener.ondialogshow(bc);
+
     }
 
     private void addapprow(String s,int i) {
@@ -362,7 +391,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     break;
@@ -374,14 +403,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab2=(Button)buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=2;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -395,14 +424,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab2=(Button)buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=2;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -410,7 +439,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=3;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -424,14 +453,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab2=(Button)buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=2;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -439,7 +468,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=3;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -447,7 +476,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=4;
-                            showlist();
+                            showlist(bc);
                         }});
                     break;
 
@@ -460,14 +489,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab2=(Button)buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=2;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -475,7 +504,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=3;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -483,14 +512,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=4;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab5=(Button)buttons_row.findViewById(R.id.button5);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=5;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -504,14 +533,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab2=(Button)buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=2;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -519,7 +548,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=3;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -527,21 +556,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=4;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab5=(Button)buttons_row.findViewById(R.id.button5);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=5;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab6=(Button)buttons_row.findViewById(R.id.button6);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=6;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -554,14 +583,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=1;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab2=(Button)buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=2;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -569,7 +598,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=3;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
@@ -577,28 +606,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=4;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab5=(Button)buttons_row.findViewById(R.id.button5);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=5;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab6=(Button)buttons_row.findViewById(R.id.button6);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=6;
-                            showlist();
+                            showlist(bc);
                         }});
 
                     ab7=(Button)buttons_row.findViewById(R.id.button7);
                     ab7.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc=7;
-                            showlist();
+                            showlist(bc);
                         }});
 
 
