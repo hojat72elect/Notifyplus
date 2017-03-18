@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/newTagTableRow" 
+     android:layout_height="50dp"
+  
+    android:layout_width="match_parent"
+    android:background="@android:color/transparent" >
+
+    <TextView
+        android:id="@+id/apppackagename"
+        android:layout_width="230dp"
+        android:layout_height="match_parent"
+         />
+
+    <ImageView
+        android:id="@+id/appicon"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        
+        />
+
+</TableRow>

@@ -1,6 +1,9 @@
 package kerman.ir.hojat72elect.notifyplus;
 
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,7 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
 
 
 /*created by hojat72elect on shanbe 21 esfand 1395 in kerman.
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private SettingsFragment sf=null;
     private HomeFragment hf=null;
     private AboutappFragment af=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,8 +156,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void ondialogshow(int bc) {
 
-         Toast.makeText(this, "dialog ra neshan midahim!!!"+bc, Toast.LENGTH_LONG).show();
+
+callappsdialogfragment(bc);
+
+    }
+
+    private void callappsdialogfragment(int bc) {
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment adf = getFragmentManager().findFragmentByTag("dialog");
+        if (adf != null) {
+            ft.remove(adf);
+        }
+        ft.addToBackStack(null);
 
 
+        DialogFragment newFragment = AppsDialogFragment.newInstance();
+        newFragment.show(ft, "dialog");
     }
 }

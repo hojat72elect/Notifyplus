@@ -98,9 +98,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
         bnotoff = (Button) result.findViewById(R.id.button2);
         bnotoff.setOnClickListener(this);
 
-    //TODO  appsdialog = new Dialog(this);   to fragment nemitavan dialog ra rah
-    //TODO andazi kard bayad be activity begooid ta yek dialogfragment ra rah andazi konad
-
 
         number_of_app_buttons  = getActivity().getSharedPreferences ("numberofappbuttons", 0);
         fapps     = getActivity().getSharedPreferences("apps", 0);
@@ -292,17 +289,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
 
 
     private void showlist(int bc ) {
-
-        //TODO dar in method bayad be activity begooid ta yek dialogfragment ra rah andazi konad
-          mListener.ondialogshow(bc);
-
+        mListener.ondialogshow(bc);
     }
 
-    private void addapprow(String s,int i) {
-        //TODO in method dar daroone showlist() estefade migardad.
-    }
-    //TODO  public OnClickListener approwlistener = new OnClickListener()
-    //TODO in listener baraye radif hayi ast ke dar methode bala be dialog ezafe mikonim.
+
 
     protected void updateFavoriteApps(String i,String s) {//az in method dar
         // listenere mazkoor dar bala estefade mishavad.
