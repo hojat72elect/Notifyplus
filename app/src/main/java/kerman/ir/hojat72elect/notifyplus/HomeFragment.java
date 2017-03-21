@@ -1,45 +1,37 @@
 package kerman.ir.hojat72elect.notifyplus;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RemoteViews;
-import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
-import java.util.List;
-
 
 
 /**
  * Created by hojat72elect on doshanbe 23 esfand 1395 in kerman.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener,RadioGroup.OnCheckedChangeListener {
-
-
-    public interface listenerfordialog{
-        public void ondialogshow(int bc);
-    }
+public class HomeFragment extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
 
     listenerfordialog mListener;
+    RadioGroup rg = null;//the radio group that enabes user to choose number of apps he/she likes to be shown.
+    LayoutInflater buttons_inflater;
     private Button bnoton;
     private Button bnotoff;
-
-
     private Button ab1;
     private Button ab2;
     private Button ab3;
@@ -47,71 +39,63 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
     private Button ab5;
     private Button ab6;
     private Button ab7;
-
-
-
     private LinearLayout buttonsholder;//linear layout that contains the linear layout with buttons.
     private LinearLayout buttons_row;//linear layout with the buttons inside of it.
-
-    private String write_key="noab";//the key for writing on the shared preferences that contains the number of app buttons.
-
-    private int bc;// the button which is clicked.
+    private String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
 
     private SharedPreferences fapps; //shared preferences that saves user's favorite apps.
-
     private SharedPreferences number_of_app_buttons; //shared preferences for saving the number of app buttons.
-
-
-    private TableLayout appsTableLayout;
     private PackageManager mPm;
     private Context c;
-
-    private Dialog appsdialog;  //it is the dialog which would be shown to the user each time method showlist() was called.
-
-    private List<ApplicationInfo> apps ;
-
-    int j=0;//it saves the number of apps which are in good condition of launching.
-
     private boolean notification_state;
 
-    RadioGroup rg=null;//the radio group that enabes user to choose number of apps he/she likes to be shown.
+    private static ImageView imvofappclicked;
+    private static TextView tvofappclicked;
+    private static int bc;// the number of button which is clicked.
 
-    LayoutInflater buttons_inflater;
+    static HomeFragment newInstance(ImageView imv, TextView tv, int mbc) {
+        imvofappclicked = imv;
+        tvofappclicked = tv;
+        bc = mbc;
+        //dar tamame mavared , in fragment ba estefade az in methode newInstance(ImageView,TextView)
+        //sakhte mishavad . vaghti baraye avalin bar sakhte mishavad ba null por mishavad
+        //va vaghti ke az dialog be an bar migardim ba etelaate haghighi porash mikonim.
 
 
+        HomeFragment f = new HomeFragment();
+        return f;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View result=inflater.inflate(R.layout.home_layout, container, false);
+        View result = inflater.inflate(R.layout.home_layout, container, false);
 
 
-        buttonsholder=(LinearLayout) result.findViewById(R.id.buttonsholder);
+        buttonsholder = (LinearLayout) result.findViewById(R.id.buttonsholder);
 
-        rg= (RadioGroup)  result.findViewById(R.id.radioGroup1);
+        rg = (RadioGroup) result.findViewById(R.id.radioGroup1);
         rg.setOnCheckedChangeListener(this);
-        c=getActivity().getApplicationContext();
-        mPm=c.getPackageManager();
+        c = getActivity().getApplicationContext();
+        mPm = c.getPackageManager();
         bnoton = (Button) result.findViewById(R.id.button1);
         bnoton.setOnClickListener(this);
         bnotoff = (Button) result.findViewById(R.id.button2);
         bnotoff.setOnClickListener(this);
 
 
-        number_of_app_buttons  = getActivity().getSharedPreferences ("numberofappbuttons", 0);
-        fapps     = getActivity().getSharedPreferences("apps", 0);
+        number_of_app_buttons = getActivity().getSharedPreferences("numberofappbuttons", 0);
+        fapps = getActivity().getSharedPreferences("apps", 0);
 
         buttons_inflater = inflater;
 
         loading_the_app_buttons_in_main_ui();
         preconfigbuttons();
-        return(result);
+        return (result);
 
 
     }
-
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -123,32 +107,97 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
         }
     }
 
+    private void preconfigbuttons() { //this function , shows the apps which are chosen
+        // earlier in the row in app's main page.
+        if ((imvofappclicked == null) || (tvofappclicked == null)) {
+            Toast.makeText(getActivity().getApplicationContext(), "original initiation of fragment.", Toast.LENGTH_LONG).show();
+
+            appbuttonloading();
+        } else {
+            //TODO bayad akse morede nazar dar haman kelidi ke user click karde ast load shavad.
+            //  Toast.makeText(getActivity().getApplicationContext(),  "back from dialog.", Toast.LENGTH_LONG).show();
 
 
+                switch (bc) {
 
 
+                    //here:we adapt this function for 8 cases.
+                    case 1:
+                        ab1.setBackgroundDrawable(imvofappclicked.getDrawable());
+                        updateFavoriteApps("a", tvofappclicked.getText().toString());//first parameter is the key.
+                        Toast.makeText(getActivity().getApplicationContext(), "1", Toast.LENGTH_LONG).show();
+                        break;
 
-    private void preconfigbuttons() { //this function , shows the apps which are chosen earlier in the row in app's main page.
+                    case 2:
+                        ab2.setBackgroundDrawable(imvofappclicked.getDrawable());
+                        updateFavoriteApps("b", tvofappclicked.getText().toString());
+                        Toast.makeText(getActivity().getApplicationContext(), "2", Toast.LENGTH_LONG).show();
 
-        try{
-            String[] favoriteapps =  fapps.getAll().keySet().toArray(new String[0]);
-            Arrays.sort(favoriteapps, String.CASE_INSENSITIVE_ORDER);
-            int   noab=number_of_app_buttons.getInt(write_key, 0);
+                        break;
 
-            if(noab>0){
-                for (int i = 0; i < noab ; i++) {
+                    case 3:
+                        ab3.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
+                        updateFavoriteApps("c", tvofappclicked.getText().toString());
+                        Toast.makeText(getActivity().getApplicationContext(), "3", Toast.LENGTH_LONG).show();
+                        break;
 
+                    case 4:
+                        ab4.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
+                        updateFavoriteApps("d", tvofappclicked.getText().toString());
+                        Toast.makeText(getActivity().getApplicationContext(), "4", Toast.LENGTH_LONG).show();
+                        break;
 
-                    favoriteapps[i]=  fapps.getString(favoriteapps[i], "");
+                    case 5:
+                        ab5.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
+                        updateFavoriteApps("e", tvofappclicked.getText().toString());
+                        Toast.makeText(getActivity().getApplicationContext(), "5", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case 6:
+                        ab6.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
+                        updateFavoriteApps("f", tvofappclicked.getText().toString());
+                        Toast.makeText(getActivity().getApplicationContext(), "6", Toast.LENGTH_LONG).show();
+                        break;
+
+                    case 7:
+                        ab7.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
+                        updateFavoriteApps("g", tvofappclicked.getText().toString());
+                        Toast.makeText(getActivity().getApplicationContext(), "7", Toast.LENGTH_LONG).show();
+                        break;
+
+                    default:
+                        Toast.makeText(getActivity().getApplicationContext(), "default", Toast.LENGTH_LONG).show();
+
+                        break;
+
 
                 }
-            }else{
-                Toast.makeText(getActivity().getApplicationContext(), "first for app running", Toast.LENGTH_LONG).show();
+            appbuttonloading();
+            imvofappclicked = null;
+            tvofappclicked = null;
 
+
+            //TODO vaghti karemoon ba in imageview va textview tamoom shod bayad oonha ro khali konim.
+
+
+        }
+
+    }//end of the preconfigbuttons() method.
+
+    private void appbuttonloading() {
+        try {
+            String[] favoriteapps = fapps.getAll().keySet().toArray(new String[0]);
+            Arrays.sort(favoriteapps, String.CASE_INSENSITIVE_ORDER);
+            int noab = number_of_app_buttons.getInt(write_key, 0);
+            if (noab > 0) {
+                for (int i = 0; i < noab; i++) {
+                    favoriteapps[i] = fapps.getString(favoriteapps[i], "");
+                }
+            } else {
+
+                // Toast.makeText(getActivity().getApplicationContext(), "first for app running", Toast.LENGTH_LONG).show();
+                //felan in khat ro gheyr faalkardam.
             }
-
-
-
             ab1.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[0]));
             ab2.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[1]));
             ab3.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[2]));
@@ -156,44 +205,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
             ab5.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[4]));
             ab6.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[5]));
             ab7.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[6]));
-
-
-
-
-
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        }catch(Exception e){
-
-
-            Toast.makeText(getActivity().getApplicationContext(), e.toString()+"in the preconfigbuttons", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the preconfigbuttons", Toast.LENGTH_LONG).show();
 
 
         }
-
-
-
-
-    }//end of the preconfigbuttons() method.
-
+    }
 
     @Override
     public void onClick(View v) {
 
 
-        if(v==bnoton){
-            notification_state=true;
-            service_notify( notification_state,fapps,number_of_app_buttons);
+        if (v == bnoton) {
+            notification_state = true;
+            service_notify(notification_state, fapps, number_of_app_buttons);
 
 
             //starting the notification with the shared preferences we have
 
 
-        }else if(v==bnotoff){
-            notification_state=false;
+        } else if (v == bnotoff) {
+            notification_state = false;
             getActivity().stopService(new Intent(getActivity(), NotificationService.class));
 
             //stoping the  whole notification thing.
@@ -203,11 +235,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
 
     }
 
-    private void service_notify(boolean notify_user,SharedPreferences user_favorite_apps,SharedPreferences number_of_app_buttons)
-    {
+    private void service_notify(boolean notify_user, SharedPreferences user_favorite_apps, SharedPreferences number_of_app_buttons) {
 
 
-        try{
+        try {
             //ma dar inja service ra baraye sakhtan notification seda mizanim
             //bayad hamrah ba intent yek seri etelaat barash befrestim ta befahme notification ra besazad ya na.
 
@@ -221,12 +252,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
             Arrays.sort(favoriteapps, String.CASE_INSENSITIVE_ORDER);
 
 
-            int number_app_buttons=number_of_app_buttons.getInt(write_key, 0);
+            int number_app_buttons = number_of_app_buttons.getInt(write_key, 0);
 
-            for (int i = 0; i < number_app_buttons ; i++) {
+            for (int i = 0; i < number_app_buttons; i++) {
 
 
-                favoriteapps[i]=  user_favorite_apps.getString(favoriteapps[i], "");
+                favoriteapps[i] = user_favorite_apps.getString(favoriteapps[i], "");
 
             }
 
@@ -234,40 +265,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
             RemoteViews remote;
             switch (number_app_buttons) {
                 case 1:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify1);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify1);
                     break;
 
                 case 2:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify2);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify2);
                     break;
 
                 case 3:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify3);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify3);
                     break;
 
                 case 4:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify4);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify4);
                     break;
 
                 case 5:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify5);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify5);
                     break;
 
                 case 6:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify6);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify6);
                     break;
 
                 case 7:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
                     break;
                 default:
-                    remote=  new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
                     break;
             }
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////
-            Intent notification_intent=new Intent(getActivity(), NotificationService.class);
+            Intent notification_intent = new Intent(getActivity(), NotificationService.class);
 
             notification_intent.putExtra("ufa", favoriteapps);
             notification_intent.putExtra("notifyuser", notify_user);//doesn't have any utility for now.
@@ -275,26 +306,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
             notification_intent.putExtra("numberofappbuttons", number_app_buttons);
 
 
+            getActivity().startService(notification_intent);
+        } catch (Exception e) {
+             Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the service_notify", Toast.LENGTH_LONG).show();
 
-
-
-
-           getActivity(). startService(notification_intent);
-        }catch (Exception e) {
-            Toast.makeText(getActivity().getApplicationContext(), e.toString()+"in the service notify", Toast.LENGTH_LONG).show();
 
         }
 
     }//end of service_notify.
 
+    private void showlist(int bc) {
 
-    private void showlist(int bc ) {
         mListener.ondialogshow(bc);
     }
 
-
-
-    protected void updateFavoriteApps(String i,String s) {//az in method dar
+    protected void updateFavoriteApps(String i, String s) {//az in method dar
         // listenere mazkoor dar bala estefade mishavad.
 
         //updates the shared preferences which contain the favorite apps package names.
@@ -310,10 +336,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
 
         //   if(notification_state){
         //shayad behtar bashe ke dar entehaye updateFavoriteApps oon methodi ke service ra seda mikonad farakhani konim.
-        service_notify( notification_state,fapps,number_of_app_buttons);
+        service_notify(notification_state, fapps, number_of_app_buttons);
         // }
     }//end of updateFavoriteApps.
-
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -367,265 +392,292 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
 
     }//end of onCheckedChanged().
 
+    private void loading_the_app_buttons_in_main_ui() {
 
+        try {
 
-    private void loading_the_app_buttons_in_main_ui () {
-
-        try{
-
-            int m=number_of_app_buttons.getInt(write_key, 0);
+            int m = number_of_app_buttons.getInt(write_key, 0);
             switch (m) {
                 case 1:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_1_button, null);
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_1_button, null);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
                     break;
 
                 case 2:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_2_button, null);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_2_button, null);
 
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab2=(Button)buttons_row.findViewById(R.id.button2);
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=2;
+                            bc = 2;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
                     break;
 
                 case 3:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_3_button, null);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_3_button, null);
 
 
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab2=(Button)buttons_row.findViewById(R.id.button2);
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=2;
+                            bc = 2;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab3=(Button)buttons_row.findViewById(R.id.button3);
+                    ab3 = (Button) buttons_row.findViewById(R.id.button3);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=3;
+                            bc = 3;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
                     break;
 
                 case 4:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_4_button, null);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_4_button, null);
 
 
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab2=(Button)buttons_row.findViewById(R.id.button2);
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=2;
+                            bc = 2;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab3=(Button)buttons_row.findViewById(R.id.button3);
+                    ab3 = (Button) buttons_row.findViewById(R.id.button3);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=3;
+                            bc = 3;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab4=(Button)buttons_row.findViewById(R.id.button4);
+                    ab4 = (Button) buttons_row.findViewById(R.id.button4);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=4;
+                            bc = 4;
                             showlist(bc);
-                        }});
+                        }
+                    });
                     break;
 
                 case 5:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_5_button, null);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_5_button, null);
 
 
-
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab2=(Button)buttons_row.findViewById(R.id.button2);
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=2;
+                            bc = 2;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab3=(Button)buttons_row.findViewById(R.id.button3);
+                    ab3 = (Button) buttons_row.findViewById(R.id.button3);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=3;
+                            bc = 3;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab4=(Button)buttons_row.findViewById(R.id.button4);
+                    ab4 = (Button) buttons_row.findViewById(R.id.button4);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=4;
+                            bc = 4;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab5=(Button)buttons_row.findViewById(R.id.button5);
+                    ab5 = (Button) buttons_row.findViewById(R.id.button5);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=5;
+                            bc = 5;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
                     break;
 
                 case 6:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_6_button, null);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_6_button, null);
 
 
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab2=(Button)buttons_row.findViewById(R.id.button2);
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=2;
+                            bc = 2;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab3=(Button)buttons_row.findViewById(R.id.button3);
+                    ab3 = (Button) buttons_row.findViewById(R.id.button3);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=3;
+                            bc = 3;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab4=(Button)buttons_row.findViewById(R.id.button4);
+                    ab4 = (Button) buttons_row.findViewById(R.id.button4);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=4;
+                            bc = 4;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab5=(Button)buttons_row.findViewById(R.id.button5);
+                    ab5 = (Button) buttons_row.findViewById(R.id.button5);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=5;
+                            bc = 5;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab6=(Button)buttons_row.findViewById(R.id.button6);
+                    ab6 = (Button) buttons_row.findViewById(R.id.button6);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=6;
+                            bc = 6;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
                     break;
 
                 case 7:
-                    buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);
 
-                    ab1=(Button)buttons_row.findViewById(R.id.button1);
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=1;
+                            bc = 1;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab2=(Button)buttons_row.findViewById(R.id.button2);
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=2;
+                            bc = 2;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab3=(Button)buttons_row.findViewById(R.id.button3);
+                    ab3 = (Button) buttons_row.findViewById(R.id.button3);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=3;
+                            bc = 3;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
-                    ab4=(Button)buttons_row.findViewById(R.id.button4);
+                    ab4 = (Button) buttons_row.findViewById(R.id.button4);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=4;
+                            bc = 4;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab5=(Button)buttons_row.findViewById(R.id.button5);
+                    ab5 = (Button) buttons_row.findViewById(R.id.button5);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=5;
+                            bc = 5;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab6=(Button)buttons_row.findViewById(R.id.button6);
+                    ab6 = (Button) buttons_row.findViewById(R.id.button6);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=6;
+                            bc = 6;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
-                    ab7=(Button)buttons_row.findViewById(R.id.button7);
+                    ab7 = (Button) buttons_row.findViewById(R.id.button7);
                     ab7.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            bc=7;
+                            bc = 7;
                             showlist(bc);
-                        }});
+                        }
+                    });
 
 
                     break;
 
                 default:
-                    //buttons_row=(LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);//it must be coded this way.
-                    Toast.makeText(getActivity().getApplicationContext(), "the default happened!!!", Toast.LENGTH_LONG).show();
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);//it must be coded this way.
+
+                    //  Toast.makeText(getActivity().getApplicationContext(), "the default happened!!!", Toast.LENGTH_LONG).show();
+//felan in khat ro gheyr faalkardam.
 
 
                     break;
@@ -634,8 +686,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
             buttonsholder.removeAllViews();
             buttonsholder.addView(buttons_row);
 
-        }catch (Exception e) {
-            Toast.makeText(getActivity().getApplicationContext(), e.toString()+"in the loading_the_app_buttons_in_main_ui", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            //  Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the loading_the_app_buttons_in_main_ui", Toast.LENGTH_LONG).show();
+//felan in khat ro gheyr faalkardam.
 
 
         }
@@ -643,6 +696,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,Radio
     }//end of loading_the_app_buttons_in_main_ui.
 
 
+    public interface listenerfordialog {
+        void ondialogshow(int bc);
+    }
 
 
 }

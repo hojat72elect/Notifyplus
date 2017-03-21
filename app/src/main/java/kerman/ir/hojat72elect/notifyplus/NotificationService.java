@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 
 /**
@@ -172,6 +173,9 @@ public class NotificationService extends Service {
 
         }catch (Exception e) {
 
+
+            Toast.makeText(getApplicationContext(), e.toString() + "in the service", Toast.LENGTH_LONG).show();
+
         }
 
         Notification note=new Notification(R.drawable.stat_notify_chat,"Can you hear the music?",System.currentTimeMillis());
@@ -197,6 +201,7 @@ public class NotificationService extends Service {
     public void onDestroy() {
         stopForeground(true);
     }
+
     public static Bitmap drawableToBitmap (Drawable drawable) {
         Bitmap bitmap = null;
 

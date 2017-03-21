@@ -16,6 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -25,12 +28,12 @@ import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,HomeFragment.listenerfordialog {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.listenerfordialog, AppsDialogFragment.dialogclicked {
 
-    private SettingsFragment sf=null;
-    private HomeFragment hf=null;
-    private AboutappFragment af=null;
-
+    private SettingsFragment sf = null;
+    private HomeFragment hf = null;
+    private AboutappFragment af = null;
+    private  int mbc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,19 +52,16 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
-           callhomefragment();
+        if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
+            callhomefragment(null, null, 0);
         }
-
-
-
 
 
     }//end of onCreate.
@@ -105,11 +105,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-         callhomefragment();
+            callhomefragment(null, null,0);
         } else if (id == R.id.nav_settings) {
             callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
-             callaboutappfragment();
+            callaboutappfragment();
         } else if (id == R.id.nav_likeus) {
 //TODO bayad inja yek intent baraye raftan be safheye app dar market ra ijad konam.
         } else if (id == R.id.nav_exit) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
 
     private void callaboutappfragment() {
         if (af == null) {
-            af= new AboutappFragment();
+            af = new AboutappFragment();
 
         }
         if (!af.isVisible()) {
@@ -131,20 +131,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void callhomefragment() {
-        if (hf == null) {
-            hf=new HomeFragment();
+    private void callhomefragment(ImageView imv, TextView tv, int bc) {
 
-        }
-        if (!hf.isVisible()) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.maincontent, hf).commit();//
-        }
+
+        hf = HomeFragment.newInstance(imv, tv ,bc);
+
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.maincontent, hf).commit();
+        //ba kari ke toye in method kardim ,
+        //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
+        //user neshan dade khahad shod.
+
     }
 
     private void callsettingsfragment() {
         if (sf == null) {
-            sf=new SettingsFragment();
+            sf = new SettingsFragment();
 
         }
         if (!sf.isVisible()) {
@@ -155,13 +158,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void ondialogshow(int bc) {
-
-
-callappsdialogfragment(bc);
-
+        callAppsdialogfragment(bc);
     }
 
-    private void callappsdialogfragment(int bc) {
+    private void callAppsdialogfragment(int bc) {
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment adf = getFragmentManager().findFragmentByTag("dialog");
@@ -169,9 +169,16 @@ callappsdialogfragment(bc);
             ft.remove(adf);
         }
         ft.addToBackStack(null);
-
+mbc=bc;
 
         DialogFragment newFragment = AppsDialogFragment.newInstance();
         newFragment.show(ft, "dialog");
+
+    }
+
+    @Override
+    public void ondialogclick(ImageView imv, TextView tv) {
+
+        callhomefragment(imv, tv ,mbc);
     }
 }
