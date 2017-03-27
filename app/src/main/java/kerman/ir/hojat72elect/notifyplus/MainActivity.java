@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity
     private SettingsFragment sf = null;
     private HomeFragment hf = null;
     private AboutappFragment af = null;
-    private  int mbc;
+    private int mbc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            callhomefragment(null, null,0);
+            callhomefragment(null, null, 0);
         } else if (id == R.id.nav_settings) {
             callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity
     private void callhomefragment(ImageView imv, TextView tv, int bc) {
 
 
-        hf = HomeFragment.newInstance(imv, tv ,bc);
+        hf = HomeFragment.newInstance(imv, tv, bc);
 
 
         getFragmentManager().beginTransaction()
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity
             ft.remove(adf);
         }
         ft.addToBackStack(null);
-mbc=bc;
+        mbc = bc;
 
         DialogFragment newFragment = AppsDialogFragment.newInstance();
         newFragment.show(ft, "dialog");
@@ -179,6 +180,6 @@ mbc=bc;
     @Override
     public void ondialogclick(ImageView imv, TextView tv) {
 
-        callhomefragment(imv, tv ,mbc);
+        callhomefragment(imv, tv, mbc);
     }
 }

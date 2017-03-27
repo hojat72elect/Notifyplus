@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="supernotif"
+        android:title="@string/supernotiftitle"
+        android:summary="@string/supernotifsummary"
+       />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="reboot"
+        android:title="@string/reboottitle"
+        android:summary="@string/rebootsummary"
+       />
+
+    <Preference android:title="@string/ratetitle"
+        android:summary="@string/ratesummary">
+    </Preference>
+
+    <Preference android:title="@string/sharetitle"
+        android:summary="@string/sharesummary">
+    </Preference>
+
+    <Preference android:title="@string/moretitle"
+        android:summary="@string/moresummary">
+    </Preference>
+</PreferenceScreen>

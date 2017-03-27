@@ -85,8 +85,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
         bnotoff.setOnClickListener(this);
 
 
-        number_of_app_buttons = getActivity().getSharedPreferences("numberofappbuttons", 0);
-        fapps = getActivity().getSharedPreferences("apps", 0);
+        number_of_app_buttons = getActivity().getSharedPreferences("numberofappbuttons", 0);//dar zamani ke app baraye
+        // avalin bar ejra mishavad in khat mostaede
+        //error asr.
+        fapps = getActivity().getSharedPreferences("apps", 0);//va hamchenin in khat.
 
         buttons_inflater = inflater;
 
@@ -110,63 +112,57 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
     private void preconfigbuttons() { //this function , shows the apps which are chosen
         // earlier in the row in app's main page.
         if ((imvofappclicked == null) || (tvofappclicked == null)) {
-            Toast.makeText(getActivity().getApplicationContext(), "original initiation of fragment.", Toast.LENGTH_LONG).show();
+            //az dialog bar nagashteim . ya application ra baraye avalin bar baz karde ast
+            //va ya dar drawer elemane home ra zade ast.
 
             appbuttonloading();
         } else {
-            //TODO bayad akse morede nazar dar haman kelidi ke user click karde ast load shavad.
-            //  Toast.makeText(getActivity().getApplicationContext(),  "back from dialog.", Toast.LENGTH_LONG).show();
+            // bayad akse morede nazar dar haman kelidi ke user click karde ast load shavad.
 
 
                 switch (bc) {
+ //bc shomareye buttoni ast ke click shode ast.
 
 
-                    //here:we adapt this function for 8 cases.
+                    //here:we adopt this function for 8 cases.
                     case 1:
                         ab1.setBackgroundDrawable(imvofappclicked.getDrawable());
                         updateFavoriteApps("a", tvofappclicked.getText().toString());//first parameter is the key.
-                        Toast.makeText(getActivity().getApplicationContext(), "1", Toast.LENGTH_LONG).show();
-                        break;
+                       break;
 
                     case 2:
                         ab2.setBackgroundDrawable(imvofappclicked.getDrawable());
                         updateFavoriteApps("b", tvofappclicked.getText().toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "2", Toast.LENGTH_LONG).show();
 
                         break;
 
                     case 3:
                         ab3.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                         updateFavoriteApps("c", tvofappclicked.getText().toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "3", Toast.LENGTH_LONG).show();
                         break;
 
                     case 4:
                         ab4.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                         updateFavoriteApps("d", tvofappclicked.getText().toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "4", Toast.LENGTH_LONG).show();
                         break;
 
                     case 5:
                         ab5.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                         updateFavoriteApps("e", tvofappclicked.getText().toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "5", Toast.LENGTH_LONG).show();
                         break;
 
                     case 6:
                         ab6.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                         updateFavoriteApps("f", tvofappclicked.getText().toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "6", Toast.LENGTH_LONG).show();
                         break;
 
                     case 7:
                         ab7.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                         updateFavoriteApps("g", tvofappclicked.getText().toString());
-                        Toast.makeText(getActivity().getApplicationContext(), "7", Toast.LENGTH_LONG).show();
                         break;
 
                     default:
-                        Toast.makeText(getActivity().getApplicationContext(), "default", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "default happened!!!", Toast.LENGTH_LONG).show();
 
                         break;
 
@@ -177,7 +173,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
             tvofappclicked = null;
 
 
-            //TODO vaghti karemoon ba in imageview va textview tamoom shod bayad oonha ro khali konim.
 
 
         }
@@ -195,8 +190,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
                 }
             } else {
 
-                // Toast.makeText(getActivity().getApplicationContext(), "first for app running", Toast.LENGTH_LONG).show();
-                //felan in khat ro gheyr faalkardam.
+                 Toast.makeText(getActivity().getApplicationContext(), "first for app running", Toast.LENGTH_LONG).show();
+
             }
             ab1.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[0]));
             ab2.setBackgroundDrawable(mPm.getApplicationIcon(favoriteapps[1]));
@@ -320,9 +315,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
         mListener.ondialogshow(bc);
     }
 
-    protected void updateFavoriteApps(String i, String s) {//az in method dar
-        // listenere mazkoor dar bala estefade mishavad.
-
+    protected void updateFavoriteApps(String i, String s) {
+        //az in method dar listenere mazkoor dar bala estefade mishavad.
         //updates the shared preferences which contain the favorite apps package names.
 
         SharedPreferences.Editor fappseditor = fapps.edit();
@@ -334,10 +328,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
 
         fappseditor.commit();
 
-        //   if(notification_state){
-        //shayad behtar bashe ke dar entehaye updateFavoriteApps oon methodi ke service ra seda mikonad farakhani konim.
+          if(notification_state){
         service_notify(notification_state, fapps, number_of_app_buttons);
-        // }
+        //agar notification ghablan neshan dade shode bashad , an ra update mikonim.
+         }
     }//end of updateFavoriteApps.
 
     @Override
@@ -687,8 +681,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Radi
             buttonsholder.addView(buttons_row);
 
         } catch (Exception e) {
-            //  Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the loading_the_app_buttons_in_main_ui", Toast.LENGTH_LONG).show();
-//felan in khat ro gheyr faalkardam.
+             Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the loading_the_app_buttons_in_main_ui", Toast.LENGTH_LONG).show();
+
 
 
         }
