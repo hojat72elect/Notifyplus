@@ -15,5 +15,7 @@
     <string name="sharesummary">share this application with your friends</string>
     <string name="moretitle">More Apps</string>
     <string name="moresummary">check out the market for more interesting apps by me</string>
+    <string name="enable_notification">ENABLE NOTIFICATION</string>
+    <string name="enabling_the_notification">enabling the notification</string>
 
 </resources>
