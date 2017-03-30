@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.listenerfordialog, AppsDialogFragment.dialogclicked {
 
     private SettingsFragment sf = null;
+    private HomeFragmentJadid hfj=null;
     private HomeFragment hf = null;
     private AboutappFragment af = null;
     private int mbc;
@@ -135,11 +136,20 @@ public class MainActivity extends AppCompatActivity
     private void callhomefragment(ImageView imv, TextView tv, int bc) {
 
 
-        hf = HomeFragment.newInstance(imv, tv, bc);
+        if(hfj==null){
+            hfj = new HomeFragmentJadid();
+        }
+        if(!hfj.isVisible()){
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.maincontent, hfj).commit();//
+        }
+      //  hf = HomeFragment.newInstance(imv, tv, bc);
 
 
-        getFragmentManager().beginTransaction()
-                .replace(R.id.maincontent, hf).commit();
+       // getFragmentManager().beginTransaction()
+             //   .replace(R.id.maincontent, hf).commit();
+
+
         //ba kari ke toye in method kardim ,
         //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
         //user neshan dade khahad shod.
