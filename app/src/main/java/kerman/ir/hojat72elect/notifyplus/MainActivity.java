@@ -28,11 +28,13 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.listenerfordialog, AppsDialogFragment.dialogclicked {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        HomeFragmentJadid.listenerfornoab,
+        AppsDialogFragment.dialogclicked,
+        NumberofappbuttonsDialogFragment.buttonclicked {
 
     private SettingsFragment sf = null;
-    private HomeFragmentJadid hfj=null;
-    private HomeFragment hf = null;
+    private HomeFragmentJadid hfj = null;
     private AboutappFragment af = null;
     private int mbc;
 
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
-            callhomefragment(null, null, 0);
+            callhomefragment(null, null, 0, -1);
         }
 
 
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            callhomefragment(null, null, 0);
+            callhomefragment(null, null, 0, -1);
         } else if (id == R.id.nav_settings) {
             callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
@@ -133,21 +135,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void callhomefragment(ImageView imv, TextView tv, int bc) {
+    private void callhomefragment(ImageView imv, TextView tv, int bc, int nb) {
+
+        //ImageView imv , akse applicationi ke click shode ast.
+        //TextView tv , name applicationi ke click shode ast.
+        //int bc , shomareye kelidi ast ke click shode ast.
+        //int nb , tedade kelid haye neshan dade shode dar barname ast.
+        hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb);
 
 
-        if(hfj==null){
-            hfj = new HomeFragmentJadid();
-        }
-        if(!hfj.isVisible()){
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.maincontent, hfj).commit();//
-        }
-      //  hf = HomeFragment.newInstance(imv, tv, bc);
-
-
-       // getFragmentManager().beginTransaction()
-             //   .replace(R.id.maincontent, hf).commit();
+        getFragmentManager().beginTransaction()
+                .replace(R.id.maincontent, hfj).commit();
 
 
         //ba kari ke toye in method kardim ,
@@ -163,14 +161,10 @@ public class MainActivity extends AppCompatActivity
         }
         if (!sf.isVisible()) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.maincontent, sf).commit();//
+                    .replace(R.id.maincontent, sf).commit();
         }
     }
 
-    @Override
-    public void ondialogshow(int bc) {
-        callAppsdialogfragment(bc);
-    }
 
     private void callAppsdialogfragment(int bc) {
 
@@ -190,6 +184,57 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void ondialogclick(ImageView imv, TextView tv) {
 
-        callhomefragment(imv, tv, mbc);
+        callhomefragment(imv, tv, mbc, -1);
+    }
+
+
+    @Override
+    public void noabmethod(int dialognumber, int bc) {
+        // mitoonam inja bar asase meghdare yek moteghayere integer , tasmim begiram ke
+        //kodam yek az 3 ta diloge mazkoor dar in fragment ra neshan bedaham.
+
+        switch (dialognumber) {
+            case 0:
+                callnumberofappbuttonsdialogfragment();
+
+                break;
+
+            case 1:
+                //  app haye nasb shode dar dastgah ra neshan midahad.
+                callAppsdialogfragment(bc);
+                break;
+
+            case 2:
+                // changes background color.
+
+                break;
+
+            default:
+                //in hamishe rokh midahad???
+                break;
+        }
+
+    }
+
+    private void callnumberofappbuttonsdialogfragment() {
+        //TODO bayad dar inja , NumberofappbuttonsDialogFragment ra seda bezanam.
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment noabdf = getFragmentManager().findFragmentByTag("dialog");
+
+        if (noabdf != null) {
+            ft.remove(noabdf);
+        }
+        ft.addToBackStack(null);
+        DialogFragment newFragment = NumberofappbuttonsDialogFragment.newInstance();
+        newFragment.show(ft, "dialog");
+
+    }
+
+    @Override
+    public void dialogbuttonclicked(int nbc) {
+        //TODO inja homefragmentjadid ra seda mizanim.
+        Toast.makeText(getApplicationContext(), "we are in " + nbc, Toast.LENGTH_SHORT).show();
+        callhomefragment(null, null, 0, nbc);
     }
 }

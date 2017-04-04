@@ -32,14 +32,17 @@ public class AppsDialogFragment extends DialogFragment implements View.OnClickLi
     View mdialog;
     dialogclicked mlistener;
 
+
+    public interface dialogclicked {
+        void ondialogclick(ImageView imv, TextView tv);
+    }
+
+
     static AppsDialogFragment newInstance() {
         AppsDialogFragment f = new AppsDialogFragment();
         return f;
     }
 
-    public interface dialogclicked {
-        void ondialogclick(ImageView imv, TextView tv);
-    }
 
     @Nullable
     @Override
