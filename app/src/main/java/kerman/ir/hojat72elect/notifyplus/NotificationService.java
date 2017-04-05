@@ -39,130 +39,130 @@ public class NotificationService extends Service {
         try{
             switch (n) {
                 case 1:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
                     break;
 
                 case 2:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
                     break;
 
                 case 3:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                    remote.setOnClickPendingIntent(R.id.imageView3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
+                    remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
 
                     break;
 
                 case 4:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                    remote.setOnClickPendingIntent(R.id.imageView3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
+                    remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                    remote.setOnClickPendingIntent(R.id.imageView4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
+                    remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
 
                     break;
 
                 case 5:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                    remote.setOnClickPendingIntent(R.id.imageView3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
+                    remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                    remote.setOnClickPendingIntent(R.id.imageView4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
+                    remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                    remote.setOnClickPendingIntent(R.id.imageView5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
+                    remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
 
                     break;
 
                 case 6:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                    remote.setOnClickPendingIntent(R.id.imageView3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
+                    remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                    remote.setOnClickPendingIntent(R.id.imageView4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
+                    remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                    remote.setOnClickPendingIntent(R.id.imageView5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
+                    remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
-                    remote.setOnClickPendingIntent(R.id.imageView6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
+                    remote.setOnClickPendingIntent(R.id.notifimv6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
 
                     break;
 
                 case 7:
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                    remote.setOnClickPendingIntent(R.id.imageView3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
+                    remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                    remote.setOnClickPendingIntent(R.id.imageView4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
+                    remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                    remote.setOnClickPendingIntent(R.id.imageView5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
+                    remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
-                    remote.setOnClickPendingIntent(R.id.imageView6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
+                    remote.setOnClickPendingIntent(R.id.notifimv6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView7, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[6])));
-                    remote.setOnClickPendingIntent(R.id.imageView7, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[6]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv7, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[6])));
+                    remote.setOnClickPendingIntent(R.id.notifimv7, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[6]), 0));
 
                     break;
                 default:
 
-                    remote.setImageViewBitmap(R.id.imageView1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                    remote.setOnClickPendingIntent(R.id.imageView1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
+                    remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                    remote.setOnClickPendingIntent(R.id.imageView2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
+                    remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                    remote.setOnClickPendingIntent(R.id.imageView3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
+                    remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                    remote.setOnClickPendingIntent(R.id.imageView4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
+                    remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                    remote.setOnClickPendingIntent(R.id.imageView5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
+                    remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
-                    remote.setOnClickPendingIntent(R.id.imageView6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
+                    remote.setOnClickPendingIntent(R.id.notifimv6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
 
-                    remote.setImageViewBitmap(R.id.imageView7, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[6])));
-                    remote.setOnClickPendingIntent(R.id.imageView7, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[6]), 0));
+                    remote.setImageViewBitmap(R.id.notifimv7, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[6])));
+                    remote.setOnClickPendingIntent(R.id.notifimv7, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[6]), 0));
 
                     break;
             }
