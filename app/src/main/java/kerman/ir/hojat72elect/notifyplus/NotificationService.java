@@ -174,7 +174,7 @@ public class NotificationService extends Service {
         }catch (Exception e) {
 
 
-            Toast.makeText(getApplicationContext(), e.toString() + "in the service", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), e.toString() + " (in the NotificationService)", Toast.LENGTH_LONG).show();
 
         }
 
