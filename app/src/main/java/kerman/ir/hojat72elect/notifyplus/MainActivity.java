@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragmentJadid.listenerfornoab,
         AppsDialogFragment.dialogclicked,
-        NumberofappbuttonsDialogFragment.buttonclicked {
+        NumberofappbuttonsDialogFragment.buttonclicked,
+        BackgroundColorDialogFragment.buttonclicked {
 
     private SettingsFragment sf = null;
     private HomeFragmentJadid hfj = null;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
-            callhomefragment(null, null, 0, -1);
+            callhomefragment(null, null, 0, -1, -100);
         }
 
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            callhomefragment(null, null, 0, -1);
+            callhomefragment(null, null, 0, -1, -100);
         } else if (id == R.id.nav_settings) {
             callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
@@ -135,13 +136,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void callhomefragment(ImageView imv, TextView tv, int bc, int nb) {
+    private void callhomefragment(ImageView imv, TextView tv, int bc, int nb, int color) {
 
         //ImageView imv , akse applicationi ke click shode ast.
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb);
+        hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
 
 
         getFragmentManager().beginTransaction()
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void ondialogclick(ImageView imv, TextView tv) {
 
-        callhomefragment(imv, tv, mbc, -1);
+        callhomefragment(imv, tv, mbc, -1, -100);
     }
 
 
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity
 
             case 2:
                 // changes background color.
-
+                callbackgroundcolordialogfragment();
                 break;
 
             default:
@@ -216,8 +217,18 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void callbackgroundcolordialogfragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment bgcdf = getFragmentManager().findFragmentByTag("dialog");
+        if (bgcdf != null) {
+            ft.remove(bgcdf);
+        }
+        ft.addToBackStack(null);
+        DialogFragment newFragment = BackgroundColorDialogFragment.newInstance();
+        newFragment.show(ft, "dialog");
+    }
+
     private void callnumberofappbuttonsdialogfragment() {
-        //TODO bayad dar inja , NumberofappbuttonsDialogFragment ra seda bezanam.
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment noabdf = getFragmentManager().findFragmentByTag("dialog");
@@ -233,8 +244,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void dialogbuttonclicked(int nbc) {
-        //TODO inja homefragmentjadid ra seda mizanim.
-        Toast.makeText(getApplicationContext(), "we are in " + nbc, Toast.LENGTH_SHORT).show();
-        callhomefragment(null, null, 0, nbc);
+        //inja homefragmentjadid ra seda mizanim.
+        callhomefragment(null, null, 0, nbc, -100);
+    }
+
+
+    @Override
+    public void rangdialogclicked(int color) {
+        callhomefragment(null, null, 0, -1, color);
     }
 }

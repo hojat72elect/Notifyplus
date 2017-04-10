@@ -108,7 +108,6 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
     }
 
     private void backtohomefragmentjadid(int mint) {
-        //TODO bayad shomare kelide click shode ra be HomeFragmentJadid bargardanam.
 
         mbuttonlistener.dialogbuttonclicked(mint);
         getDialog().cancel();//dismisses the dialog.

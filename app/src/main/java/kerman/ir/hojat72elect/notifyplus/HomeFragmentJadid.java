@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private static TextView tvofappclicked;
     private static int bc;// the number of button which is clicked.
     private static int kelidsnumber;//total number of buttons which are shown in app.
-
+    private static int rangbackground;//rang pas zamine
 
     private LinearLayout buttonsholder;//linear layout that contains the linear layout with buttons.
     private PackageManager mPm;
@@ -48,6 +49,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private SharedPreferences bpanjom;
     private SharedPreferences bshishom;
     private SharedPreferences bhaftom;
+    private SharedPreferences rangshpref;
     ////////////////////////////////////////////////////
     LayoutInflater buttons_inflater;
     listenerfornoab mnoabListener;
@@ -61,13 +63,14 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
     private static String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
     private static String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
-    private String writekeyaval = "bavalsharedpref";
-    private String writekeydovom = "bdovomsharedpref";
-    private String writekeysevom = "bsevomsharedpref";
-    private String writekeycharom = "bcharomsharedpref";
-    private String writekeypanjom = "bpanjomsharedpref";
-    private String writekeyshishom = "bshishomsharedpref";
-    private String writekeyhaftom = "bhaftomsharedpref";
+    private String write_key_aval = "bavalsharedpref";
+    private String write_key_dovom = "bdovomsharedpref";
+    private String write_key_sevom = "bsevomsharedpref";
+    private String write_key_charom = "bcharomsharedpref";
+    private String write_key_panjom = "bpanjomsharedpref";
+    private String write_key_shishom = "bshishomsharedpref";
+    private String write_key_haftom = "bhaftomsharedpref";
+    private String write_key_rang = "rangsharedpref";
 
     private LinearLayout buttons_row;//linear layout with the buttons inside of it.
     private View noabview;
@@ -78,7 +81,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private boolean notification_state;
 
 
-    static HomeFragmentJadid newInstance(ImageView imv, TextView tv, int mbc, int nb) {
+    static HomeFragmentJadid newInstance(ImageView imv, TextView tv, int mbc, int nb, int color) {
         imvofappclicked = imv;
         tvofappclicked = tv;// in va balayi ash faghat agar az dialoge entekhabe app bargardim
         //null nakhahand bood.
@@ -89,6 +92,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
         kelidsnumber = nb;//faghat agar az dialoge entekhabe tedade kelid ha bargardim
         //-1 nakhahad bood.
 
+        rangbackground = color;//faghat agar az dialoge entekhabe range pas zamine bargardim
+        //-100 nakhahad bood.
 
         //dar tamame mavared , in fragment ba estefade az in methode newInstance(ImageView,TextView)
         //sakhte mishavad . vaghti baraye avalin bar sakhte mishavad ba null por mishavad
@@ -121,7 +126,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     // The toggle is enabled
                     notification_state = true;
                     notifeditor.putBoolean(write_key_notif, true);
-                    roudaki(notification_state, number_of_app_buttons);
+                    roudaki(notification_state, number_of_app_buttons, rangshpref.getInt(write_key_rang, 0));
                     //starting the notification with the shared preferences we have
                 } else {
                     // The toggle is disabled
@@ -147,7 +152,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
         bpanjom = getActivity().getSharedPreferences("fifth_button_prefs", 0);
         bshishom = getActivity().getSharedPreferences("sixth_button_prefs", 0);
         bhaftom = getActivity().getSharedPreferences("seventh_button_prefs", 0);
-
+        rangshpref = getActivity().getSharedPreferences("rang_prefs", 0);
 
         buttons_inflater = inflater;
 
@@ -175,8 +180,21 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
         }
         sadie();
         //////////////////////////////////////
-        //TODO :  dar inja rang ra emal mikonim. ferdousi()
+        //  dar inja rang ra emal mikonim.
+        if (rangbackground != -100) {
+            SharedPreferences.Editor rangeitor = rangshpref.edit();
+            rangeitor.putInt(write_key_rang, Color.argb(Color.alpha(rangbackground),
+                    Color.red(rangbackground),
+                    Color.green(rangbackground),
+                    Color.blue(rangbackground)
+            ));
+            rangeitor.commit();
 
+        }
+
+        ////////////////////////////////////// ferdousi();
+
+        buttonsholder.setBackgroundColor(rangshpref.getInt(write_key_rang, 0));
         //////////////////////////////////////
 
         if (bc != 0) {
@@ -188,14 +206,14 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     //  ab1.setBackgroundDrawable(imvofappclicked.getDrawable());
 
                     SharedPreferences.Editor bavaleditor = baval.edit();
-                    bavaleditor.putString(writekeyaval, tvofappclicked.getText().toString());
+                    bavaleditor.putString(write_key_aval, tvofappclicked.getText().toString());
                     bavaleditor.commit();
                     break;
 
                 case 2:
                     // ab2.setBackgroundDrawable(imvofappclicked.getDrawable());
                     SharedPreferences.Editor bdovomeditor = bdovom.edit();
-                    bdovomeditor.putString(writekeydovom, tvofappclicked.getText().toString());
+                    bdovomeditor.putString(write_key_dovom, tvofappclicked.getText().toString());
                     bdovomeditor.commit();
 
                     break;
@@ -203,35 +221,35 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 case 3:
                     // ab3.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bsevomeditor = bsevom.edit();
-                    bsevomeditor.putString(writekeysevom, tvofappclicked.getText().toString());
+                    bsevomeditor.putString(write_key_sevom, tvofappclicked.getText().toString());
                     bsevomeditor.commit();
                     break;
 
                 case 4:
                     // ab4.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bcharomeditor = bcharom.edit();
-                    bcharomeditor.putString(writekeycharom, tvofappclicked.getText().toString());
+                    bcharomeditor.putString(write_key_charom, tvofappclicked.getText().toString());
                     bcharomeditor.commit();
                     break;
 
                 case 5:
                     // ab5.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bpanjomeditor = bpanjom.edit();
-                    bpanjomeditor.putString(writekeypanjom, tvofappclicked.getText().toString());
+                    bpanjomeditor.putString(write_key_panjom, tvofappclicked.getText().toString());
                     bpanjomeditor.commit();
                     break;
 
                 case 6:
                     //ab6.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bshishomeditor = bshishom.edit();
-                    bshishomeditor.putString(writekeyshishom, tvofappclicked.getText().toString());
+                    bshishomeditor.putString(write_key_shishom, tvofappclicked.getText().toString());
                     bshishomeditor.commit();
                     break;
 
                 case 7:
                     // ab7.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bhaftomeditor = bhaftom.edit();
-                    bhaftomeditor.putString(writekeyhaftom, tvofappclicked.getText().toString());
+                    bhaftomeditor.putString(write_key_haftom, tvofappclicked.getText().toString());
                     bhaftomeditor.commit();
                     break;
 
@@ -247,8 +265,9 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
         hafez();
 
         if (isnotifyon) {
-            roudaki(notification_state, number_of_app_buttons);
-            //agar notification ghablan neshan dade shode bashad , an ra update mikonim.
+            roudaki(notification_state, number_of_app_buttons, rangshpref.getInt(write_key_rang, 0));
+            //agar notification ghablan neshan dade shode bashad ,
+            // an ra update mikonim.
         }
 
 
@@ -277,7 +296,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
         switch (noab) {
             case 1:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
                 } catch (Exception e) {
                     //TODO mishe kari konim ke dar inja agar error be dalile null boodane shared preferences rokh dade bashad angah ,icone khodeman ra dar an aks
                     //bargozari konim va dar notification ham be hamin app eshare konad.
@@ -287,8 +306,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             case 2:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
 
@@ -296,9 +315,9 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             case 3:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(writekeysevom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
@@ -307,10 +326,10 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             case 4:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(writekeysevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(writekeycharom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
@@ -319,11 +338,11 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             case 5:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(writekeysevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(writekeycharom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(writekeypanjom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
@@ -332,12 +351,12 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             case 6:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(writekeysevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(writekeycharom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(writekeypanjom, null)));
-                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(writekeyshishom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
@@ -346,13 +365,13 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             case 7:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(writekeysevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(writekeycharom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(writekeypanjom, null)));
-                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(writekeyshishom, null)));
-                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(writekeyhaftom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
+                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
@@ -361,13 +380,13 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 break;
             default:
                 try {
-                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(writekeyaval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(writekeydovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(writekeysevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(writekeycharom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(writekeypanjom, null)));
-                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(writekeyshishom, null)));
-                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(writekeyhaftom, null)));
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
+                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
@@ -386,7 +405,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     }//end of  hafez().
 
 
-    private void roudaki(boolean notify_user, SharedPreferences number_of_app_buttons) {
+    private void roudaki(boolean notify_user, SharedPreferences number_of_app_buttons, int color) {
 
 
         try {
@@ -397,72 +416,72 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
             switch (number_app_buttons) {
                 case 1:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify1);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null)};
                     break;
 
                 case 2:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify2);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)};
                     break;
 
                 case 3:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify3);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)
-                            , bsevom.getString(writekeysevom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)};
                     break;
 
                 case 4:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify4);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)
-                            , bsevom.getString(writekeysevom, null)
-                            , bcharom.getString(writekeycharom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)
+                            , bcharom.getString(write_key_charom, null)};
                     break;
 
                 case 5:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify5);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)
-                            , bsevom.getString(writekeysevom, null)
-                            , bcharom.getString(writekeycharom, null)
-                            , bpanjom.getString(writekeypanjom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)
+                            , bcharom.getString(write_key_charom, null)
+                            , bpanjom.getString(write_key_panjom, null)};
                     break;
 
                 case 6:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify6);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)
-                            , bsevom.getString(writekeysevom, null)
-                            , bcharom.getString(writekeycharom, null)
-                            , bpanjom.getString(writekeypanjom, null)
-                            , bshishom.getString(writekeyshishom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)
+                            , bcharom.getString(write_key_charom, null)
+                            , bpanjom.getString(write_key_panjom, null)
+                            , bshishom.getString(write_key_shishom, null)};
                     break;
 
                 case 7:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)
-                            , bsevom.getString(writekeysevom, null)
-                            , bcharom.getString(writekeycharom, null)
-                            , bpanjom.getString(writekeypanjom, null)
-                            , bshishom.getString(writekeyshishom, null)
-                            , bhaftom.getString(writekeyhaftom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)
+                            , bcharom.getString(write_key_charom, null)
+                            , bpanjom.getString(write_key_panjom, null)
+                            , bshishom.getString(write_key_shishom, null)
+                            , bhaftom.getString(write_key_haftom, null)};
                     break;
                 default:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
-                    favoriteapps = new String[]{baval.getString(writekeyaval, null),
-                            bdovom.getString(writekeydovom, null)
-                            , bsevom.getString(writekeysevom, null)
-                            , bcharom.getString(writekeycharom, null)
-                            , bpanjom.getString(writekeypanjom, null)
-                            , bshishom.getString(writekeyshishom, null)
-                            , bhaftom.getString(writekeyhaftom, null)};
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)
+                            , bcharom.getString(write_key_charom, null)
+                            , bpanjom.getString(write_key_panjom, null)
+                            , bshishom.getString(write_key_shishom, null)
+                            , bhaftom.getString(write_key_haftom, null)};
                     break;
             }
 
-
+            remote.setInt(R.id.notificationlayout, "setBackgroundColor", rangshpref.getInt(write_key_rang, 0));
             //////////////////////////////////////////////////////////////////////////////////////////////
             Intent notification_intent = new Intent(getActivity(), NotificationService.class);
 
@@ -831,40 +850,45 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     SharedPreferences.Editor bavaleditor = baval.edit();
-                    bavaleditor.putString(writekeyaval, "kerman.ir.hojat72elect.notifyplus");
+                    bavaleditor.putString(write_key_aval, "kerman.ir.hojat72elect.notifyplus");
                     bavaleditor.commit();
 
                     SharedPreferences.Editor bdovomeditor = bdovom.edit();
-                    bdovomeditor.putString(writekeydovom, "kerman.ir.hojat72elect.notifyplus");
+                    bdovomeditor.putString(write_key_dovom, "kerman.ir.hojat72elect.notifyplus");
                     bdovomeditor.commit();
 
                     SharedPreferences.Editor bsevomeditor = bsevom.edit();
-                    bsevomeditor.putString(writekeysevom, "kerman.ir.hojat72elect.notifyplus");
+                    bsevomeditor.putString(write_key_sevom, "kerman.ir.hojat72elect.notifyplus");
                     bsevomeditor.commit();
 
                     SharedPreferences.Editor bcharomeditor = bcharom.edit();
-                    bcharomeditor.putString(writekeycharom, "kerman.ir.hojat72elect.notifyplus");
+                    bcharomeditor.putString(write_key_charom, "kerman.ir.hojat72elect.notifyplus");
                     bcharomeditor.commit();
 
                     SharedPreferences.Editor bpanjomeditor = bpanjom.edit();
-                    bpanjomeditor.putString(writekeypanjom, "kerman.ir.hojat72elect.notifyplus");
+                    bpanjomeditor.putString(write_key_panjom, "kerman.ir.hojat72elect.notifyplus");
                     bpanjomeditor.commit();
 
 
                     SharedPreferences.Editor bshishomeditor = bshishom.edit();
-                    bshishomeditor.putString(writekeyshishom, "kerman.ir.hojat72elect.notifyplus");
+                    bshishomeditor.putString(write_key_shishom, "kerman.ir.hojat72elect.notifyplus");
                     bshishomeditor.commit();
 
 
                     SharedPreferences.Editor bhaftomeditor = bhaftom.edit();
-                    bhaftomeditor.putString(writekeyhaftom, "kerman.ir.hojat72elect.notifyplus");
+                    bhaftomeditor.putString(write_key_haftom, "kerman.ir.hojat72elect.notifyplus");
                     bhaftomeditor.commit();
 
                     SharedPreferences.Editor noabeditor = number_of_app_buttons.edit();
                     noabeditor.putInt(write_key, 7);
                     noabeditor.commit();
-                    //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
+
+                    SharedPreferences.Editor rangeitor = rangshpref.edit();
+                    rangeitor.putInt(write_key_rang, Color.argb(255, 120, 120, 120));
+                    rangeitor.commit();
+
+                    //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
                     break;
             }

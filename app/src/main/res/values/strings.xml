@@ -17,5 +17,9 @@
     <string name="moresummary">check out the market for more interesting apps by me</string>
     <string name="enable_notification">Enable Notification</string>
     <string name="enabling_the_notification">enabling the notification</string>
-
+    <string name="label_alpha">شدت رنگ </string>
+    <string name="label_red">قرمز</string>
+    <string name="label_green">سبز </string>
+    <string name="label_blue"> آبی</string>
+    <string name="button_set_color">اعمال تغییرات </string>
 </resources>
