@@ -115,8 +115,6 @@ public class MainActivity extends AppCompatActivity
             callsettingsfragment();
         } else if (id == R.id.nav_aboutapp) {
             callaboutappfragment();
-        } else if (id == R.id.nav_likeus) {
-//TODO bayad inja yek intent baraye raftan be safheye app dar market ra ijad konam.
         } else if (id == R.id.nav_exit) {
             super.onBackPressed();
         }

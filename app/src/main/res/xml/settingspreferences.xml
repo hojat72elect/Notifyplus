@@ -19,11 +19,5 @@
         android:summary="@string/ratesummary">
     </Preference>
 
-    <Preference android:title="@string/sharetitle"
-        android:summary="@string/sharesummary">
-    </Preference>
 
-    <Preference android:title="@string/moretitle"
-        android:summary="@string/moresummary">
-    </Preference>
 </PreferenceScreen>

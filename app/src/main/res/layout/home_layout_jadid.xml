@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/matngonde"
             android:textColor="@color/jetblack"
-            android:text="Apps Per Row"
+            android:text="@string/apps_per_row"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/matnrigho"
-            android:text="number of apps in the notification"
+            android:text="@string/number_of_apps_in_the_notification"
             android:layout_below="@id/appsnumber" />
 
     </RelativeLayout>
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/matngonde"
             android:textColor="@color/jetblack"
-           android:text="Background Color"
+            android:text="@string/background_color"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/matnrigho"
-            android:text="background color of the notification"
+            android:text="@string/background_color_of_the_notification"
             android:layout_below="@id/bgc"
             />
 

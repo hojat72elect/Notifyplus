@@ -1,25 +1,27 @@
 <resources>
     <string name="app_name">Notifyplus</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="supernotiftitle">Enable Super Notification</string>
-    <string name="supernotifsummary">the sliding notification with 50 shortcuts will be available</string>
-    <string name="reboottitle">Auto Start on Reboot</string>
-    <string name="rebootsummary">enables NOTIFY+ on device restart</string>
-    <string name="ratetitle">Review and Rate</string>
-    <string name="ratesummary">give me a 5 star if you\'re pleased with this application</string>
-    <string name="sharetitle">Share</string>
-    <string name="sharesummary">share this application with your friends</string>
-    <string name="moretitle">More Apps</string>
-    <string name="moresummary">check out the market for more interesting apps by me</string>
-    <string name="enable_notification">Enable Notification</string>
-    <string name="enabling_the_notification">enabling the notification</string>
+    <string name="navigation_drawer_open">باز کردن منوی کناری</string>
+    <string name="navigation_drawer_close">بستن منوی کناری</string>
+    <string name="action_settings">تنظیمات</string>
+    <string name="supernotiftitle">آگاه ساز ویژه</string>
+    <string name="supernotifsummary">یک آگاه ساز مخصوص حاوی 50 میانبر برنامه فعال خواهد شد</string>
+    <string name="reboottitle">شروع خودکار بعد از راه اندازی مجدد سیستم</string>
+    <string name="rebootsummary">فعال کردن آگاه ساز بعد از راه اندازی مجدد دستگاه</string>
+    <string name="ratetitle">نظر در بازار</string>
+    <string name="ratesummary">لطفا اگر از عملکرد برنامه راضی بوده اید به آن 5 ستاره بدهید</string>
+    <string name="enable_notification">روشن کردن آگاه ساز</string>
+    <string name="enabling_the_notification">روشن/خاموش کردن آگاه ساز</string>
     <string name="label_alpha">شدت رنگ </string>
     <string name="label_red">قرمز</string>
     <string name="label_green">سبز </string>
     <string name="label_blue"> آبی</string>
     <string name="button_set_color">اعمال تغییرات </string>
+    <string name="apps_per_row">تعداد برنامه ها</string>
+    <string name="number_of_apps_in_the_notification">تعداد میانبر برنامه ها در آگاه ساز</string>
+    <string name="background_color">رنگ پس زمینه</string>
+    <string name="background_color_of_the_notification">رنگ پس زمینه برای آگاه ساز</string>
+    <string name="home">خانه</string>
+    <string name="settings">تنظیمات</string>
+    <string name="exit">خروج از برنامه</string>
+    <string name="contact_us">تماس با توسعه دهنده</string>
 </resources>
