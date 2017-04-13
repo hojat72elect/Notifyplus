@@ -5,20 +5,25 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/home" />
+            android:title="@string/home"
+
+            android:checkable="true" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/settings" />
+            android:title="@string/settings"
+            android:checkable="true" />
         <item
             android:id="@+id/nav_aboutapp"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/contact_us" />
+            android:title="@string/contact_us"
+            android:checkable="false" />
 
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/exit" />
+            android:title="@string/exit"
+            android:checkable="false" />
     </group>
 
 

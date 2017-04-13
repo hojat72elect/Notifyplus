@@ -5,7 +5,7 @@
     <string name="action_settings">تنظیمات</string>
     <string name="supernotiftitle">آگاه ساز ویژه</string>
     <string name="supernotifsummary">یک آگاه ساز مخصوص حاوی 50 میانبر برنامه فعال خواهد شد</string>
-    <string name="reboottitle">شروع خودکار بعد از راه اندازی مجدد سیستم</string>
+    <string name="reboottitle">شروع خودکار</string>
     <string name="rebootsummary">فعال کردن آگاه ساز بعد از راه اندازی مجدد دستگاه</string>
     <string name="ratetitle">نظر در بازار</string>
     <string name="ratesummary">لطفا اگر از عملکرد برنامه راضی بوده اید به آن 5 ستاره بدهید</string>

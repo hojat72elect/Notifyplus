@@ -885,7 +885,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     SharedPreferences.Editor rangeitor = rangshpref.edit();
-                    rangeitor.putInt(write_key_rang, Color.argb(255, 120, 120, 120));
+                    rangeitor.putInt(write_key_rang, Color.argb(255, 255, 255, 255));
                     rangeitor.commit();
 
                     //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.

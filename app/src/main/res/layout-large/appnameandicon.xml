@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newTagTableRow"
+    android:layout_width="wrap_content"
+    android:layout_height="70dp"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/apppackagename"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:textSize="@dimen/matngonde" />
+
+    <ImageView
+        android:id="@+id/appicon"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp" />
+
+</TableRow>
