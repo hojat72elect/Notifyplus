@@ -24,4 +24,10 @@
     <string name="settings">تنظیمات</string>
     <string name="exit">خروج از برنامه</string>
     <string name="contact_us">تماس با توسعه دهنده</string>
+    <string name="agahsazvizhe">آگاه ساز ویژه</string>
+    <string name="agahsazvizherigho">یک آگاه ساز مخصوص حاوی 50 میانبر برنامه فعال خواهد شد</string>
+    <string name="shoroukhodkar">شروع خودکار</string>
+    <string name="shoroukhodkarrigho">فعال کردن آگاه ساز بعد از راه اندازی مجدد دستگاه</string>
+    <string name="nazarbazar">نظر در بازار</string>
+    <string name="nazarbazarrigho">لطفا اگر از عملکرد برنامه راضی بوده اید به آن 5 ستاره بدهید</string>
 </resources>

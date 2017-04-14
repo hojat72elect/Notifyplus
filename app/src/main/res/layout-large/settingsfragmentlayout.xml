@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/suppernotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="5sp">
+
+
+        <TextView
+            android:id="@+id/ensuper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matngonde"
+            android:textColor="@color/jetblack"
+            android:text="@string/agahsazvizhe"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matnrigho"
+            android:text="@string/agahsazvizherigho"
+            android:layout_below="@id/ensuper" />
+
+        <Switch
+            android:id="@+id/supernotswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+
+
+            />
+    </RelativeLayout>
+
+    <view
+        class="android.view.View"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#5000"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp" />
+
+    <RelativeLayout
+        android:id="@+id/rebootenabling"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="5sp">
+
+
+        <TextView
+            android:id="@+id/rebooten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matngonde"
+            android:textColor="@color/jetblack"
+            android:text="@string/shoroukhodkar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matnrigho"
+            android:text="@string/shoroukhodkarrigho"
+            android:layout_below="@id/rebooten" />
+
+        <Switch
+            android:id="@+id/onrebootnotifyswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+
+
+            />
+    </RelativeLayout>
+
+    <view
+        class="android.view.View"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#5000"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp" />
+
+
+    <RelativeLayout
+        android:id="@+id/reviewlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="5sp">
+
+
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matngonde"
+            android:textColor="@color/jetblack"
+            android:text="@string/nazarbazar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matnrigho"
+            android:text="@string/nazarbazarrigho"
+            android:layout_below="@id/review" />
+
+    </RelativeLayout>
+
+</LinearLayout>

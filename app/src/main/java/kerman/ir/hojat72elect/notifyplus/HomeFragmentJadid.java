@@ -24,7 +24,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 /**
- * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
+ * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman  , ferdousi blvd in my mother home.
  */
 public class HomeFragmentJadid extends Fragment implements View.OnClickListener {
 
@@ -298,8 +298,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
                 } catch (Exception e) {
-                    //TODO mishe kari konim ke dar inja agar error be dalile null boodane shared preferences rokh dade bashad angah ,icone khodeman ra dar an aks
-                    //bargozari konim va dar notification ham be hamin app eshare konad.
+
                     Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
 
                 }

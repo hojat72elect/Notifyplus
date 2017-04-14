@@ -4,6 +4,8 @@ package kerman.ir.hojat72elect.notifyplus;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,26 +20,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 
-/*created by hojat72elect on shanbe 21 esfand 1395 in kerman.
+/*created by hojat72elect on shanbe 21 esfand 1395 in kerman , ferdousi blvd in my mother home.
 *
 * */
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
+        implements
+
+        NavigationView.OnNavigationItemSelectedListener,
         HomeFragmentJadid.listenerfornoab,
         AppsDialogFragment.dialogclicked,
         NumberofappbuttonsDialogFragment.buttonclicked,
-        BackgroundColorDialogFragment.buttonclicked {
+        BackgroundColorDialogFragment.buttonclicked,
+        SettingsFragment.listenerforchangeofsettings {
 
     private SettingsFragment sf = null;
     private HomeFragmentJadid hfj = null;
+    private SuperHomeFragment shf = null;
     private AboutappFragment af = null;
     private int mbc;
+    private SharedPreferences ifrunsuper;
+    private String write_key_super_notification = "supernotificationon";
+    private int rsn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        ifrunsuper = getSharedPreferences("super_notification", 0);
+        //agar in khate balayi ra bad az khate payini benevisid , error zaman ejra rokh
+        //khahad dad.
         if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
             callhomefragment(null, null, 0, -1, -100);
         }
@@ -136,20 +147,41 @@ public class MainActivity extends AppCompatActivity
 
     private void callhomefragment(ImageView imv, TextView tv, int bc, int nb, int color) {
 
+        // dar inja bar asase inke sharedprefs marboote chi bashad tasmim migirim ke aya
+        //HomeFragmentJadid ra rah andazi konim ya SuperHomeFragment ra.
+
         //ImageView imv , akse applicationi ke click shode ast.
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
+        try {
+            rsn = ifrunsuper.getInt(write_key_super_notification, 0);
+        } catch (Exception e) {
+            SharedPreferences.Editor ifrunsupereditor = ifrunsuper.edit();
+            ifrunsupereditor.putInt(write_key_super_notification, 0);
+            ifrunsupereditor.commit();
 
+            rsn = ifrunsuper.getInt(write_key_super_notification, 0);
 
-        getFragmentManager().beginTransaction()
-                .replace(R.id.maincontent, hfj).commit();
+        }
+        if (rsn == 0) {
+            hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
+            getFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
 
+        } else if (rsn == 1) {
 
-        //ba kari ke toye in method kardim ,
-        //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
-        //user neshan dade khahad shod.
+            shf = SuperHomeFragment.newInstance();
+            getFragmentManager().beginTransaction().replace(R.id.maincontent, shf).commit();
+
+        } else {
+            SharedPreferences.Editor ifrunsupereditor = ifrunsuper.edit();
+            ifrunsupereditor.putInt(write_key_super_notification, 0);
+            ifrunsupereditor.commit();
+
+            hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
+            getFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
+
+        }
 
     }
 
@@ -250,5 +282,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void rangdialogclicked(int color) {
         callhomefragment(null, null, 0, -1, color);
+    }
+
+    @Override
+    public void runsuper(int supernoton) {
+        SharedPreferences.Editor ifrunsupereditor = ifrunsuper.edit();
+        ifrunsupereditor.putInt(write_key_super_notification, supernoton);
+        ifrunsupereditor.commit();
+        //TODO agar notification mamoli faal ast an ra gheyr faal karde super notification ra
+        //faal konid.
+        if (supernoton == 1) {
+            stopService(new Intent(this, NotificationService.class));
+
+        }
     }
 }

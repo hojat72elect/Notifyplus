@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by hojat72elect on doshanbe 23 esfand 1395 in kerman.
+ * Created by hojat72elect on doshanbe 23 esfand 1395 in kerman , ferdousi blvd in my mother home.
  */
 public class AboutappFragment extends Fragment {
 
