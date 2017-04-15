@@ -34,18 +34,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener,
         HomeFragmentJadid.listenerfornoab,
         AppsDialogFragment.dialogclicked,
-        NumberofappbuttonsDialogFragment.buttonclicked,
         BackgroundColorDialogFragment.buttonclicked,
         SettingsFragment.listenerforchangeofsettings {
 
     private SettingsFragment sf = null;
     private HomeFragmentJadid hfj = null;
-    private SuperHomeFragment shf = null;
     private AboutappFragment af = null;
     private int mbc;
     private SharedPreferences ifrunsuper;
-    private String write_key_super_notification = "supernotificationon";
-    private int rsn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,42 +144,15 @@ public class MainActivity extends AppCompatActivity
 
     private void callhomefragment(ImageView imv, TextView tv, int bc, int nb, int color) {
 
-        // dar inja bar asase inke sharedprefs marboote chi bashad tasmim migirim ke aya
-        //HomeFragmentJadid ra rah andazi konim ya SuperHomeFragment ra.
-
         //ImageView imv , akse applicationi ke click shode ast.
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        try {
-            rsn = ifrunsuper.getInt(write_key_super_notification, 0);
-        } catch (Exception e) {
-            SharedPreferences.Editor ifrunsupereditor = ifrunsuper.edit();
-            ifrunsupereditor.putInt(write_key_super_notification, 0);
-            ifrunsupereditor.commit();
+        //int color , range background ast.
 
-            rsn = ifrunsuper.getInt(write_key_super_notification, 0);
 
-        }
-        if (rsn == 0) {
-            hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
-            getFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
-
-        } else if (rsn == 1) {
-
-            shf = SuperHomeFragment.newInstance();
-            getFragmentManager().beginTransaction().replace(R.id.maincontent, shf).commit();
-
-        } else {
-            SharedPreferences.Editor ifrunsupereditor = ifrunsuper.edit();
-            ifrunsupereditor.putInt(write_key_super_notification, 0);
-            ifrunsupereditor.commit();
-
-            hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
-            getFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
-
-        }
-
+        hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
+        getFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
     }
 
     private void callsettingsfragment() {
@@ -225,10 +195,6 @@ public class MainActivity extends AppCompatActivity
         //kodam yek az 3 ta diloge mazkoor dar in fragment ra neshan bedaham.
 
         switch (dialognumber) {
-            case 0:
-                callnumberofappbuttonsdialogfragment();
-
-                break;
 
             case 1:
                 //  app haye nasb shode dar dastgah ra neshan midahad.
@@ -258,25 +224,7 @@ public class MainActivity extends AppCompatActivity
         newFragment.show(ft, "dialog");
     }
 
-    private void callnumberofappbuttonsdialogfragment() {
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment noabdf = getFragmentManager().findFragmentByTag("dialog");
-
-        if (noabdf != null) {
-            ft.remove(noabdf);
-        }
-        ft.addToBackStack(null);
-        DialogFragment newFragment = NumberofappbuttonsDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");
-
-    }
-
-    @Override
-    public void dialogbuttonclicked(int nbc) {
-        //inja homefragmentjadid ra seda mizanim.
-        callhomefragment(null, null, 0, nbc, -100);
-    }
 
 
     @Override
@@ -286,14 +234,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void runsuper(int supernoton) {
-        SharedPreferences.Editor ifrunsupereditor = ifrunsuper.edit();
-        ifrunsupereditor.putInt(write_key_super_notification, supernoton);
-        ifrunsupereditor.commit();
-        //TODO agar notification mamoli faal ast an ra gheyr faal karde super notification ra
-        //faal konid.
-        if (supernoton == 1) {
-            stopService(new Intent(this, NotificationService.class));
 
-        }
     }
 }

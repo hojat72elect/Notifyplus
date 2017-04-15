@@ -73,7 +73,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private String write_key_rang = "rangsharedpref";
 
     private LinearLayout buttons_row;//linear layout with the buttons inside of it.
-    private View noabview;
+
     private View bgcolorview;
     private View mtogglenot;
 
@@ -112,7 +112,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
         buttonsholder = (LinearLayout) result.findViewById(R.id.newbuttonsholder);
 
-        noabview = result.findViewById(R.id.noalayout);
+
         bgcolorview = result.findViewById(R.id.bgcolorlayout);
         bnot = (Switch) result.findViewById(R.id.notifyswitch);
         mtogglenot = result.findViewById(R.id.togglenot);
@@ -156,7 +156,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
         buttons_inflater = inflater;
 
-        noabview.setOnClickListener(this);
+
         bgcolorview.setOnClickListener(this);
         mtogglenot.setOnClickListener(this);
 
@@ -908,9 +908,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if (v == noabview) {
-            mnoabListener.noabmethod(0, 0);
-        } else if (v == bgcolorview) {
+        if (v == bgcolorview) {
             mnoabListener.noabmethod(2, 0);
         } else if (v == mtogglenot) {
             bnot.toggle();
