@@ -135,7 +135,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     getActivity().stopService(new Intent(getActivity(), NotificationService.class));
                     //stoping the  whole notification thing.
                 }
-                notifeditor.commit();
+                notifeditor.apply();
             }
 
 
@@ -176,7 +176,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
             //az dialoge entekhabe tedade kelidha bargashte im.
             SharedPreferences.Editor noabeditor = number_of_app_buttons.edit();
             noabeditor.putInt(write_key, kelidsnumber);
-            noabeditor.commit();
+            noabeditor.apply();
         }
         sadie();
         //////////////////////////////////////
@@ -188,7 +188,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     Color.green(rangbackground),
                     Color.blue(rangbackground)
             ));
-            rangeitor.commit();
+            rangeitor.apply();
 
         }
 
@@ -207,14 +207,14 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
                     SharedPreferences.Editor bavaleditor = baval.edit();
                     bavaleditor.putString(write_key_aval, tvofappclicked.getText().toString());
-                    bavaleditor.commit();
+                    bavaleditor.apply();
                     break;
 
                 case 2:
                     // ab2.setBackgroundDrawable(imvofappclicked.getDrawable());
                     SharedPreferences.Editor bdovomeditor = bdovom.edit();
                     bdovomeditor.putString(write_key_dovom, tvofappclicked.getText().toString());
-                    bdovomeditor.commit();
+                    bdovomeditor.apply();
 
                     break;
 
@@ -222,35 +222,35 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     // ab3.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bsevomeditor = bsevom.edit();
                     bsevomeditor.putString(write_key_sevom, tvofappclicked.getText().toString());
-                    bsevomeditor.commit();
+                    bsevomeditor.apply();
                     break;
 
                 case 4:
                     // ab4.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bcharomeditor = bcharom.edit();
                     bcharomeditor.putString(write_key_charom, tvofappclicked.getText().toString());
-                    bcharomeditor.commit();
+                    bcharomeditor.apply();
                     break;
 
                 case 5:
                     // ab5.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bpanjomeditor = bpanjom.edit();
                     bpanjomeditor.putString(write_key_panjom, tvofappclicked.getText().toString());
-                    bpanjomeditor.commit();
+                    bpanjomeditor.apply();
                     break;
 
                 case 6:
                     //ab6.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bshishomeditor = bshishom.edit();
                     bshishomeditor.putString(write_key_shishom, tvofappclicked.getText().toString());
-                    bshishomeditor.commit();
+                    bshishomeditor.apply();
                     break;
 
                 case 7:
                     // ab7.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bhaftomeditor = bhaftom.edit();
                     bhaftomeditor.putString(write_key_haftom, tvofappclicked.getText().toString());
-                    bhaftomeditor.commit();
+                    bhaftomeditor.apply();
                     break;
 
                 default:
@@ -788,7 +788,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     break;
 
                 default:
-                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);//it must be coded this way.
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnClickListener(new View.OnClickListener() {
@@ -850,42 +850,42 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
                     SharedPreferences.Editor bavaleditor = baval.edit();
                     bavaleditor.putString(write_key_aval, "kerman.ir.hojat72elect.notifyplus");
-                    bavaleditor.commit();
+                    bavaleditor.apply();
 
                     SharedPreferences.Editor bdovomeditor = bdovom.edit();
                     bdovomeditor.putString(write_key_dovom, "kerman.ir.hojat72elect.notifyplus");
-                    bdovomeditor.commit();
+                    bdovomeditor.apply();
 
                     SharedPreferences.Editor bsevomeditor = bsevom.edit();
                     bsevomeditor.putString(write_key_sevom, "kerman.ir.hojat72elect.notifyplus");
-                    bsevomeditor.commit();
+                    bsevomeditor.apply();
 
                     SharedPreferences.Editor bcharomeditor = bcharom.edit();
                     bcharomeditor.putString(write_key_charom, "kerman.ir.hojat72elect.notifyplus");
-                    bcharomeditor.commit();
+                    bcharomeditor.apply();
 
                     SharedPreferences.Editor bpanjomeditor = bpanjom.edit();
                     bpanjomeditor.putString(write_key_panjom, "kerman.ir.hojat72elect.notifyplus");
-                    bpanjomeditor.commit();
+                    bpanjomeditor.apply();
 
 
                     SharedPreferences.Editor bshishomeditor = bshishom.edit();
                     bshishomeditor.putString(write_key_shishom, "kerman.ir.hojat72elect.notifyplus");
-                    bshishomeditor.commit();
+                    bshishomeditor.apply();
 
 
                     SharedPreferences.Editor bhaftomeditor = bhaftom.edit();
                     bhaftomeditor.putString(write_key_haftom, "kerman.ir.hojat72elect.notifyplus");
-                    bhaftomeditor.commit();
+                    bhaftomeditor.apply();
 
                     SharedPreferences.Editor noabeditor = number_of_app_buttons.edit();
                     noabeditor.putInt(write_key, 7);
-                    noabeditor.commit();
+                    noabeditor.apply();
 
 
                     SharedPreferences.Editor rangeitor = rangshpref.edit();
                     rangeitor.putInt(write_key_rang, Color.argb(255, 255, 255, 255));
-                    rangeitor.commit();
+                    rangeitor.apply();
 
                     //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
