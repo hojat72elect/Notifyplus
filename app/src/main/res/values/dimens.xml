@@ -8,7 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="matngonde">20sp</dimen>
-    <dimen name="matnrigho">18sp</dimen>
+    <dimen name="matnrigho">18dp</dimen>
 
     <dimen name="matngondenormal">16sp</dimen>
     <dimen name="matnrighonormal">14dp</dimen>

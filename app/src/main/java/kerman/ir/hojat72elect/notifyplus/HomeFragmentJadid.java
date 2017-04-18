@@ -24,7 +24,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 /**
- * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman  , ferdousi blvd in my mother home.
+ * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
  */
 public class HomeFragmentJadid extends Fragment implements View.OnClickListener {
 
@@ -73,7 +73,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private String write_key_rang = "rangsharedpref";
 
     private LinearLayout buttons_row;//linear layout with the buttons inside of it.
-
+    private View noabview;
     private View bgcolorview;
     private View mtogglenot;
 
@@ -112,7 +112,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
         buttonsholder = (LinearLayout) result.findViewById(R.id.newbuttonsholder);
 
-
+        noabview = result.findViewById(R.id.noalayout);
         bgcolorview = result.findViewById(R.id.bgcolorlayout);
         bnot = (Switch) result.findViewById(R.id.notifyswitch);
         mtogglenot = result.findViewById(R.id.togglenot);
@@ -135,7 +135,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     getActivity().stopService(new Intent(getActivity(), NotificationService.class));
                     //stoping the  whole notification thing.
                 }
-                notifeditor.apply();
+                notifeditor.commit();
             }
 
 
@@ -156,7 +156,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
         buttons_inflater = inflater;
 
-
+        noabview.setOnClickListener(this);
         bgcolorview.setOnClickListener(this);
         mtogglenot.setOnClickListener(this);
 
@@ -176,7 +176,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
             //az dialoge entekhabe tedade kelidha bargashte im.
             SharedPreferences.Editor noabeditor = number_of_app_buttons.edit();
             noabeditor.putInt(write_key, kelidsnumber);
-            noabeditor.apply();
+            noabeditor.commit();
         }
         sadie();
         //////////////////////////////////////
@@ -188,7 +188,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     Color.green(rangbackground),
                     Color.blue(rangbackground)
             ));
-            rangeitor.apply();
+            rangeitor.commit();
 
         }
 
@@ -207,14 +207,14 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
                     SharedPreferences.Editor bavaleditor = baval.edit();
                     bavaleditor.putString(write_key_aval, tvofappclicked.getText().toString());
-                    bavaleditor.apply();
+                    bavaleditor.commit();
                     break;
 
                 case 2:
                     // ab2.setBackgroundDrawable(imvofappclicked.getDrawable());
                     SharedPreferences.Editor bdovomeditor = bdovom.edit();
                     bdovomeditor.putString(write_key_dovom, tvofappclicked.getText().toString());
-                    bdovomeditor.apply();
+                    bdovomeditor.commit();
 
                     break;
 
@@ -222,35 +222,35 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     // ab3.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bsevomeditor = bsevom.edit();
                     bsevomeditor.putString(write_key_sevom, tvofappclicked.getText().toString());
-                    bsevomeditor.apply();
+                    bsevomeditor.commit();
                     break;
 
                 case 4:
                     // ab4.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bcharomeditor = bcharom.edit();
                     bcharomeditor.putString(write_key_charom, tvofappclicked.getText().toString());
-                    bcharomeditor.apply();
+                    bcharomeditor.commit();
                     break;
 
                 case 5:
                     // ab5.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bpanjomeditor = bpanjom.edit();
                     bpanjomeditor.putString(write_key_panjom, tvofappclicked.getText().toString());
-                    bpanjomeditor.apply();
+                    bpanjomeditor.commit();
                     break;
 
                 case 6:
                     //ab6.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bshishomeditor = bshishom.edit();
                     bshishomeditor.putString(write_key_shishom, tvofappclicked.getText().toString());
-                    bshishomeditor.apply();
+                    bshishomeditor.commit();
                     break;
 
                 case 7:
                     // ab7.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
                     SharedPreferences.Editor bhaftomeditor = bhaftom.edit();
                     bhaftomeditor.putString(write_key_haftom, tvofappclicked.getText().toString());
-                    bhaftomeditor.apply();
+                    bhaftomeditor.commit();
                     break;
 
                 default:
@@ -886,9 +886,10 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     SharedPreferences.Editor rangeitor = rangshpref.edit();
                     rangeitor.putInt(write_key_rang, Color.argb(255, 255, 255, 255));
                     rangeitor.apply();
-
                     //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
+                    //TODO: be activity begoim ke helpdialogfragment ra rah andazi konad.
+                    mnoabListener.noabmethod(3, 0);
                     break;
             }
 
@@ -908,7 +909,9 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
 
-        if (v == bgcolorview) {
+        if (v == noabview) {
+            mnoabListener.noabmethod(0, 0);
+        } else if (v == bgcolorview) {
             mnoabListener.noabmethod(2, 0);
         } else if (v == mtogglenot) {
             bnot.toggle();

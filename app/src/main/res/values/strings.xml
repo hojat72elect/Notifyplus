@@ -24,10 +24,16 @@
     <string name="settings">تنظیمات</string>
     <string name="exit">خروج از برنامه</string>
     <string name="contact_us">تماس با توسعه دهنده</string>
-    <string name="agahsazvizhe">آگاه ساز ویژه</string>
-    <string name="agahsazvizherigho">یک آگاه ساز مخصوص حاوی 50 میانبر برنامه فعال خواهد شد</string>
-    <string name="shoroukhodkar">شروع خودکار</string>
-    <string name="shoroukhodkarrigho">فعال کردن آگاه ساز بعد از راه اندازی مجدد دستگاه</string>
-    <string name="nazarbazar">نظر در بازار</string>
-    <string name="nazarbazarrigho">لطفا اگر از عملکرد برنامه راضی بوده اید به آن 5 ستاره بدهید</string>
+    <string name="helpstring1">ضمن تشکر از اینکه این برنامه را نصب نموده اید , نحوه ی عملکرد آن را در اینجا مطالعه فرمایید:</string>
+    <string name="helpstring2">- با روشن کردن تیک فعال سازی برنامه در قسمت "روشن کردن آگاه ساز" به 7 عدد میانبر در نوتیفیکیشن دستگاه دسترسی خواهید داشت که با برنامه ریزی این میانبر ها , میتوانید در زمان دلخواه برنامه های دلخواهتان را از استاتوس بار دستگاه فراخوانی کنید.</string>
+    <string name="helpstring3">در برنامه و در صفحه ی اصلی , با لمس کردن هر یک از کلید های بالای صفحه که به شکل آیکون برنامه می باشند یک لیست از تمام برنامه های نصب شده در دستگاه به شما نشان داده میشود که با لمس هرکدامشان آن برنامه برای آن میانبر در نوتیفیکیشن برنامه اعمال خواهد شد.</string>
+    <string name="helpstring4">در صفحه ی اصلی برنامه با لمس هر یک از المان های "تعداد برنامه ها" و "رنگ پس زمینه" شما می توانید علاوه بر تغییر دادن تعداد میانبرهایی که در نوتیفیکیشن نشان داده می شوند , رنگ پس زمینه ی آن را نیز به دلخواه خودتان تغییر دهید</string>
+    <string name="helpstring5">این برنامه به شکل کاملا رایگان منتشر شده است و فقط از طریق تبلیغات درون برنامه ای کسب درآمد می کند.</string>
+    <string name="darbaretitle">درباره ی برنامه</string>
+    <string name="help">درباره ی برنامه</string>
+    <string name="enable_on_reboot">شروع خودکار</string>
+    <string name="enable_on_reboot_righo">فعال کردن آگاه ساز بعد از راه اندازی مجدد دستگاه</string>
+    <string name="nazar_dar_bazar">نظر در بازار</string>
+    <string name="nazar_dar_bazar_righo">لطفا اگر از عملکرد برنامه راضی بوده اید به آن 5 ستاره بدهید</string>
+
 </resources>

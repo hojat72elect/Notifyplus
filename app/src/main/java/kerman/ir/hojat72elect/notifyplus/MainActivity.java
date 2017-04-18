@@ -4,8 +4,6 @@ package kerman.ir.hojat72elect.notifyplus;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,29 +18,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
-/*created by hojat72elect on shanbe 21 esfand 1395 in kerman , ferdousi blvd in my mother home.
+/*created by hojat72elect on shanbe 21 esfand 1395 in kerman.
 *
 * */
 
 
 public class MainActivity extends AppCompatActivity
-        implements
-
-        NavigationView.OnNavigationItemSelectedListener,
+        implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragmentJadid.listenerfornoab,
         AppsDialogFragment.dialogclicked,
-        BackgroundColorDialogFragment.buttonclicked,
-        SettingsFragment.listenerforchangeofsettings {
+        NumberofappbuttonsDialogFragment.buttonclicked,
+        BackgroundColorDialogFragment.buttonclicked {
 
     private SettingsFragment sf = null;
     private HomeFragmentJadid hfj = null;
     private AboutappFragment af = null;
     private int mbc;
-    private SharedPreferences ifrunsuper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +64,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ifrunsuper = getSharedPreferences("super_notification", 0);
-        //agar in khate balayi ra bad az khate payini benevisid , error zaman ejra rokh
-        //khahad dad.
         if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
             callhomefragment(null, null, 0, -1, -100);
         }
@@ -121,10 +113,12 @@ public class MainActivity extends AppCompatActivity
             callhomefragment(null, null, 0, -1, -100);
         } else if (id == R.id.nav_settings) {
             callsettingsfragment();
-        } else if (id == R.id.nav_aboutapp) {
+        } else if (id == R.id.nav_contactus) {
             callaboutappfragment();
         } else if (id == R.id.nav_exit) {
             super.onBackPressed();
+        } else if (id==R.id.nav_help){
+            callhelpdialogfragment();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -132,14 +126,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callaboutappfragment() {
-        if (af == null) {
-            af = new AboutappFragment();
 
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment af = getFragmentManager().findFragmentByTag("dialog");
+        if (af != null) {
+            ft.remove(af);
         }
-        if (!af.isVisible()) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.maincontent, af).commit();//
-        }
+        ft.addToBackStack(null);
+        DialogFragment newFragment = AboutappFragment.newInstance();
+        newFragment.show(ft, "dialog");
+
     }
 
     private void callhomefragment(ImageView imv, TextView tv, int bc, int nb, int color) {
@@ -148,11 +144,17 @@ public class MainActivity extends AppCompatActivity
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        //int color , range background ast.
-
-
         hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
-        getFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
+
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.maincontent, hfj).commit();
+
+
+        //ba kari ke toye in method kardim ,
+        //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
+        //user neshan dade khahad shod.
+
     }
 
     private void callsettingsfragment() {
@@ -195,6 +197,10 @@ public class MainActivity extends AppCompatActivity
         //kodam yek az 3 ta diloge mazkoor dar in fragment ra neshan bedaham.
 
         switch (dialognumber) {
+            case 0:
+                callnumberofappbuttonsdialogfragment();
+
+                break;
 
             case 1:
                 //  app haye nasb shode dar dastgah ra neshan midahad.
@@ -206,11 +212,27 @@ public class MainActivity extends AppCompatActivity
                 callbackgroundcolordialogfragment();
                 break;
 
+            case 3:
+
+                callhelpdialogfragment();
+                break;
+
             default:
                 //in hamishe rokh midahad???
                 break;
         }
 
+    }
+
+    private void callhelpdialogfragment() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment bgcdf = getFragmentManager().findFragmentByTag("dialog");
+        if (bgcdf != null) {
+            ft.remove(bgcdf);
+        }
+        ft.addToBackStack(null);
+        DialogFragment newFragment = HelpDialogfragment.newInstance();
+        newFragment.show(ft, "dialog");
     }
 
     private void callbackgroundcolordialogfragment() {
@@ -224,16 +246,29 @@ public class MainActivity extends AppCompatActivity
         newFragment.show(ft, "dialog");
     }
 
+    private void callnumberofappbuttonsdialogfragment() {
 
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment noabdf = getFragmentManager().findFragmentByTag("dialog");
+
+        if (noabdf != null) {
+            ft.remove(noabdf);
+        }
+        ft.addToBackStack(null);
+        DialogFragment newFragment = NumberofappbuttonsDialogFragment.newInstance();
+        newFragment.show(ft, "dialog");
+
+    }
+
+    @Override
+    public void dialogbuttonclicked(int nbc) {
+        //inja homefragmentjadid ra seda mizanim.
+        callhomefragment(null, null, 0, nbc, -100);
+    }
 
 
     @Override
     public void rangdialogclicked(int color) {
         callhomefragment(null, null, 0, -1, color);
-    }
-
-    @Override
-    public void runsuper(int supernoton) {
-
     }
 }

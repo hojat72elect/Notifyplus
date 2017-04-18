@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 
 /**
- * Created by hojat72elect on doshanbe 20 farvardin 1396 in kerman  , ferdousi blvd in my mother home.
+ * Created by hojat72elect on doshanbe 20 farvardin 1396 .
  */
 public class BackgroundColorDialogFragment extends DialogFragment implements SeekBar.OnSeekBarChangeListener {
 

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 
 /**
- * Created by hojat72elect on 23 esfand 1395 in kerman  , ferdousi blvd in my mother home.
+ * Created by hojat72elect on 23 esfand 1395 in kerman.
  */
 public class NotificationService extends Service {
 

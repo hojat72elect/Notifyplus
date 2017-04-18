@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * Created by hojat72elect on 26 esfand 1395 in kerman  , ferdousi blvd in my mother home.
+ * Created by hojat72elect on 26 esfand 1395 in kerman.
  */
 public class AppsDialogFragment extends DialogFragment implements View.OnClickListener {
 

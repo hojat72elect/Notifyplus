@@ -62,7 +62,44 @@
         android:layout_marginLeft="15sp"
         android:layout_marginRight="10sp" />
 
+    <RelativeLayout
+        android:id="@+id/noalayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="5sp">
 
+
+        <TextView
+            android:id="@+id/appsnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matngondenormal"
+            android:textColor="@color/jetblack"
+            android:text="@string/apps_per_row"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/matnrighonormal"
+            android:text="@string/number_of_apps_in_the_notification"
+            android:layout_below="@id/appsnumber" />
+
+    </RelativeLayout>
+
+    <view
+        class="android.view.View"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#5000"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="10sp" />
 
     <RelativeLayout
         android:id="@+id/bgcolorlayout"
