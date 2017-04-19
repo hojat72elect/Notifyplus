@@ -4,6 +4,8 @@ package kerman.ir.hojat72elect.notifyplus;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -34,9 +36,8 @@ public class MainActivity extends AppCompatActivity
         NumberofappbuttonsDialogFragment.buttonclicked,
         BackgroundColorDialogFragment.buttonclicked {
 
-    private SettingsFragment sf = null;
+
     private HomeFragmentJadid hfj = null;
-    private AboutappFragment af = null;
     private int mbc;
 
     @Override
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             callhomefragment(null, null, 0, -1, -100);
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_nazardarbazar) {
             callsettingsfragment();
         } else if (id == R.id.nav_contactus) {
             callaboutappfragment();
@@ -158,14 +159,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callsettingsfragment() {
-        if (sf == null) {
-            sf = new SettingsFragment();
 
-        }
-        if (!sf.isVisible()) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.maincontent, sf).commit();
-        }
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setData(Uri.parse("bazaar://details?id=" + "kerman.ir.hojat72elect.notifyplus"));
+        intent.setPackage("com.farsitel.bazaar");
+        startActivity(intent);
     }
 
 

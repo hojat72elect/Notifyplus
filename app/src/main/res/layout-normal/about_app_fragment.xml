@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="تلگرام ما"
-        android:id="@+id/button"
+        android:id="@+id/btelegram"
         android:layout_marginTop="73dp"
         android:layout_below="@+id/textView"
 
@@ -33,8 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="اینستاگرام ما"
-        android:id="@+id/button8"
-        android:layout_alignTop="@+id/button"
-        android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:id="@+id/binstagram"
+        android:layout_alignTop="@+id/btelegram"
+        android:layout_toRightOf="@+id/btelegram"
+        android:layout_toEndOf="@+id/btelegram" />
 </RelativeLayout>

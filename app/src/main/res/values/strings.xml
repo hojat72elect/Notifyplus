@@ -22,7 +22,7 @@
     <string name="background_color_of_the_notification">رنگ پس زمینه برای آگاه ساز</string>
     <string name="home">خانه</string>
     <string name="settings">تنظیمات</string>
-    <string name="exit">خروج از برنامه</string>
+
     <string name="contact_us">تماس با توسعه دهنده</string>
     <string name="helpstring1">ضمن تشکر از اینکه این برنامه را نصب نموده اید , نحوه ی عملکرد آن را در اینجا مطالعه فرمایید:</string>
     <string name="helpstring2">- با روشن کردن تیک فعال سازی برنامه در قسمت "روشن کردن آگاه ساز" به 7 عدد میانبر در نوتیفیکیشن دستگاه دسترسی خواهید داشت که با برنامه ریزی این میانبر ها , میتوانید در زمان دلخواه برنامه های دلخواهتان را از استاتوس بار دستگاه فراخوانی کنید.</string>
@@ -35,5 +35,7 @@
     <string name="enable_on_reboot_righo">فعال کردن آگاه ساز بعد از راه اندازی مجدد دستگاه</string>
     <string name="nazar_dar_bazar">نظر در بازار</string>
     <string name="nazar_dar_bazar_righo">لطفا اگر از عملکرد برنامه راضی بوده اید به آن 5 ستاره بدهید</string>
+    <string name="pyam_telegram">salam hora toonestam!</string>
+    <string name="exit">خروج</string>
 
 </resources>
