@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,34 +15,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
+import ir.adad.client.Adad;
 
 /**
  * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
  */
 public class HomeFragmentJadid extends Fragment implements View.OnClickListener {
 
-    private static ImageView imvofappclicked;
     private static TextView tvofappclicked;
     private static int bc;// the number of button which is clicked.
     private static int kelidsnumber;//total number of buttons which are shown in app.
     private static int rangbackground;//rang pas zamine
-
+    private static SharedPreferences number_of_app_buttons; //shared preferences for saving the number of app buttons.
+    private static String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
+    private static String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
+    private TextView tv1;
+    private TextView tv2;
+    private TextView tv3;
+    private TextView tv4;
+    private TextView tv5;
+    private TextView tv6;
+    //////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
+    LayoutInflater buttons_inflater;
+    listenerfornoab mnoabListener;
     private LinearLayout buttonsholder;//linear layout that contains the linear layout with buttons.
     private PackageManager mPm;
     private Context c;
-    //////////////////////////////////////////////////
-
-    private static SharedPreferences number_of_app_buttons; //shared preferences for saving the number of app buttons.
     private SharedPreferences isnotifon;
-
     private SharedPreferences baval;
     private SharedPreferences bdovom;
     private SharedPreferences bsevom;
@@ -50,9 +57,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private SharedPreferences bshishom;
     private SharedPreferences bhaftom;
     private SharedPreferences rangshpref;
-    ////////////////////////////////////////////////////
-    LayoutInflater buttons_inflater;
-    listenerfornoab mnoabListener;
     private Button ab1;
     private Button ab2;
     private Button ab3;
@@ -60,9 +64,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private Button ab5;
     private Button ab6;
     private Button ab7;
-
-    private static String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
-    private static String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
     private String write_key_aval = "bavalsharedpref";
     private String write_key_dovom = "bdovomsharedpref";
     private String write_key_sevom = "bsevomsharedpref";
@@ -81,8 +82,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private boolean notification_state;
 
 
-    static HomeFragmentJadid newInstance(ImageView imv, TextView tv, int mbc, int nb, int color) {
-        imvofappclicked = imv;
+    static HomeFragmentJadid newInstance(TextView tv, int mbc, int nb, int color) {
+
         tvofappclicked = tv;// in va balayi ash faghat agar az dialoge entekhabe app bargardim
         //null nakhahand bood.
 
@@ -108,7 +109,16 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
+        Adad.initialize(getActivity().getApplicationContext());
         View result = inflater.inflate(R.layout.home_layout_jadid, container, false);
+
+        tv1 = (TextView) result.findViewById(R.id.entext);
+        tv2 = (TextView) result.findViewById(R.id.entextrigho);
+        tv3 = (TextView) result.findViewById(R.id.appsnumber);
+        tv4 = (TextView) result.findViewById(R.id.appsnumberrigho);
+        tv5 = (TextView) result.findViewById(R.id.bgc);
+        tv6 = (TextView) result.findViewById(R.id.bgcrigho);
 
         buttonsholder = (LinearLayout) result.findViewById(R.id.newbuttonsholder);
 
@@ -269,10 +279,20 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
             //agar notification ghablan neshan dade shode bashad ,
             // an ra update mikonim.
         }
+        /////////////////////////////////////////////////////////
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        tv1.setTypeface(iransanserif);
+        tv2.setTypeface(iransanserif);
+        tv3.setTypeface(iransanserif);
+        tv4.setTypeface(iransanserif);
+        tv5.setTypeface(iransanserif);
+        tv6.setTypeface(iransanserif);
+
+        /////////////////////////////////////////////////////////
 
 
         return (result);
-    }
+    }//end of oncreateview().
 
 
     @Override
@@ -397,7 +417,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
         }
 
 
-        imvofappclicked = null;
         tvofappclicked = null;
         bc = 0;
 
@@ -888,7 +907,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     rangeitor.apply();
                     //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
-                    //TODO: be activity begoim ke helpdialogfragment ra rah andazi konad.
+                    // be activity begoim ke helpdialogfragment ra rah andazi konad.
                     mnoabListener.noabmethod(3, 0);
                     break;
             }

@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/apppackagename"
-        android:layout_width="230dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:layout_marginLeft="10dp"

@@ -5,6 +5,8 @@
     android:minWidth="300dp"
     android:orientation="vertical">
 
+    <include layout="@layout/dialog_header" />
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
@@ -15,8 +17,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="7dp">
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/shedatrang"
@@ -31,6 +33,7 @@
                 android:id="@+id/alphaSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:max="255"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
@@ -39,8 +42,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="7dp">
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/ghermez"
@@ -55,6 +58,7 @@
                 android:id="@+id/redSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:max="255"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
@@ -63,8 +67,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="7dp">
+            android:layout_marginBottom="7dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/sabz"
@@ -79,6 +83,7 @@
                 android:id="@+id/greenSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:max="255"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
@@ -127,6 +132,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
+            android:background="@drawable/button"
             android:text="@string/button_set_color"
             android:textSize="@dimen/matngonde" />
 

@@ -47,14 +47,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if (getFragmentManager().findFragmentById(R.id.maincontent) == null) {
-            callhomefragment(null, null, 0, -1, -100);
+            callhomefragment(null, 0, -1, -100);
         }
 
 
@@ -111,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            callhomefragment(null, null, 0, -1, -100);
+            callhomefragment( null, 0, -1, -100);
         } else if (id == R.id.nav_nazardarbazar) {
             callsettingsfragment();
         } else if (id == R.id.nav_contactus) {
@@ -139,13 +131,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void callhomefragment(ImageView imv, TextView tv, int bc, int nb, int color) {
+    private void callhomefragment( TextView tv, int bc, int nb, int color) {
 
         //ImageView imv , akse applicationi ke click shode ast.
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        hfj = HomeFragmentJadid.newInstance(imv, tv, bc, nb, color);
+        hfj = HomeFragmentJadid.newInstance( tv, bc, nb, color);
 
 
         getFragmentManager().beginTransaction()
@@ -185,7 +177,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void ondialogclick(ImageView imv, TextView tv) {
 
-        callhomefragment(imv, tv, mbc, -1, -100);
+        callhomefragment( tv, mbc, -1, -100);
     }
 
 
@@ -261,12 +253,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void dialogbuttonclicked(int nbc) {
         //inja homefragmentjadid ra seda mizanim.
-        callhomefragment(null, null, 0, nbc, -100);
+        callhomefragment( null, 0, nbc, -100);
     }
 
 
     @Override
     public void rangdialogclicked(int color) {
-        callhomefragment(null, null, 0, -1, color);
+        callhomefragment( null, 0, -1, color);
     }
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:minWidth="300dp"
     android:layout_height="wrap_content"
+    android:minWidth="300dp"
     android:orientation="vertical">
+
+    <include layout="@layout/dialog_header" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -13,83 +15,86 @@
         android:stretchColumns="1">
 
         <TableRow
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/shedatrang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_alpha"
+                android:layout_gravity="center_vertical"
                 android:gravity="right"
-                android:layout_gravity="center_vertical" />
+                android:text="@string/label_alpha" />
 
             <SeekBar
                 android:id="@+id/alphaSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:max="255"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
         </TableRow>
 
         <TableRow
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/ghermez"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_red"
+                android:layout_gravity="center_vertical"
                 android:gravity="right"
-                android:layout_gravity="center_vertical" />
+                android:text="@string/label_red" />
 
             <SeekBar
                 android:id="@+id/redSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:max="255"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
         </TableRow>
 
         <TableRow
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/sabz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_green"
+                android:layout_gravity="center_vertical"
                 android:gravity="right"
-                android:layout_gravity="center_vertical" />
+                android:text="@string/label_green" />
 
             <SeekBar
                 android:id="@+id/greenSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:max="255"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
         </TableRow>
 
         <TableRow
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/abi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_blue"
+                android:layout_gravity="center_vertical"
                 android:gravity="right"
-                android:layout_gravity="center_vertical" />
+                android:text="@string/label_blue" />
 
             <SeekBar
                 android:id="@+id/blueSeekBar"
@@ -119,8 +124,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:text="@string/button_set_color"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="@string/button_set_color" />
 
     </LinearLayout>
 

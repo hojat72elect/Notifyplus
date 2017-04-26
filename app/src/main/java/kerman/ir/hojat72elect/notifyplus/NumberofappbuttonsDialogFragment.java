@@ -2,12 +2,14 @@ package kerman.ir.hojat72elect.notifyplus;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by hojat72elect on shanbe 12 farvardin 1396 in kerman.
@@ -21,15 +23,8 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
     Button b5;
     Button b6;
     Button b7;
+    View backlayout;
     buttonclicked mbuttonlistener;
-
-
-    public interface buttonclicked {
-        void dialogbuttonclicked(int nbc);
-
-        //ma ba in interface be HomeFragmentJadid bar khahim gasht.
-    }
-
 
     static NumberofappbuttonsDialogFragment newInstance() {
 
@@ -42,6 +37,14 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
         View v = inflater.inflate(R.layout.dialogbuttons, container, false);
 
+
+        backlayout = v.findViewById(R.id.backlayout);
+        backlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().cancel();
+            }
+        });
         b1 = (Button) v.findViewById(R.id.mb1);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +107,24 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
+
+        //////////////////////////////////////////////////////////////
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        b1.setTypeface(iransanserif);
+        b2.setTypeface(iransanserif);
+        b3.setTypeface(iransanserif);
+        b4.setTypeface(iransanserif);
+        b5.setTypeface(iransanserif);
+        b6.setTypeface(iransanserif);
+        b7.setTypeface(iransanserif);
+
+        TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
+        backlayouttext.setTypeface(iransanserif);
+
+
+        /////////////////////////////////////////////////////////////
+
+
         return v;
     }
 
@@ -114,7 +135,6 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -123,6 +143,13 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
         }
+    }
+
+
+    public interface buttonclicked {
+        void dialogbuttonclicked(int nbc);
+
+        //ma ba in interface be HomeFragmentJadid bar khahim gasht.
     }
 
 
