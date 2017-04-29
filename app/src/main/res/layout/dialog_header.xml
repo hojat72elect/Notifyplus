@@ -4,7 +4,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="45dp"
     android:layout_gravity="center_horizontal"
     android:background="#ffffff"
     android:orientation="horizontal"
@@ -34,6 +34,7 @@
                 android:background="@drawable/mix_gallery_bottom_back_click" />
 
             <TextView
+                android:id="@+id/bazgasht"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -49,10 +50,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_margin="1dp"
         android:layout_weight="1"
+        android:layout_gravity="center"
         android:background="@mipmap/ic_launcher" />
 
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by hojat72elect on doshanbe 23 esfand 1395 in kerman.
@@ -62,17 +63,22 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v == btelegram) {
-            // yek peygham dar telegram ersal konid.
-            try {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setPackage("org.telegram.messenger");
-                i.setData(Uri.parse("https://t.me/hojat72elect"));
-                i.putExtra(Intent.EXTRA_TEXT, "hello telegram!");//chera matni ra neshan nemidahad?
 
-                startActivity(i);
+             //   i.putExtra(Intent.EXTRA_TEXT, "hello telegram!");//chera matni ra neshan nemidahad?
+
+
+            Uri uri = Uri.parse("https://t.me/hojat72elect");
+            Intent liketel = new Intent(Intent.ACTION_VIEW, uri);
+            liketel.setPackage("org.telegram.messenger");
+
+            try {
+                startActivity(liketel);
             } catch (Exception e) {
+                Toast.makeText(getActivity().getApplicationContext(), "مشکل در ارتباط با تلگرام", Toast.LENGTH_LONG).show();
 
             }
+
+
         } else if (v == binstagram) {
             // be instagram hedayatash konid.
             Uri uri = Uri.parse("http://instagram.com/_u/hojat72elect");
@@ -87,7 +93,7 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
             }
 
 
-        }else if(v==backlayout){
+        } else if (v == backlayout) {
             getDialog().cancel();
         }
     }

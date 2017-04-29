@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,7 +27,7 @@ import ir.adad.client.Adad;
 /**
  * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
  */
-public class HomeFragmentJadid extends Fragment implements View.OnClickListener {
+public class HomeFragmentJadid extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
     private static TextView tvofappclicked;
     private static int bc;// the number of button which is clicked.
@@ -35,16 +36,16 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
     private static SharedPreferences number_of_app_buttons; //shared preferences for saving the number of app buttons.
     private static String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
     private static String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
+    //////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
+    LayoutInflater buttons_inflater;
+    listenerfornoab mnoabListener;
     private TextView tv1;
     private TextView tv2;
     private TextView tv3;
     private TextView tv4;
     private TextView tv5;
     private TextView tv6;
-    //////////////////////////////////////////////////
-    ////////////////////////////////////////////////////
-    LayoutInflater buttons_inflater;
-    listenerfornoab mnoabListener;
     private LinearLayout buttonsholder;//linear layout that contains the linear layout with buttons.
     private PackageManager mPm;
     private Context c;
@@ -534,6 +535,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                 case 1:
                     buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_1_button, null);
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -547,6 +549,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_2_button, null);
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -555,6 +558,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -570,6 +574,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -578,6 +583,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -587,6 +593,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 3;
@@ -602,6 +609,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -610,6 +618,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -619,6 +628,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 3;
@@ -628,6 +638,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab4 = (Button) buttons_row.findViewById(R.id.button4);
+                    ab4.setOnTouchListener(this);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 4;
@@ -641,6 +652,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -649,6 +661,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -658,6 +671,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 3;
@@ -667,6 +681,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab4 = (Button) buttons_row.findViewById(R.id.button4);
+                    ab4.setOnTouchListener(this);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 4;
@@ -675,6 +690,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab5 = (Button) buttons_row.findViewById(R.id.button5);
+                    ab5.setOnTouchListener(this);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 5;
@@ -690,6 +706,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -698,6 +715,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -707,6 +725,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 3;
@@ -716,6 +735,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab4 = (Button) buttons_row.findViewById(R.id.button4);
+                    ab4.setOnTouchListener(this);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 4;
@@ -724,6 +744,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab5 = (Button) buttons_row.findViewById(R.id.button5);
+                    ab5.setOnTouchListener(this);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 5;
@@ -732,6 +753,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab6 = (Button) buttons_row.findViewById(R.id.button6);
+                    ab6.setOnTouchListener(this);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 6;
@@ -746,6 +768,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -754,6 +777,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -763,6 +787,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 3;
@@ -772,6 +797,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab4 = (Button) buttons_row.findViewById(R.id.button4);
+                    ab4.setOnTouchListener(this);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 4;
@@ -780,6 +806,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab5 = (Button) buttons_row.findViewById(R.id.button5);
+                    ab5.setOnTouchListener(this);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 5;
@@ -788,6 +815,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab6 = (Button) buttons_row.findViewById(R.id.button6);
+                    ab6.setOnTouchListener(this);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 6;
@@ -796,6 +824,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab7 = (Button) buttons_row.findViewById(R.id.button7);
+                    ab7.setOnTouchListener(this);
                     ab7.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 7;
@@ -810,6 +839,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
                     ab1.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 1;
@@ -818,6 +848,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
                     ab2.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 2;
@@ -827,6 +858,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
                     ab3.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 3;
@@ -836,6 +868,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
 
                     ab4 = (Button) buttons_row.findViewById(R.id.button4);
+                    ab4.setOnTouchListener(this);
                     ab4.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 4;
@@ -844,6 +877,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab5 = (Button) buttons_row.findViewById(R.id.button5);
+                    ab5.setOnTouchListener(this);
                     ab5.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 5;
@@ -852,6 +886,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab6 = (Button) buttons_row.findViewById(R.id.button6);
+                    ab6.setOnTouchListener(this);
                     ab6.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 6;
@@ -860,6 +895,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
                     });
 
                     ab7 = (Button) buttons_row.findViewById(R.id.button7);
+                    ab7.setOnTouchListener(this);
                     ab7.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             bc = 7;
@@ -937,6 +973,22 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener 
 
         }
 
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE)
+        {
+            v.setAlpha(0);
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL)
+        {
+            v.setAlpha( 1);
+        }
+
+        return false;
     }
 
 

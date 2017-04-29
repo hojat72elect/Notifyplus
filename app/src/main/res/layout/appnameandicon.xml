@@ -3,7 +3,7 @@
     android:id="@+id/newTagTableRow"
     android:layout_width="wrap_content"
     android:layout_height="70dp"
-    android:background="@android:color/transparent">
+    android:background="@drawable/button">
 
     <TextView
         android:id="@+id/apppackagename"
