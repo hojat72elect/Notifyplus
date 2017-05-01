@@ -7,9 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -103,14 +100,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            callhomefragment( null, 0, -1, -100);
+            callhomefragment(null, 0, -1, -100);
         } else if (id == R.id.nav_nazardarbazar) {
             callsettingsfragment();
         } else if (id == R.id.nav_contactus) {
             callaboutappfragment();
         } else if (id == R.id.nav_exit) {
             super.onBackPressed();
-        } else if (id==R.id.nav_help){
+        } else if (id == R.id.nav_help) {
             callhelpdialogfragment();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -131,13 +128,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void callhomefragment( TextView tv, int bc, int nb, int color) {
+    private void callhomefragment(TextView tv, int bc, int nb, int color) {
 
         //ImageView imv , akse applicationi ke click shode ast.
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        hfj = HomeFragmentJadid.newInstance( tv, bc, nb, color);
+        hfj = HomeFragmentJadid.newInstance(tv, bc, nb, color);
 
 
         getFragmentManager().beginTransaction()
@@ -151,11 +148,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callsettingsfragment() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setData(Uri.parse("bazaar://details?id=" + "kerman.ir.hojat72elect.notifyplus"));
+            intent.setPackage("com.farsitel.bazaar");
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "مشکل در اتصال به سرور کافه بازار" , Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setData(Uri.parse("bazaar://details?id=" + "kerman.ir.hojat72elect.notifyplus"));
-        intent.setPackage("com.farsitel.bazaar");
-        startActivity(intent);
+
+        }
     }
 
 
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void ondialogclick(ImageView imv, TextView tv) {
 
-        callhomefragment( tv, mbc, -1, -100);
+        callhomefragment(tv, mbc, -1, -100);
     }
 
 
@@ -253,12 +255,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void dialogbuttonclicked(int nbc) {
         //inja homefragmentjadid ra seda mizanim.
-        callhomefragment( null, 0, nbc, -100);
+        callhomefragment(null, 0, nbc, -100);
     }
 
 
     @Override
     public void rangdialogclicked(int color) {
-        callhomefragment( null, 0, -1, color);
+        callhomefragment(null, 0, -1, color);
     }
 }

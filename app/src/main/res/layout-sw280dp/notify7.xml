@@ -11,7 +11,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginRight="2dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
@@ -21,7 +21,7 @@
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginRight="2dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher"
 
@@ -33,13 +33,13 @@
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginRight="2dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv4"
-        android:layout_width="34dp"
+        android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="3dp"
@@ -52,7 +52,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
@@ -62,7 +62,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
@@ -72,7 +72,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 </LinearLayout>

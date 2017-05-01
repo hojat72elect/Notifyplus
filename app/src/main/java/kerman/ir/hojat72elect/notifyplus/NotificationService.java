@@ -178,7 +178,7 @@ public class NotificationService extends Service {
 
         }
 
-        Notification note=new Notification(R.drawable.stat_notify_chat,"Can you hear the music?",System.currentTimeMillis());
+        Notification note=new Notification(R.mipmap.ic_launcher,"",System.currentTimeMillis());
 
         note.flags|=Notification.FLAG_NO_CLEAR;
 

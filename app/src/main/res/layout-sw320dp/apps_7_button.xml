@@ -8,10 +8,10 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"
@@ -21,10 +21,10 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"
@@ -33,10 +33,10 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"
@@ -45,10 +45,10 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"
@@ -57,10 +57,10 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"
@@ -69,10 +69,10 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"
@@ -81,10 +81,10 @@
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="4dp"
         android:layout_marginLeft="4dp"
         android:background="@mipmap/ic_launcher"

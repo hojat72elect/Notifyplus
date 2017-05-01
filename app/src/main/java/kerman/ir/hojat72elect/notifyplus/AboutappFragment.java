@@ -74,7 +74,7 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
             try {
                 startActivity(liketel);
             } catch (Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), "مشکل در ارتباط با تلگرام", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(),"مشکل در اتصال به سرور تلگرام", Toast.LENGTH_LONG).show();
 
             }
 

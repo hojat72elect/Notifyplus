@@ -943,6 +943,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     rangeitor.apply();
                     //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
+                    Toast.makeText(getActivity().getApplicationContext(), "خوش آمدید!", Toast.LENGTH_LONG).show();
+
                     // be activity begoim ke helpdialogfragment ra rah andazi konad.
                     mnoabListener.noabmethod(3, 0);
                     break;
@@ -950,7 +952,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
             buttonsholder.removeAllViews();
             buttonsholder.addView(buttons_row);
-//in 2 khate bala ra be hich vajh taghir nadahid bayad hatman be hamin shekl bashand.
+            //in 2 khate bala ra be hich vajh taghir nadahid bayad hatman be hamin shekl bashand.
 
         } catch (Exception e) {
             Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the sadie", Toast.LENGTH_LONG).show();
@@ -978,14 +980,12 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE)
-        {
+        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             v.setAlpha(0);
         }
 
-        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL)
-        {
-            v.setAlpha( 1);
+        if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+            v.setAlpha(1);
         }
 
         return false;
