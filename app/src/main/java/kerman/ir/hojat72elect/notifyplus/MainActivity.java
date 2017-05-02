@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            sharemethod();
             return true;
         }
 
@@ -109,10 +111,21 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         } else if (id == R.id.nav_help) {
             callhelpdialogfragment();
+        } else if (id == R.id.nav_share) {
+            sharemethod();
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void sharemethod() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharetext) + "\n" + "https");
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
     }
 
     private void callaboutappfragment() {
@@ -154,7 +167,7 @@ public class MainActivity extends AppCompatActivity
             intent.setPackage("com.farsitel.bazaar");
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "مشکل در اتصال به سرور کافه بازار" , Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "مشکل در اتصال به سرور کافه بازار", Toast.LENGTH_LONG).show();
 
 
         }

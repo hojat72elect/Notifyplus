@@ -2,7 +2,6 @@
     <string name="app_name">Notifyplus</string>
     <string name="navigation_drawer_open">باز کردن منوی کناری</string>
     <string name="navigation_drawer_close">بستن منوی کناری</string>
-    <string name="action_settings">تنظیمات</string>
     <string name="supernotiftitle">آگاه ساز ویژه</string>
     <string name="supernotifsummary">یک آگاه ساز مخصوص حاوی 50 میانبر برنامه فعال خواهد شد</string>
     <string name="reboottitle">شروع خودکار</string>
@@ -41,5 +40,7 @@
     <string name="hojat72elect">hojat72elect</string>
     <string name="telegram">تلگرام ما</string>
     <string name="instagram">اینستاگرام ما</string>
-
+    <string name="share">به اشتراک گذاری</string>
+    <string name="send_to">این برنامه را با دوستان خود به اشتراک بگذارید</string>
+    <string name="sharetext">سلام به همگی , این یه اپلیکیشن رایگان و کم حجم اندرویدی برای دسترسی سریع به برنامه های دلخواه هست که می تونید همین الان از کافه بازار دانلود کنید.</string>
 </resources>
