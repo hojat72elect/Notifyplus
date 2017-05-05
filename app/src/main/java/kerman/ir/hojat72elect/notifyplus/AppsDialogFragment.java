@@ -3,7 +3,6 @@ package kerman.ir.hojat72elect.notifyplus;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -18,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class AppsDialogFragment extends DialogFragment {
         sv = (ScrollView) v.findViewById(R.id.queryScrollView);
         at = new LoadHome();
         at.execute(a);
-
+        appsTableLayout.setVisibility(View.INVISIBLE);
 
         ////////////////////////////////////
         View backlayout = v.findViewById(R.id.backlayout);
@@ -92,9 +92,6 @@ public class AppsDialogFragment extends DialogFragment {
     private class LoadHome extends AsyncTask<String, Integer, View> {
 
 
-        private final ProgressDialog dialog = new ProgressDialog(getActivity());
-
-
         ///////////////////////////////////
 
         private View.OnClickListener approwlistener = new View.OnClickListener() {
@@ -115,9 +112,8 @@ public class AppsDialogFragment extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // initialize the dialog
-            this.dialog.setMessage("Signing in...");
-            this.dialog.show();
+            Toast.makeText(getActivity().getApplicationContext(), "اندکی صبر کنید!", Toast.LENGTH_SHORT).show();
+
             appsTableLayout = (TableLayout) infla.inflate(R.layout.tablelayoutview, sv, false);
 
 
@@ -131,12 +127,62 @@ public class AppsDialogFragment extends DialogFragment {
                 @Override
                 public void run() {
 
-
+                    int k = 0;
                     Context c = getActivity().getApplicationContext();
                     PackageManager mPm = c.getPackageManager();
-
                     List<ApplicationInfo> apps = mPm.getInstalledApplications(0);
-                    int p = 0;
+                    int j = 0;
+
+                    for (int i = 0; i < apps.size(); i++) {
+                        //ls.add(apps.get(i).packageName);//this line of code throws an exception
+                        if (mPm.getLaunchIntentForPackage(apps.get(i).packageName) != null) {
+                            j++;
+                        }
+                    }
+
+                    String[] mashin = new String[j];
+                    for (int i = 0; i < apps.size(); i++) {
+
+                        if (mPm.getLaunchIntentForPackage(apps.get(i).packageName) != null) {
+                            mashin[k] = apps.get(i).packageName;
+                            k++;
+                        }
+                    }
+
+
+                    for (int i = 0; i < k; i++) {
+
+                        final View approw = infla.inflate(R.layout.appnameandicon, null);//1
+                        apppackagename = (TextView) approw.findViewById(R.id.apppackagename);//3
+                        appicon = (ImageView) approw.findViewById(R.id.appicon);//4
+                        apppackagename.setText(mashin[i]);
+
+
+                        try {
+                            appicon.setImageDrawable(mPm.getApplicationIcon(mashin[i]));
+                        } catch (Exception e) {
+                            //   Toast.makeText(getActivity().getApplicationContext(), "error in creating the list!", Toast.LENGTH_LONG).show();
+                        }
+                        approw.setOnClickListener(approwlistener);
+
+                        final int finalP = i;
+                        getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                appsTableLayout.addView(approw, finalP);//this one must come at the end.
+                            }
+                        });
+
+                        if (i == k - 1) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    appsTableLayout.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
+
+                    }
+
+                  /*  int p = 0;
 
 
                     for (int i = 0; i < apps.size(); i++) {
@@ -163,7 +209,7 @@ public class AppsDialogFragment extends DialogFragment {
                             p++;
                         }
                     }
-
+*/
 
                 }
             }).start();
@@ -182,9 +228,7 @@ public class AppsDialogFragment extends DialogFragment {
 
         protected void onPostExecute(View result) {
             super.onPostExecute(result);
-            if (this.dialog.isShowing()) {
-                this.dialog.dismiss();
-            }
+
             sv.removeAllViews();
             sv.addView(result);
 

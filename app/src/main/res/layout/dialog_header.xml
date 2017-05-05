@@ -2,11 +2,10 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:layout_gravity="center_horizontal"
-    android:background="#ffffff"
+    android:background="@drawable/navigationdrawer"
     android:orientation="horizontal"
     android:weightSum="7"
 
@@ -23,7 +22,6 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/button"
             android:orientation="horizontal">
 
 
