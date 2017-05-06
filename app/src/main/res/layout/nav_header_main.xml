@@ -11,10 +11,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ir.adad.client.Banner
-        android:id="@+id/banner_ad_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
 
-        />
 </LinearLayout>
