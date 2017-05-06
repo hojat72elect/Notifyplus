@@ -111,7 +111,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        Adad.initialize(getActivity().getApplicationContext());
         View result = inflater.inflate(R.layout.home_layout_jadid, container, false);
 
         tv1 = (TextView) result.findViewById(R.id.entext);

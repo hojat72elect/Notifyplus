@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kerman.ir.hojat72elect.notifyplus" >
+    package="kerman.ir.hojat72elect.notifyplus">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        >
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-             >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,17 +34,6 @@
             android:name="AdadToken"
             android:value="1a20ef28b50c4fdf81daf5b7701058cd" />
 
-        <meta-data
-            android:name="AdadTestMode"
-            android:value="true"/>
-
-        <meta-data
-            android:name="AdadLogging"
-            android:value="true"/>
-
-        <meta-data
-            android:name="AdadLoggingLevel"
-            android:value="info" />
 
     </application>
 
