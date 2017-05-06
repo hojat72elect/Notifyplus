@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
     private void sharemethod() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharetext) + "\n" + "https");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharetext) + "\n" + "https://cafebazaar.ir/app/kerman.ir.hojat72elect.notifyplus/?l=fa");
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
     }
