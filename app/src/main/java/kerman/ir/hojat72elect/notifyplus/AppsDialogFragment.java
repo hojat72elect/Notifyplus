@@ -31,11 +31,12 @@ public class AppsDialogFragment extends DialogFragment {
     dialogclicked mlistener;
     TableLayout appsTableLayout;
     TextView apppackagename;
+    TextView appname;
     ImageView appicon;
     AsyncTask at;
     LayoutInflater infla;
     ScrollView sv;
-
+    View backlayout;
     private View v;
 
     static AppsDialogFragment newInstance() {
@@ -56,13 +57,7 @@ public class AppsDialogFragment extends DialogFragment {
         appsTableLayout.setVisibility(View.INVISIBLE);
 
         ////////////////////////////////////
-        View backlayout = v.findViewById(R.id.backlayout);
-        backlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
-            }
-        });
+        backlayout = v.findViewById(R.id.backlayout);
         Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
         TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
         backlayouttext.setTypeface(iransanserif);
@@ -156,13 +151,17 @@ public class AppsDialogFragment extends DialogFragment {
                         apppackagename = (TextView) approw.findViewById(R.id.apppackagename);//3
                         appicon = (ImageView) approw.findViewById(R.id.appicon);//4
                         apppackagename.setText(mashin[i]);
-
+                        appname = (TextView) approw.findViewById(R.id.appname);
 
                         try {
+
                             appicon.setImageDrawable(mPm.getApplicationIcon(mashin[i]));
+                            appname.setText(mPm.getApplicationLabel(mPm.getApplicationInfo(mashin[i], PackageManager.GET_META_DATA)));
+
                         } catch (Exception e) {
-                            //   Toast.makeText(getActivity().getApplicationContext(), "error in creating the list!", Toast.LENGTH_LONG).show();
+
                         }
+
                         approw.setOnClickListener(approwlistener);
 
                         final int finalP = i;
@@ -176,40 +175,20 @@ public class AppsDialogFragment extends DialogFragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 public void run() {
                                     appsTableLayout.setVisibility(View.VISIBLE);
+
+                                    backlayout.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            getDialog().cancel();
+                                        }
+                                    });
+
                                 }
                             });
                         }
 
                     }
 
-                  /*  int p = 0;
-
-
-                    for (int i = 0; i < apps.size(); i++) {
-                        if (mPm.getLaunchIntentForPackage(apps.get(i).packageName) != null) {
-
-                            final View approw = infla.inflate(R.layout.appnameandicon, null);//1
-                            apppackagename = (TextView) approw.findViewById(R.id.apppackagename);//3
-                            appicon = (ImageView) approw.findViewById(R.id.appicon);//4
-                            apppackagename.setText(apps.get(i).packageName);
-
-                            try {
-                                appicon.setImageDrawable(mPm.getApplicationIcon(apps.get(i)));
-                            } catch (Exception e) {
-                                //   Toast.makeText(getActivity().getApplicationContext(), "error in creating the list!", Toast.LENGTH_LONG).show();
-                            }
-
-                            approw.setOnClickListener(approwlistener);
-                            final int finalP = p;
-                            getActivity().runOnUiThread(new Runnable() {
-                                public void run() {
-                                    appsTableLayout.addView(approw, finalP);//this one must come at the end.
-                                }
-                            });
-                            p++;
-                        }
-                    }
-*/
 
                 }
             }).start();

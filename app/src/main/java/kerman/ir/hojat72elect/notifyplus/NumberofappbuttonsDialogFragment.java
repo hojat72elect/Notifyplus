@@ -8,21 +8,22 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+
+import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
  * Created by hojat72elect on shanbe 12 farvardin 1396 in kerman.
  */
 public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
-    Button b1;
-    Button b2;
-    Button b3;
-    Button b4;
-    Button b5;
-    Button b6;
-    Button b7;
+    ButtonRectangle b1;
+    ButtonRectangle b2;
+    ButtonRectangle b3;
+    ButtonRectangle b4;
+    ButtonRectangle b5;
+    ButtonRectangle b6;
+    ButtonRectangle b7;
     View backlayout;
     buttonclicked mbuttonlistener;
 
@@ -45,7 +46,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
                 getDialog().cancel();
             }
         });
-        b1 = (Button) v.findViewById(R.id.mb1);
+        b1 = (ButtonRectangle) v.findViewById(R.id.mb1);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +55,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
-        b2 = (Button) v.findViewById(R.id.mb2);
+        b2 = (ButtonRectangle) v.findViewById(R.id.mb2);
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +63,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
-        b3 = (Button) v.findViewById(R.id.mb3);
+        b3 = (ButtonRectangle) v.findViewById(R.id.mb3);
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +72,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
-        b4 = (Button) v.findViewById(R.id.mb4);
+        b4 = (ButtonRectangle) v.findViewById(R.id.mb4);
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +81,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
-        b5 = (Button) v.findViewById(R.id.mb5);
+        b5 = (ButtonRectangle) v.findViewById(R.id.mb5);
         b5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +90,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
-        b6 = (Button) v.findViewById(R.id.mb6);
+        b6 = (ButtonRectangle) v.findViewById(R.id.mb6);
         b6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +99,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
-        b7 = (Button) v.findViewById(R.id.mb7);
+        b7 = (ButtonRectangle) v.findViewById(R.id.mb7);
         b7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,13 +111,6 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
         //////////////////////////////////////////////////////////////
         Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
-        b1.setTypeface(iransanserif);
-        b2.setTypeface(iransanserif);
-        b3.setTypeface(iransanserif);
-        b4.setTypeface(iransanserif);
-        b5.setTypeface(iransanserif);
-        b6.setTypeface(iransanserif);
-        b7.setTypeface(iransanserif);
 
         TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
         backlayouttext.setTypeface(iransanserif);

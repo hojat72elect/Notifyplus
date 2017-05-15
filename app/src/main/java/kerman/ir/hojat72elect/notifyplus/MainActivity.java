@@ -2,8 +2,6 @@ package kerman.ir.hojat72elect.notifyplus;
 
 
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,7 +23,7 @@ import ir.adad.client.Adad;
 
 /*created by hojat72elect on shanbe 21 esfand 1395 in kerman.
 *
-* */
+*/
 
 
 public class MainActivity extends AppCompatActivity
@@ -132,15 +130,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callaboutappfragment() {
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment af = getFragmentManager().findFragmentByTag("dialog");
-        if (af != null) {
-            ft.remove(af);
-        }
-        ft.addToBackStack(null);
         DialogFragment newFragment = AboutappFragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(getFragmentManager(), "dialog");
 
     }
 
@@ -179,16 +172,13 @@ public class MainActivity extends AppCompatActivity
 
     private void callAppsdialogfragment(int bc) {
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment adf = getFragmentManager().findFragmentByTag("dialog");
-        if (adf != null) {
-            ft.remove(adf);
-        }
-        ft.addToBackStack(null);
-        mbc = bc;
 
         DialogFragment newFragment = AppsDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(getFragmentManager(), "dialog");
+        mbc = bc;
+
 
     }
 
@@ -226,45 +216,41 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             default:
-                //in hamishe rokh midahad???
+
                 break;
         }
 
     }
 
     private void callhelpdialogfragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment bgcdf = getFragmentManager().findFragmentByTag("dialog");
-        if (bgcdf != null) {
-            ft.remove(bgcdf);
-        }
-        ft.addToBackStack(null);
+
         DialogFragment newFragment = HelpDialogfragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+        android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(getFragmentManager(), "dialog");
     }
 
     private void callbackgroundcolordialogfragment() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        DialogFragment newFragment = BackgroundColorDialogFragment.newInstance();
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(getFragmentManager(), "dialog");
+       /* FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment bgcdf = getFragmentManager().findFragmentByTag("dialog");
         if (bgcdf != null) {
             ft.remove(bgcdf);
         }
         ft.addToBackStack(null);
         DialogFragment newFragment = BackgroundColorDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.show(ft, "dialog");*/
     }
 
     private void callnumberofappbuttonsdialogfragment() {
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment noabdf = getFragmentManager().findFragmentByTag("dialog");
-
-        if (noabdf != null) {
-            ft.remove(noabdf);
-        }
-        ft.addToBackStack(null);
         DialogFragment newFragment = NumberofappbuttonsDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(getFragmentManager(), "dialog");
+
 
     }
 

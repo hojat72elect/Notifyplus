@@ -12,7 +12,7 @@ import android.widget.TextView;
 /**
  * Created by hojat72elect on seshanbe 29 farvardin 1396 in kerman .
  */
-public class HelpDialogfragment extends DialogFragment implements View.OnClickListener{
+public class HelpDialogfragment extends DialogFragment {
 
     TextView am1;
     TextView am2;
@@ -35,14 +35,14 @@ public class HelpDialogfragment extends DialogFragment implements View.OnClickLi
 
         View v = inflater.inflate(R.layout.help_dialog_fragment, container, false);
 
+        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar);
+
         am1 = (TextView) v.findViewById(R.id.am1);
         am2 = (TextView) v.findViewById(R.id.am2);
         am3 = (TextView) v.findViewById(R.id.am3);
         am4 = (TextView) v.findViewById(R.id.am4);
         am5 = (TextView) v.findViewById(R.id.am5);
         bazgasht = (TextView) v.findViewById(R.id.bazgasht);
-        backlayout = v.findViewById(R.id.backlayout);
-        backlayout.setOnClickListener(this);
         Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
 
         am1.setTypeface(iransanserif);
@@ -52,11 +52,16 @@ public class HelpDialogfragment extends DialogFragment implements View.OnClickLi
         am5.setTypeface(iransanserif);
         bazgasht.setTypeface(iransanserif);
 
+        backlayout = v.findViewById(R.id.backlayout);
+        backlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().cancel();
+            }
+        });
+
+
         return v;
     }
 
-    @Override
-    public void onClick(View v) {
-        getDialog().cancel();
-    }
 }

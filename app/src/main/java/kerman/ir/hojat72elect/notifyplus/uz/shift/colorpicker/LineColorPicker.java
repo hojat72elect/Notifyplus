@@ -13,8 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import kerman.ir.hojat72elect.notifyplus.R;
-import kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.OnColorChangedListener;
-import kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.Palette;
 
 public class LineColorPicker extends View {
 
@@ -22,18 +20,6 @@ public class LineColorPicker extends View {
     public static final int VERTICAL = 1;
 
     int[] colors;
-    // indicate if nothing selected
-    boolean isColorSelected = false;
-    private Paint paint;
-    private Rect rect = new Rect();
-    private int selectedColor = colors[0];
-    private OnColorChangedListener onColorChanged;
-    private int cellSize;
-    private int mOrientation = HORIZONTAL;
-    private boolean isClick = false;
-    private int screenW;
-    private int screenH;
-
     {
         if (isInEditMode()) {
             colors = Palette.DEFAULT;
@@ -41,6 +27,20 @@ public class LineColorPicker extends View {
             colors = new int[1];
         }
     }
+
+    private Paint paint;
+    private Rect rect = new Rect();
+
+    // indicate if nothing selected
+    boolean isColorSelected = false;
+
+    private int selectedColor = colors[0];
+
+    private OnColorChangedListener onColorChanged;
+
+    private int cellSize;
+
+    private int mOrientation = HORIZONTAL;
 
     public LineColorPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -153,6 +153,10 @@ public class LineColorPicker extends View {
         }
     }
 
+    private boolean isClick = false;
+    private int screenW;
+    private int screenH;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -263,6 +267,39 @@ public class LineColorPicker extends View {
         this.isColorSelected = ss.isColorSelected;
     }
 
+    static class SavedState extends BaseSavedState {
+        int selectedColor;
+        boolean isColorSelected;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.selectedColor = in.readInt();
+            this.isColorSelected = in.readInt() == 1;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(this.selectedColor);
+            out.writeInt(this.isColorSelected ? 1 : 0);
+        }
+
+        // required field that makes Parcelables from a Parcel
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
+
     @Override
     public boolean performClick() {
         return super.performClick();
@@ -279,13 +316,6 @@ public class LineColorPicker extends View {
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    /**
-     * Return currently selected color.
-     */
-    public int getColor() {
-        return selectedColor;
-    }
-
     // @Override
     // protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     // int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
@@ -293,6 +323,13 @@ public class LineColorPicker extends View {
     // this.setMeasuredDimension(parentWidth, parentHeight);
     // super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     // }
+
+    /**
+     * Return currently selected color.
+     */
+    public int getColor() {
+        return selectedColor;
+    }
 
     /**
      * Set selected color as color value from palette.
@@ -323,6 +360,23 @@ public class LineColorPicker extends View {
         setSelectedColor(colors[position]);
     }
 
+    /**
+     * Set picker palette
+     */
+    public void setColors(int[] colors) {
+        // TODO: selected color can be NOT in set of colors
+        // FIXME: colors can be null
+        this.colors = colors;
+
+        if (!containsColor(colors, selectedColor)) {
+            selectedColor = colors[0];
+        }
+
+        recalcCellSize();
+
+        invalidate();
+    }
+
     private int recalcCellSize() {
 
         if (mOrientation == HORIZONTAL) {
@@ -339,23 +393,6 @@ public class LineColorPicker extends View {
      */
     public int[] getColors() {
         return colors;
-    }
-
-    /**
-     * Set picker palette
-     */
-    public void setColors(int[] colors) {
-        // TODO: selected color can be NOT in set of colors
-        // FIXME: colors can be null
-        this.colors = colors;
-
-        if (!containsColor(colors, selectedColor)) {
-            selectedColor = colors[0];
-        }
-
-        recalcCellSize();
-
-        invalidate();
     }
 
     /**
@@ -378,37 +415,5 @@ public class LineColorPicker extends View {
      */
     public void setOnColorChangedListener(OnColorChangedListener l) {
         this.onColorChanged = l;
-    }
-
-    static class SavedState extends BaseSavedState {
-        // required field that makes Parcelables from a Parcel
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
-        int selectedColor;
-        boolean isColorSelected;
-
-        SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            this.selectedColor = in.readInt();
-            this.isColorSelected = in.readInt() == 1;
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeInt(this.selectedColor);
-            out.writeInt(this.isColorSelected ? 1 : 0);
-        }
     }
 }

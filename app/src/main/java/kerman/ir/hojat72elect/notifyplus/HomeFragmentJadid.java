@@ -8,21 +8,23 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import ir.adad.client.Adad;
 
 /**
  * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
@@ -126,6 +128,19 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         bgcolorview = result.findViewById(R.id.bgcolorlayout);
         bnot = (Switch) result.findViewById(R.id.notifyswitch);
         mtogglenot = result.findViewById(R.id.togglenot);
+
+        /////////////////////////////////////////////////////////
+        Animation Animationone = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.adanimtext1);
+        Animation Animationtwo = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.adanimtext2);
+        Animation Animationthree = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.adanimicon);
+
+        TextView adtv1 = (TextView) result.findViewById(R.id.adtv1);
+        TextView adtv2 = (TextView) result.findViewById(R.id.adtv2);
+        ImageView adimv = (ImageView) result.findViewById(R.id.adiv);
+        adtv1.startAnimation(Animationone);
+        adtv2.startAnimation(Animationtwo);
+        adimv.startAnimation(Animationthree);
+        ////////////////////////////////////////////////////////
 
         bnot.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -287,9 +302,24 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         tv4.setTypeface(iransanserif);
         tv5.setTypeface(iransanserif);
         tv6.setTypeface(iransanserif);
-
+        adtv1.setTypeface(iransanserif);
+        adtv2.setTypeface(iransanserif);
         /////////////////////////////////////////////////////////
+        View ad = result.findViewById(R.id.soundtrackad);
+        ad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                Uri uri = Uri.parse("http://soundtrackha.ir");
+                Intent stint = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    startActivity(stint);
+                }catch (Exception e){
 
+                }
+            }
+        });
+        /////////////////////////////////////////////////////////
 
         return (result);
     }//end of oncreateview().
@@ -987,6 +1017,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
             v.setAlpha(1);
         }
 
+        //ma bedin vasile yek effecte click shodan ra be in kelidhaye toye safhe asli emal mikonim.
         return false;
     }
 

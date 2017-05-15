@@ -2,16 +2,18 @@ package kerman.ir.hojat72elect.notifyplus;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import kerman.ir.hojat72elect.notifyplus.utils.ColorPalette;
 import kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.LineColorPicker;
 import kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.OnColorChangedListener;
+import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
  * Created by hojat72elect on doshanbe 20 farvardin 1396 .
@@ -19,7 +21,7 @@ import kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.OnColorChangedList
 public class BackgroundColorDialogFragment extends DialogFragment implements View.OnClickListener {
 
     buttonclicked mbuttonlistener;
-    Button setColorButton;
+    ButtonRectangle setColorButton;
     View backlayout;
     private View rangpallete;
     private LineColorPicker colorPicker;
@@ -75,11 +77,6 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
             }
         });
 
-
-        // get selected color
-        int color = colorPicker.getColor();
-
-
       /*  rangpallete.setBackgroundColor(Color.argb(
                 alphaSeekBar.getProgress(),
                 redSeekBar.getProgress(),
@@ -87,10 +84,14 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
                 blueSeekBar.getProgress()));*/
 
 
-        setColorButton = (Button) v.findViewById(R.id.setColorButton);
+        setColorButton = (ButtonRectangle) v.findViewById(R.id.setColorButton);
         setColorButton.setOnClickListener(this);
+
         ///////////////////////////////////////////////////////////////////////////
-        //dar inja font ra emal mikonim.
+        // dar inja font ra emal mikonim.
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
+        backlayouttext.setTypeface(iransanserif);
         ////////////////////////////////////////////////////////////////////////////
 
         return v;

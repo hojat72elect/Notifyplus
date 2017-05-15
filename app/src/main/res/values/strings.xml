@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NotifyPlus</string>
+    <string name="app_name">Notifyplus</string>
     <string name="navigation_drawer_open">باز کردن منوی کناری</string>
     <string name="navigation_drawer_close">بستن منوی کناری</string>
     <string name="supernotiftitle">آگاه ساز ویژه</string>
@@ -43,4 +43,7 @@
     <string name="share">به اشتراک گذاری</string>
     <string name="send_to">این برنامه را با دوستان خود به اشتراک بگذارید</string>
     <string name="sharetext">هر کدام از برنامه های مورد علاقه تان را در کمتر از 3 ثانیه باز کنید!!!</string>
+    <string name="errortelegram">مشکل در اتصال به سرور تلگرام</string>
+    <string name="adstring">آرشیو کاملی از موسیقی متن فیلم های روز دنیا با کیفیت خارق العاده ی FLAC</string>
+    <string name="adstring2">WWW.SOUNDTRACKHA.IR</string>
 </resources>
