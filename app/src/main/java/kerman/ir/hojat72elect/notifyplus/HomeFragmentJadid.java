@@ -331,7 +331,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         /////////////////////////////////////////////////////////
 
         int tn = tashvigh_number.getInt(write_key_tashvigh, 0);
-        if ((tn == 50)) {
+        if ((tn == 30)) {
             calltashvighdialog();
             tn = 0;
         }
