@@ -24,6 +24,8 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
     ButtonRectangle b5;
     ButtonRectangle b6;
     ButtonRectangle b7;
+    ButtonRectangle b8;
+
     View backlayout;
     buttonclicked mbuttonlistener;
 
@@ -108,6 +110,14 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
             }
         });
 
+        b8 = (ButtonRectangle) v.findViewById(R.id.mb8);
+        b8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                backtohomefragmentjadid(8);
+            }
+        });
 
         //////////////////////////////////////////////////////////////
         Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");

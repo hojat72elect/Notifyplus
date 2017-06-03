@@ -8,8 +8,8 @@ android {
         applicationId "kerman.ir.hojat72elect.notifyplus"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 22
-        versionName "0.4.7"
+        versionCode 23
+        versionName "0.5.1"
     }
     buildTypes {
         release {

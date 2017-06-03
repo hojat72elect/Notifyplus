@@ -211,8 +211,15 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case 3:
-
                 callhelpdialogfragment();
+                break;
+
+            case 5:
+                callrequestupdatefragment();
+                break;
+
+            case 6:
+                calltashvighdialog();
                 break;
 
             default:
@@ -222,11 +229,30 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void calltashvighdialog() {
+        // dialogfragment baraye tashvigh be kharid ra neshan bedahid.
+        DialogFragment newFragment = TashvighDialogFragment.newInstance();
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.setCancelable(false);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
+    private void callrequestupdatefragment() {
+        // dialogfragment baraye update ra neshan bedahid.
+        DialogFragment newFragment = updatedialogfragment.newInstance();
+        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.setCancelable(true);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
+
     private void callhelpdialogfragment() {
 
         DialogFragment newFragment = HelpDialogfragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
-        android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.show(getFragmentManager(), "dialog");
     }
 

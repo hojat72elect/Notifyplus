@@ -6,73 +6,74 @@
     android:orientation="horizontal"
     android:id="@+id/notificationlayout">
 
+
+
     <ImageView
         android:id="@+id/notifimv1"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="3dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv2"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
-        android:src="@mipmap/ic_launcher"
-        />
+        android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv3"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv4"
-        android:layout_width="44dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv5"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv6"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/notifimv7"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginRight="3dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/ic_launcher" />

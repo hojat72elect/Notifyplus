@@ -2,42 +2,50 @@ package kerman.ir.hojat72elect.notifyplus;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.farsitel.bazaar.IUpdateCheckService;
+
 /**
  * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
  */
 public class HomeFragmentJadid extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
+    private static final String TAG = "UpdateCheck";
     private static TextView tvofappclicked;
     private static int bc;// the number of button which is clicked.
     private static int kelidsnumber;//total number of buttons which are shown in app.
     private static int rangbackground;//rang pas zamine
     private static SharedPreferences number_of_app_buttons; //shared preferences for saving the number of app buttons.
+    private static SharedPreferences tashvigh_number;
     private static String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
+    private static String write_key_tashvigh = "tashvighprefs";
+
     private static String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
+    IUpdateCheckService service;
+    UpdateServiceConnection connection;
     //////////////////////////////////////////////////
     ////////////////////////////////////////////////////
     LayoutInflater buttons_inflater;
@@ -59,6 +67,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     private SharedPreferences bpanjom;
     private SharedPreferences bshishom;
     private SharedPreferences bhaftom;
+    private SharedPreferences bhashtom;
+
     private SharedPreferences rangshpref;
     private Button ab1;
     private Button ab2;
@@ -67,6 +77,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     private Button ab5;
     private Button ab6;
     private Button ab7;
+    private Button ab8;
     private String write_key_aval = "bavalsharedpref";
     private String write_key_dovom = "bdovomsharedpref";
     private String write_key_sevom = "bsevomsharedpref";
@@ -74,6 +85,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     private String write_key_panjom = "bpanjomsharedpref";
     private String write_key_shishom = "bshishomsharedpref";
     private String write_key_haftom = "bhaftomsharedpref";
+    private String write_key_hashtom = "bhashtomsharedpref";
+
     private String write_key_rang = "rangsharedpref";
 
     private LinearLayout buttons_row;//linear layout with the buttons inside of it.
@@ -108,6 +121,11 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         return f;
     }
 
+    private void calltashvighdialog() {
+
+        mnoabListener.noabmethod(6, 0);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,18 +147,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         bnot = (Switch) result.findViewById(R.id.notifyswitch);
         mtogglenot = result.findViewById(R.id.togglenot);
 
-        /////////////////////////////////////////////////////////
-        Animation Animationone = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.adanimtext1);
-        Animation Animationtwo = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.adanimtext2);
-        Animation Animationthree = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.adanimicon);
-
-        TextView adtv1 = (TextView) result.findViewById(R.id.adtv1);
-        TextView adtv2 = (TextView) result.findViewById(R.id.adtv2);
-        ImageView adimv = (ImageView) result.findViewById(R.id.adiv);
-        adtv1.startAnimation(Animationone);
-        adtv2.startAnimation(Animationtwo);
-        adimv.startAnimation(Animationthree);
-        ////////////////////////////////////////////////////////
 
         bnot.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -151,7 +157,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     // The toggle is enabled
                     notification_state = true;
                     notifeditor.putBoolean(write_key_notif, true);
-                    roudaki(notification_state, number_of_app_buttons, rangshpref.getInt(write_key_rang, 0));
+                    roudaki(notification_state, number_of_app_buttons);
                     //starting the notification with the shared preferences we have
                 } else {
                     // The toggle is disabled
@@ -168,6 +174,9 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         c = getActivity().getApplicationContext();
         mPm = c.getPackageManager();
         number_of_app_buttons = getActivity().getSharedPreferences("number_of_app_buttons_prefs", 0);
+
+        tashvigh_number = getActivity().getSharedPreferences("tashvigh_prefs", 0);
+
         isnotifon = getActivity().getSharedPreferences("notify_on_orefs", 0);
 
         baval = getActivity().getSharedPreferences("first_button_prefs", 0);
@@ -177,6 +186,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         bpanjom = getActivity().getSharedPreferences("fifth_button_prefs", 0);
         bshishom = getActivity().getSharedPreferences("sixth_button_prefs", 0);
         bhaftom = getActivity().getSharedPreferences("seventh_button_prefs", 0);
+        bhashtom = getActivity().getSharedPreferences("eighth_button_prefs", 0);
+
         rangshpref = getActivity().getSharedPreferences("rang_prefs", 0);
 
         buttons_inflater = inflater;
@@ -278,6 +289,14 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     bhaftomeditor.commit();
                     break;
 
+
+                case 8:
+                    // ab7.setBackgroundDrawable(imvofappclicked.getDrawable());//loads the app icon for image view in app's main page.
+                    SharedPreferences.Editor bhashtomeditor = bhashtom.edit();
+                    bhashtomeditor.putString(write_key_hashtom, tvofappclicked.getText().toString());
+                    bhashtomeditor.commit();
+                    break;
+
                 default:
 
                     break;
@@ -290,10 +309,11 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         hafez();
 
         if (isnotifyon) {
-            roudaki(notification_state, number_of_app_buttons, rangshpref.getInt(write_key_rang, 0));
+            roudaki(notification_state, number_of_app_buttons);
             //agar notification ghablan neshan dade shode bashad ,
             // an ra update mikonim.
         }
+
         /////////////////////////////////////////////////////////
         Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
         tv1.setTypeface(iransanserif);
@@ -302,27 +322,35 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         tv4.setTypeface(iransanserif);
         tv5.setTypeface(iransanserif);
         tv6.setTypeface(iransanserif);
-        adtv1.setTypeface(iransanserif);
-        adtv2.setTypeface(iransanserif);
-        /////////////////////////////////////////////////////////
-        View ad = result.findViewById(R.id.soundtrackad);
-        ad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Uri uri = Uri.parse("http://soundtrackha.ir");
-                Intent stint = new Intent(Intent.ACTION_VIEW, uri);
-                try {
-                    startActivity(stint);
-                }catch (Exception e){
 
-                }
-            }
-        });
         /////////////////////////////////////////////////////////
+        if ((bc == 0) && (rangbackground == -100)) {
+            //ba click bar roye icon varede barname shode ast.
+            initService();
+        }
+        /////////////////////////////////////////////////////////
+
+        int tn = tashvigh_number.getInt(write_key_tashvigh, 0);
+        if ((tn == 50)) {
+            calltashvighdialog();
+            tn = 0;
+        }
+        tn++;
+        SharedPreferences.Editor tashvigheditor = tashvigh_number.edit();
+        tashvigheditor.putInt(write_key_tashvigh, tn);
+        tashvigheditor.commit();
+
+        /////////////////////////////////////////////////////////////
+
 
         return (result);
     }//end of oncreateview().
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        releaseService();
+    }
 
 
     @Override
@@ -348,98 +376,202 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
                 } catch (Exception e) {
-
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
                 }
                 break;
+
             case 2:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                } catch (Exception e) {
+                }
+                try {
                     ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
                 }
                 break;
+
             case 3:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
-
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
                 }
                 break;
+
             case 4:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
-
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                } catch (Exception e) {
                 }
                 break;
+
             case 5:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
-
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                } catch (Exception e) {
                 }
                 break;
+
             case 6:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
-                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
-
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
+                } catch (Exception e) {
                 }
                 break;
+
             case 7:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
-                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
-                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
-
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
+                } catch (Exception e) {
                 }
                 break;
+
+            case 8:
+                try {
+                    ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab8.setBackgroundDrawable(mPm.getApplicationIcon(bhashtom.getString(write_key_hashtom, null)));
+                } catch (Exception e) {
+                }
+                break;
+
             default:
                 try {
                     ab1.setBackgroundDrawable(mPm.getApplicationIcon(baval.getString(write_key_aval, null)));
-                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
-                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
-                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
-                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
-                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
-                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
-
                 } catch (Exception e) {
-                    Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in hafez", Toast.LENGTH_LONG).show();
-
+                }
+                try {
+                    ab2.setBackgroundDrawable(mPm.getApplicationIcon(bdovom.getString(write_key_dovom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab3.setBackgroundDrawable(mPm.getApplicationIcon(bsevom.getString(write_key_sevom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab4.setBackgroundDrawable(mPm.getApplicationIcon(bcharom.getString(write_key_charom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab5.setBackgroundDrawable(mPm.getApplicationIcon(bpanjom.getString(write_key_panjom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab6.setBackgroundDrawable(mPm.getApplicationIcon(bshishom.getString(write_key_shishom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab7.setBackgroundDrawable(mPm.getApplicationIcon(bhaftom.getString(write_key_haftom, null)));
+                } catch (Exception e) {
+                }
+                try {
+                    ab8.setBackgroundDrawable(mPm.getApplicationIcon(bhashtom.getString(write_key_hashtom, null)));
+                } catch (Exception e) {
                 }
                 break;
 
@@ -453,7 +585,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     }//end of  hafez().
 
 
-    private void roudaki(boolean notify_user, SharedPreferences number_of_app_buttons, int color) {
+    private void roudaki(boolean notify_user, SharedPreferences number_of_app_buttons) {
 
 
         try {
@@ -517,6 +649,21 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                             , bshishom.getString(write_key_shishom, null)
                             , bhaftom.getString(write_key_haftom, null)};
                     break;
+
+
+                case 8:
+                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify8);
+                    favoriteapps = new String[]{baval.getString(write_key_aval, null),
+                            bdovom.getString(write_key_dovom, null)
+                            , bsevom.getString(write_key_sevom, null)
+                            , bcharom.getString(write_key_charom, null)
+                            , bpanjom.getString(write_key_panjom, null)
+                            , bshishom.getString(write_key_shishom, null)
+                            , bhaftom.getString(write_key_haftom, null)
+                            , bhashtom.getString(write_key_hashtom, null)};
+                    break;
+
+
                 default:
                     remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
@@ -541,9 +688,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
             getActivity().startService(notification_intent);
         } catch (Exception e) {
-            Toast.makeText(getActivity().getApplicationContext(), e.toString() + " in roudaki()", Toast.LENGTH_LONG).show();
-
-
         }
 
     }//end of roudaki().
@@ -864,8 +1008,8 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
                     break;
 
-                default:
-                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_7_button, null);
+                case 8:
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_8_button, null);
 
                     ab1 = (Button) buttons_row.findViewById(R.id.button1);
                     ab1.setOnTouchListener(this);
@@ -932,6 +1076,95 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                         }
                     });
 
+                    ab8 = (Button) buttons_row.findViewById(R.id.button8);
+                    ab8.setOnTouchListener(this);
+                    ab8.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 8;
+                            showlist(bc);
+                        }
+                    });
+
+                    break;
+
+
+                default:
+                    buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_8_button, null);
+
+                    ab1 = (Button) buttons_row.findViewById(R.id.button1);
+                    ab1.setOnTouchListener(this);
+                    ab1.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 1;
+                            showlist(bc);
+                        }
+                    });
+
+                    ab2 = (Button) buttons_row.findViewById(R.id.button2);
+                    ab2.setOnTouchListener(this);
+                    ab2.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 2;
+                            showlist(bc);
+                        }
+                    });
+
+
+                    ab3 = (Button) buttons_row.findViewById(R.id.button3);
+                    ab3.setOnTouchListener(this);
+                    ab3.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 3;
+                            showlist(bc);
+                        }
+                    });
+
+
+                    ab4 = (Button) buttons_row.findViewById(R.id.button4);
+                    ab4.setOnTouchListener(this);
+                    ab4.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 4;
+                            showlist(bc);
+                        }
+                    });
+
+                    ab5 = (Button) buttons_row.findViewById(R.id.button5);
+                    ab5.setOnTouchListener(this);
+                    ab5.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 5;
+                            showlist(bc);
+                        }
+                    });
+
+                    ab6 = (Button) buttons_row.findViewById(R.id.button6);
+                    ab6.setOnTouchListener(this);
+                    ab6.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 6;
+                            showlist(bc);
+                        }
+                    });
+
+                    ab7 = (Button) buttons_row.findViewById(R.id.button7);
+                    ab7.setOnTouchListener(this);
+                    ab7.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 7;
+                            showlist(bc);
+                        }
+                    });
+
+                    ab8 = (Button) buttons_row.findViewById(R.id.button8);
+                    ab8.setOnTouchListener(this);
+                    ab8.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            bc = 8;
+                            showlist(bc);
+                        }
+                    });
+
                     SharedPreferences.Editor bavaleditor = baval.edit();
                     bavaleditor.putString(write_key_aval, "kerman.ir.hojat72elect.notifyplus");
                     bavaleditor.apply();
@@ -962,14 +1195,18 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     bhaftomeditor.putString(write_key_haftom, "kerman.ir.hojat72elect.notifyplus");
                     bhaftomeditor.apply();
 
+                    SharedPreferences.Editor bhashtomeditor = bhashtom.edit();
+                    bhashtomeditor.putString(write_key_hashtom, "kerman.ir.hojat72elect.notifyplus");
+                    bhashtomeditor.apply();
+
                     SharedPreferences.Editor noabeditor = number_of_app_buttons.edit();
-                    noabeditor.putInt(write_key, 7);
+                    noabeditor.putInt(write_key, 8);
                     noabeditor.apply();
 
 
-                    SharedPreferences.Editor rangeitor = rangshpref.edit();
-                    rangeitor.putInt(write_key_rang, Color.argb(255, 255, 255, 255));
-                    rangeitor.apply();
+                    SharedPreferences.Editor rangeditor = rangshpref.edit();
+                    rangeditor.putInt(write_key_rang, Color.argb(255, 255, 255, 255));
+                    rangeditor.apply();
                     //dar avalin bare ejraye app hamishe in default ast ke rokh midahad.
 
                     Toast.makeText(getActivity().getApplicationContext(), "خوش آمدید!", Toast.LENGTH_LONG).show();
@@ -984,9 +1221,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
             //in 2 khate bala ra be hich vajh taghir nadahid bayad hatman be hamin shekl bashand.
 
         } catch (Exception e) {
-            Toast.makeText(getActivity().getApplicationContext(), e.toString() + "in the sadie", Toast.LENGTH_LONG).show();
-
-
         }
 
 
@@ -1021,6 +1255,34 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         return false;
     }
 
+    private void initService() {
+        Log.i(TAG, "initService()");
+        connection = new UpdateServiceConnection();
+        Intent i = new Intent(
+                "com.farsitel.bazaar.service.UpdateCheckService.BIND");
+        i.setPackage("com.farsitel.bazaar");
+        boolean ret = getActivity().bindService(i, connection, Context.BIND_AUTO_CREATE);
+        Log.d(TAG, "initService() bound value: " + ret);
+    }
+
+    private void releaseService() {
+        try {
+            if (connection != null) {
+                getActivity().unbindService(connection);
+                connection = null;
+            }
+        } catch (Exception e) {
+        }
+
+    }
+
+
+    private void requestforupdate(long vCode) {
+        if (vCode > 23) {
+            //bayad be karbar begim barname ra update konad.(dialoge darkhast update ra neshan midahim.)
+            mnoabListener.noabmethod(5, 0);
+        }
+    }
 
     public interface listenerfornoab {
         void noabmethod(int dialognumber, int bc);
@@ -1029,5 +1291,26 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         //dialognumber=1 dialogi ke app haye nasb shode dar dastgah ra neshan midahad.
         //dialognumber=2 dialogi ke background color ra miporsad.
     }
+
+    class UpdateServiceConnection implements ServiceConnection {
+        public void onServiceConnected(ComponentName name, IBinder boundService) {
+            service = IUpdateCheckService.Stub
+                    .asInterface((IBinder) boundService);
+            try {
+                long vCode = service.getVersionCode("kerman.ir.hojat72elect.notifyplus");
+                requestforupdate(vCode);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "onServiceConnected(): Connected");
+
+        }
+
+        public void onServiceDisconnected(ComponentName name) {
+            service = null;
+            Log.d(TAG, "onServiceDisconnected(): Disconnected");
+        }
+    }
+
 
 }
