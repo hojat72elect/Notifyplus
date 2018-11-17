@@ -15,7 +15,7 @@ import android.widget.RemoteViews;
 
 
 /**
- * Created by hojat72elect on 23 esfand 1395 in kerman.
+ * Created by hojat_ghasemi on 13 March 2017 in kerman.
  */
 public class NotificationService extends Service {
 

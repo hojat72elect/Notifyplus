@@ -16,7 +16,7 @@ import kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.OnColorChangedList
 import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
- * Created by hojat72elect on doshanbe 20 farvardin 1396 .
+ * Created by hojat_ghasemi on Monday , 9 April 2017 .
  */
 public class BackgroundColorDialogFragment extends DialogFragment implements View.OnClickListener {
 
@@ -89,7 +89,7 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
 
         ///////////////////////////////////////////////////////////////////////////
         // dar inja font ra emal mikonim.
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
         TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
         backlayouttext.setTypeface(iransanserif);
         ////////////////////////////////////////////////////////////////////////////

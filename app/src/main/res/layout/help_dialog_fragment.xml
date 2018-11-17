@@ -20,6 +20,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textSize="18sp"
                 android:id="@+id/am1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
                 android:background="#5000" />
 
             <TextView
+                android:textSize="18sp"
                 android:id="@+id/am2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,6 +54,7 @@
                 android:background="#5000" />
 
             <TextView
+                android:textSize="18sp"
                 android:id="@+id/am3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,6 +71,7 @@
                 android:background="#5000" />
 
             <TextView
+                android:textSize="18sp"
                 android:id="@+id/am4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,21 +79,9 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/helpstring4" />
 
-            <view
-                class="android.view.View"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="15sp"
-                android:layout_marginRight="10sp"
-                android:background="#5000" />
 
-            <TextView
-                android:id="@+id/am5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="@string/helpstring5" />
+
+
 
         </LinearLayout>
     </ScrollView>

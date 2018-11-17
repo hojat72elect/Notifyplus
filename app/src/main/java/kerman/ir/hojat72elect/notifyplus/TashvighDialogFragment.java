@@ -13,7 +13,7 @@ import android.widget.Toast;
 import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
- * Created by hojat72elect on panjshanbe 11 khordad 1396 in kerman .
+ * Created by hojat_ghasemi on Thursday , 1 June 2017 in kerman .
  */
 public class TashvighDialogFragment extends DialogFragment implements View.OnClickListener {
 

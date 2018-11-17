@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * Created by hojat72elect on 26 esfand 1395 in kerman.
+ * Created by hojat_ghasemi on 16 March 2017 in kerman.
  */
 public class AppsDialogFragment extends DialogFragment {
 
@@ -96,7 +96,7 @@ public class AppsDialogFragment extends DialogFragment {
 //
 //        ////////////////////////////////////
 //        backlayout = v.findViewById(R.id.backlayout);
-//        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+//        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
 //        TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
 //        backlayouttext.setTypeface(iransanserif);
 //

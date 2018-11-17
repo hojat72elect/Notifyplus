@@ -29,7 +29,7 @@ import android.widget.Toast;
 import com.farsitel.bazaar.IUpdateCheckService;
 
 /**
- * Created by hojat72elect on panjshanbe 10 farvardin 1396 in kerman.
+ * Created by hojat_ghasemi on Thursday , 30 March 2017 in kerman.
  */
 public class HomeFragmentJadid extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
@@ -315,7 +315,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         }
 
         /////////////////////////////////////////////////////////
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
         tv1.setTypeface(iransanserif);
         tv2.setTypeface(iransanserif);
         tv3.setTypeface(iransanserif);

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Created by hojat72elect on seshanbe 29 farvardin 1396 in kerman .
+ * Created by hojat_ghasemi on Tuesday , 18 April 2017 in kerman .
  */
 public class HelpDialogfragment extends DialogFragment {
 
@@ -18,7 +18,7 @@ public class HelpDialogfragment extends DialogFragment {
     TextView am2;
     TextView am3;
     TextView am4;
-    TextView am5;
+
     TextView bazgasht;
 
     View backlayout;
@@ -41,15 +41,15 @@ public class HelpDialogfragment extends DialogFragment {
         am2 = (TextView) v.findViewById(R.id.am2);
         am3 = (TextView) v.findViewById(R.id.am3);
         am4 = (TextView) v.findViewById(R.id.am4);
-        am5 = (TextView) v.findViewById(R.id.am5);
+
         bazgasht = (TextView) v.findViewById(R.id.bazgasht);
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
 
         am1.setTypeface(iransanserif);
         am2.setTypeface(iransanserif);
         am3.setTypeface(iransanserif);
         am4.setTypeface(iransanserif);
-        am5.setTypeface(iransanserif);
+
         bazgasht.setTypeface(iransanserif);
 
         backlayout = v.findViewById(R.id.backlayout);

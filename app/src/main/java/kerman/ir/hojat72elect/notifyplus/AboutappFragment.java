@@ -17,7 +17,7 @@ import android.widget.Toast;
 import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
- * Created by hojat72elect on doshanbe 23 esfand 1395 in kerman.
+ * Created by hojat_ghasemi on Monday ,13 March 2017 in kerman.
  */
 public class AboutappFragment extends DialogFragment implements View.OnClickListener {
 
@@ -58,7 +58,7 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
         Animation ThirdAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.dialoganimthree);
 
         ///////////////////////////////////////////////////////////////
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
         t1.setTypeface(iransanserif);
         t2.setTypeface(iransanserif);
         ///////////////////////////////////////////////////////////////

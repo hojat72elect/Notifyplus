@@ -1,7 +1,7 @@
 package kerman.ir.hojat72elect.notifyplus;
 
 /**
- * Created by hojat72elect on shanbe 6 khordad 1396 in kerman.
+ * Created by hojat_ghasemi on Saturday , 27 May 2017 in kerman.
  */
 
 import android.content.pm.ApplicationInfo;

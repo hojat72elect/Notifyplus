@@ -15,7 +15,7 @@ import android.widget.Toast;
 import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
- * Created by hojat72elect on panjshanbe 4 khordad 1396 in kerman.
+ * Created by hojat_ghasemi on Thursday , 25 May 2017 in kerman.
  */
 public class updatedialogfragment extends DialogFragment implements View.OnClickListener {
 
@@ -44,7 +44,7 @@ public class updatedialogfragment extends DialogFragment implements View.OnClick
         updateb.setOnClickListener(this);
         cancelb.setOnClickListener(this);
         backlayout.setOnClickListener(this);
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
         bazgasht.setTypeface(iransanserif);
         t1.setTypeface(iransanserif);
         return v;

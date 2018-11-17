@@ -13,7 +13,7 @@ import android.widget.TextView;
 import kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle;
 
 /**
- * Created by hojat72elect on shanbe 12 farvardin 1396 in kerman.
+ * Created by hojat_ghasemi on Saturday , 1 April 2017 in kerman.
  */
 public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
@@ -120,7 +120,7 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
         });
 
         //////////////////////////////////////////////////////////////
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "Arabicgithub.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
 
         TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
         backlayouttext.setTypeface(iransanserif);

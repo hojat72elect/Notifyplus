@@ -8,7 +8,7 @@ import android.support.v4.graphics.ColorUtils;
 import kerman.ir.hojat72elect.notifyplus.R;
 
 /**
- * Created by hojat72elect on doshanbe 18 ordibehesht 1396 in kerman.
+ * Created by hojat_ghasemi on Monday , 8 May 2017 in kerman.
  */
 
 public class ColorPalette {

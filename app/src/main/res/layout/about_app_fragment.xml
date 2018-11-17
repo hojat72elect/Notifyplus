@@ -24,7 +24,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="@string/tu"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/t2"
@@ -33,7 +33,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:text="@string/hojat72elect"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
 
             <LinearLayout
@@ -48,10 +48,10 @@
                 <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
                     android:id="@+id/btelegram"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="84dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.68"
                     android:background="#ff4fa0ff"
                     android:maxLines="1"
                     android:text="@string/telegram" />
@@ -60,10 +60,10 @@
                 <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
                     android:id="@+id/binstagram"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="84dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.68"
                     android:background="#ff4fa0ff"
                     android:maxLines="1"
                     android:text="@string/instagram" />
