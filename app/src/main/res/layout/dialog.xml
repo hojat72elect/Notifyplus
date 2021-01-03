@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#55000000"
-    android:padding="32dp" >
+    android:padding="32dp">
 
     <RelativeLayout
         android:id="@+id/contentDialog"
@@ -30,12 +30,12 @@
             android:layout_below="@id/title"
             android:paddingBottom="50dp"
             android:scrollbarSize="2dp"
-            android:scrollbarThumbVertical="@color/thumbColor" >
+            android:scrollbarThumbVertical="@color/thumbColor">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/message"
@@ -53,22 +53,22 @@
             android:layout_alignBottom="@id/message_scrollView"
             android:layout_marginTop="24dp"
             android:gravity="right"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
-            <com.gc.materialdesign.views.ButtonFlat
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonFlat
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"                
                 android:background="#000000"
+                android:text="Cancel"
                 android:visibility="gone" />
 
-            <com.gc.materialdesign.views.ButtonFlat
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonFlat
                 android:id="@+id/button_accept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accept"
-                android:background="#1E88E5" />
+                android:background="#1E88E5"
+                android:text="Accept" />
         </LinearLayout>
     </RelativeLayout>
 

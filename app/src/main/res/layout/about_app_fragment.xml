@@ -8,71 +8,68 @@
     <include layout="@layout/dialog_header" />
 
 
+    <LinearLayout
+        android:id="@+id/baseview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:text="@string/tu"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:text="@string/hojat72elect"
+            android:textSize="18sp" />
+
 
         <LinearLayout
-            android:id="@+id/baseview"
+            android:id="@+id/bp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:orientation="vertical"
-            >
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <TextView
-                android:id="@+id/t1"
+
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+                android:id="@+id/btelegram"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:text="@string/tu"
-                android:textSize="20sp" />
+                android:layout_height="84dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.68"
+                android:background="#ff4fa0ff"
+                android:maxLines="1"
+                android:text="@string/telegram" />
 
-            <TextView
-                android:id="@+id/t2"
+
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+                android:id="@+id/binstagram"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:text="@string/hojat72elect"
-                android:textSize="18sp" />
-
-
-            <LinearLayout
-                android:id="@+id/bp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-
-                <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
-                    android:id="@+id/btelegram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="84dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="0.68"
-                    android:background="#ff4fa0ff"
-                    android:maxLines="1"
-                    android:text="@string/telegram" />
-
-
-                <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
-                    android:id="@+id/binstagram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="84dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="0.68"
-                    android:background="#ff4fa0ff"
-                    android:maxLines="1"
-                    android:text="@string/instagram" />
-
-            </LinearLayout>
-
+                android:layout_height="84dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.68"
+                android:background="#ff4fa0ff"
+                android:maxLines="1"
+                android:text="@string/instagram" />
 
         </LinearLayout>
 
+
+    </LinearLayout>
 
 
 </LinearLayout>

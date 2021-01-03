@@ -23,7 +23,6 @@
             android:textSize="14sp" />
 
 
-
         <LinearLayout
             android:id="@+id/bp"
             android:layout_width="match_parent"
@@ -33,7 +32,7 @@
             android:weightSum="2">
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
 
                 android:id="@+id/bcancel"
                 android:layout_width="wrap_content"
@@ -43,11 +42,10 @@
                 android:layout_weight="1"
                 android:background="#ff4fa0ff"
                 android:maxLines="1"
-                android:text="@string/canceltext"
-               />
+                android:text="@string/canceltext" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/bupdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,7 +54,7 @@
                 android:layout_weight="1"
                 android:background="#ff4fa0ff"
                 android:maxLines="1"
-                android:text="@string/updatebuttontext"/>
+                android:text="@string/updatebuttontext" />
 
         </LinearLayout>
 

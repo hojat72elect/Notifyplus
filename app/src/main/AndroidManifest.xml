@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kerman.ir.hojat72elect.notifyplus">
+    package="ca.sudbury.hghasemi.notifyplus">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -23,16 +23,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name="kerman.ir.hojat72elect.notifyplus.NotificationService" />
+        <service android:name=".NotificationService" />
 
-        <activity
-            android:name="ir.adad.client.AdadActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
-
-        <meta-data
-            android:name="AdadToken"
-            android:value="1a20ef28b50c4fdf81daf5b7701058cd" />
 
 
     </application>

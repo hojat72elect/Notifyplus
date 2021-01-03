@@ -1,0 +1,3 @@
+changelog 2.0.1:
+1- I have updated the build scripts of the project.
+2- I have removed the "adad" JAR file and its usage (which was about showing ads to the user).

@@ -22,97 +22,97 @@
             android:orientation="vertical">
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb1"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="1" />
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb2"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="2" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb3"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="3" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb4"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="4" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb5"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="5" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb6"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="6" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb7"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="7" />
 
 
-            <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
                 android:id="@+id/mb8"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="4dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
                 android:background="#ff4fa0ff"
                 android:text="8" />
 

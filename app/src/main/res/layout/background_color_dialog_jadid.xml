@@ -7,23 +7,23 @@
     <include layout="@layout/dialog_header" />
 
 
-    <kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pickerPrimary"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         app:orientation="horizontal"
         app:selectedColorIndex="0" />
 
-    <kerman.ir.hojat72elect.notifyplus.uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pickerPrimary2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         app:orientation="horizontal"
         app:selectedColorIndex="0" />
 
@@ -36,7 +36,7 @@
         android:orientation="horizontal"
         android:weightSum="5">
 
-        <kerman.ir.hojat72elect.notifyplus.views.ButtonRectangle
+        <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
             android:id="@+id/setColorButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"

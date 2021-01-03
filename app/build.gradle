@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "kerman.ir.hojat72elect.notifyplus"
-        minSdkVersion 14
-        targetSdkVersion 25
+        applicationId "kerman.ir.hojat72elect.ca.sudbury.hghasemi.notifyplus"
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode 23
         versionName "0.5.1"
     }
@@ -20,11 +20,10 @@ android {
 }
 
 
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile files('libs/adad-client-3.1.jar')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+
 }
