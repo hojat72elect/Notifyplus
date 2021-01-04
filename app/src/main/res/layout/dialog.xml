@@ -55,19 +55,19 @@
             android:gravity="right"
             android:orientation="horizontal">
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonFlat
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_cancel"
+                style="@style/FlatButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#000000"
                 android:text="Cancel"
                 android:visibility="gone" />
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonFlat
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_accept"
+                style="@style/FlatButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#1E88E5"
                 android:text="Accept" />
         </LinearLayout>
     </RelativeLayout>

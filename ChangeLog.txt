@@ -5,3 +5,7 @@ changelog 2.0.1:
 changelog 2.0.2:
 1- I have converted my previous "ButtonRectangle" usage into AppCompatButton with customized style.
 2- I deleted the fragment which encouraged the user to buy the full version of the app (tashvighDialogFragment).
+
+changelog 2.0.3:
+1- I have converted ButtonFlats to AppCompatButtons with customized style.
+2- I also removed so many unused CustomViews that I used to keep in this project.

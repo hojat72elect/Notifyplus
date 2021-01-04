@@ -20,7 +20,8 @@
             android:paddingTop="18dp"
             android:visibility="invisible" >
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonFlat
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/FlatButton"
                 android:id="@+id/buttonflat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
