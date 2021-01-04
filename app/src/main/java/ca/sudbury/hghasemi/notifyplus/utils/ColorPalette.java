@@ -3,9 +3,7 @@ package ca.sudbury.hghasemi.notifyplus.utils;
 import android.content.Context;
 import android.graphics.Color;
 
-
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.ColorUtils;
 
 import ca.sudbury.hghasemi.notifyplus.R;
 
@@ -14,37 +12,6 @@ import ca.sudbury.hghasemi.notifyplus.R;
  */
 
 public class ColorPalette {
-
-    public static int[] getAccentColors(Context context) {
-        return new int[]{
-                ContextCompat.getColor(context, R.color.md_red_500),
-                ContextCompat.getColor(context, R.color.md_purple_500),
-                ContextCompat.getColor(context, R.color.md_deep_purple_500),
-                ContextCompat.getColor(context, R.color.md_blue_500),
-                ContextCompat.getColor(context, R.color.md_light_blue_500),
-                ContextCompat.getColor(context, R.color.md_cyan_500),
-                ContextCompat.getColor(context, R.color.md_teal_500),
-                ContextCompat.getColor(context, R.color.md_green_500),
-                ContextCompat.getColor(context, R.color.md_yellow_500),
-                ContextCompat.getColor(context, R.color.md_orange_500),
-                ContextCompat.getColor(context, R.color.md_deep_orange_500),
-                ContextCompat.getColor(context, R.color.md_brown_500),
-                ContextCompat.getColor(context, R.color.md_blue_grey_500),
-        };
-    }
-
-    public static int getOscuredColor(int c) {
-        float[] hsv = new float[3];
-        int color = c;
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.85f; // value component
-        color = Color.HSVToColor(hsv);
-        return color;
-    }
-
-    public static int getTransparentColor(int color, int alpha) {
-        return ColorUtils.setAlphaComponent(color, alpha);
-    }
 
     public static int[] getBaseColors(Context context) {
         return new int[]{

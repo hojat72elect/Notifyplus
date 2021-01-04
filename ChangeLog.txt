@@ -12,3 +12,6 @@ changelog 2.0.3:
 
 changelog 2.0.4:
 1- I just kept removing the unused views and widgets.
+
+changelog 2.0.5:
+1- I added the project "uz.shift.colorpicker" as an AAR file and removed lots of redundant codes.

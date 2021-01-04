@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 
 import ca.sudbury.hghasemi.notifyplus.utils.ColorPalette;
-import ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.LineColorPicker;
-import ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.OnColorChangedListener;
+import uz.shift.colorpicker.LineColorPicker;
+import uz.shift.colorpicker.OnColorChangedListener;
 
 /**
  * Created by Hojat_Ghasemi on Monday , 9 April 2017 .

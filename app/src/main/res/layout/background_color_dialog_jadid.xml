@@ -7,7 +7,7 @@
     <include layout="@layout/dialog_header" />
 
 
-    <ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
+    <uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pickerPrimary"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -17,7 +17,7 @@
         app:orientation="horizontal"
         app:selectedColorIndex="0" />
 
-    <ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
+    <uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pickerPrimary2"
         android:layout_width="match_parent"
         android:layout_height="40dp"

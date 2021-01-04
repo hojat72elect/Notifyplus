@@ -1,0 +1,7 @@
+uz.shift.colorpicker
+attr colors
+attr orientation
+attr selectedColorIndex
+id horizontal
+id vertical
+styleable LineColorPicker colors orientation selectedColorIndex

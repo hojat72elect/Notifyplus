@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Notifyplus.iml" filepath="$PROJECT_DIR$/.idea/modules/Notifyplus.iml" group="Notifyplus" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Notifyplus/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/colorpicker-0.5/colorpicker-0.5.iml" filepath="$PROJECT_DIR$/.idea/modules/colorpicker-0.5/colorpicker-0.5.iml" group="Notifyplus/colorpicker-0.5" />
     </modules>
   </component>
 </project>
