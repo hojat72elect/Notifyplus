@@ -107,11 +107,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         return new HomeFragmentJadid();
     }
 
-    private void calltashvighdialog() {
-
-        mnoabListener.noabmethod(6, 0);
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -308,22 +303,6 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         tv4.setTypeface(iransanserif);
         tv5.setTypeface(iransanserif);
         tv6.setTypeface(iransanserif);
-
-        /////////////////////////////////////////////////////////
-
-        String write_key_tashvigh = "tashvighprefs";
-        int tn = tashvigh_number.getInt(write_key_tashvigh, 0);
-        if ((tn == 30)) {
-            calltashvighdialog();
-            tn = 0;
-        }
-        tn++;
-        SharedPreferences.Editor tashvigheditor = tashvigh_number.edit();
-        tashvigheditor.putInt(write_key_tashvigh, tn);
-        tashvigheditor.apply();
-
-        /////////////////////////////////////////////////////////////
-
 
         return (result);
     }//end of oncreateview().

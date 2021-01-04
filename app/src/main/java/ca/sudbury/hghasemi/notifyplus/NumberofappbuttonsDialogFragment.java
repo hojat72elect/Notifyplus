@@ -9,21 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle;
+import androidx.appcompat.widget.AppCompatButton;
 
 /**
  * Created by Hojat_Ghasemi on Saturday , 1 April 2017 in kerman.
  */
 public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
-    ButtonRectangle b1;
-    ButtonRectangle b2;
-    ButtonRectangle b3;
-    ButtonRectangle b4;
-    ButtonRectangle b5;
-    ButtonRectangle b6;
-    ButtonRectangle b7;
-    ButtonRectangle b8;
+    AppCompatButton b1;
+    AppCompatButton b2;
+    AppCompatButton b3;
+    AppCompatButton b4;
+    AppCompatButton b5;
+    AppCompatButton b6;
+    AppCompatButton b7;
+    AppCompatButton b8;
 
     View backlayout;
     buttonclicked mbuttonlistener;

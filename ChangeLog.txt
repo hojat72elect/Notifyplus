@@ -1,3 +1,7 @@
 changelog 2.0.1:
 1- I have updated the build scripts of the project.
 2- I have removed the "adad" JAR file and its usage (which was about showing ads to the user).
+
+changelog 2.0.2:
+1- I have converted my previous "ButtonRectangle" usage into AppCompatButton with customized style.
+2- I deleted the fragment which encouraged the user to buy the full version of the app (tashvighDialogFragment).

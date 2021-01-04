@@ -22,98 +22,101 @@
             android:orientation="vertical">
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb1"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
+
                 android:text="1" />
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb2"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
                 android:text="2" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb3"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
+
                 android:text="3" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb4"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
                 android:text="4" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb5"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
                 android:text="5" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb6"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
                 android:text="6" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb7"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
                 android:text="7" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb8"
+                style="@style/raisedButton"
                 android:layout_width="150dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:background="#ff4fa0ff"
                 android:text="8" />
 
         </LinearLayout>

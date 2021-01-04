@@ -99,9 +99,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             callhomefragment(null, 0, -1, -100);
-        } else if (id == R.id.nav_nazardarbazar) {
-            callsettingsfragment();
-        } else if (id == R.id.nav_contactus) {
+        }  else if (id == R.id.nav_contactus) {
             callaboutappfragment();
         } else if (id == R.id.nav_exit) {
             super.onBackPressed();
@@ -213,10 +211,6 @@ public class MainActivity extends AppCompatActivity
                 callrequestupdatefragment();
                 break;
 
-            case 6:
-                calltashvighdialog();
-                break;
-
             default:
 
                 break;
@@ -224,14 +218,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void calltashvighdialog() {
-        // dialogfragment baraye tashvigh be kharid ra neshan bedahid.
-        DialogFragment newFragment = TashvighDialogFragment.newInstance();
-        newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
-                android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.setCancelable(false);
-        newFragment.show(getFragmentManager(), "dialog");
-    }
+
 
     private void callrequestupdatefragment() {
         // dialogfragment baraye update ra neshan bedahid.

@@ -32,27 +32,26 @@
             android:weightSum="2">
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
-
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bcancel"
+                style="@style/raisedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="#ff4fa0ff"
                 android:maxLines="1"
                 android:text="@string/canceltext" />
 
 
-            <ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bupdate"
+                style="@style/raisedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="#ff4fa0ff"
                 android:maxLines="1"
                 android:text="@string/updatebuttontext" />
 

@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatButton;
+
 import ca.sudbury.hghasemi.notifyplus.utils.ColorPalette;
 import ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.LineColorPicker;
 import ca.sudbury.hghasemi.notifyplus.uz.shift.colorpicker.OnColorChangedListener;
-import ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle;
 
 /**
  * Created by Hojat_Ghasemi on Monday , 9 April 2017 .
@@ -20,7 +21,7 @@ import ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle;
 public class BackgroundColorDialogFragment extends DialogFragment implements View.OnClickListener {
 
     buttonclicked mbuttonlistener;
-    ButtonRectangle setColorButton;
+    AppCompatButton setColorButton;
     View backlayout;
     private View rangpallete;
     private LineColorPicker colorPicker;

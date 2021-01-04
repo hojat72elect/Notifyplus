@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle;
+import androidx.appcompat.widget.AppCompatButton;
 
 /**
  * Created by hojat_ghasemi on Thursday , 25 May 2017 in kerman.
  */
 public class updatedialogfragment extends DialogFragment implements View.OnClickListener {
 
-    ButtonRectangle updateb;
-    ButtonRectangle cancelb;
+    AppCompatButton updateb;
+    AppCompatButton cancelb;
     View backlayout;
     TextView bazgasht;
     TextView t1;

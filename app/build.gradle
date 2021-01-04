@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "kerman.ir.hojat72elect.ca.sudbury.hghasemi.notifyplus"
+        applicationId "ca.sudbury.hghasemi.notifyplus"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 23

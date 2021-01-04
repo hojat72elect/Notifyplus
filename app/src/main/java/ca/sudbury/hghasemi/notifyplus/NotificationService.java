@@ -50,7 +50,6 @@ public class NotificationService extends Service {
 
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        /////////////////////////////////////////////////////////////////////
 
         Context c = getApplicationContext();
         PackageManager mpm = c.getPackageManager();
@@ -284,9 +283,6 @@ public class NotificationService extends Service {
                     }
                     break;
             }
-
-            /////////////////////////////////////////////////////////////////////
-
 
         } catch (Exception ignored) {
         }

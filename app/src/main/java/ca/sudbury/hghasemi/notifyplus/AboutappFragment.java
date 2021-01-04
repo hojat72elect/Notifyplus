@@ -14,15 +14,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ca.sudbury.hghasemi.notifyplus.views.ButtonRectangle;
+import androidx.appcompat.widget.AppCompatButton;
 
 /**
  * Created by Hojat_Ghasemi on Monday ,13 March 2017 in kerman.
  */
 public class AboutappFragment extends DialogFragment implements View.OnClickListener {
 
-    ButtonRectangle btelegram;
-    ButtonRectangle binstagram;
+    AppCompatButton btelegram;
+    AppCompatButton binstagram;
     TextView t1;
     View bp;
     TextView t2;
