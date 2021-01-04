@@ -14,7 +14,7 @@
         android:background="@drawable/dialog_background"
         android:padding="24dp">
 
-        <ca.sudbury.hghasemi.notifyplus.views.ProgressBarCircularIndeterminate
+        <ProgressBar
             android:id="@+id/progressBarCircularIndetermininate"
             android:layout_width="32dp"
             android:layout_height="32dp"

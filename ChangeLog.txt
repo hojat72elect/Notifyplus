@@ -9,3 +9,6 @@ changelog 2.0.2:
 changelog 2.0.3:
 1- I have converted ButtonFlats to AppCompatButtons with customized style.
 2- I also removed so many unused CustomViews that I used to keep in this project.
+
+changelog 2.0.4:
+1- I just kept removing the unused views and widgets.
