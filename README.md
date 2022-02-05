@@ -7,4 +7,10 @@ During 2018, NotifyPlus was highlighted in that market as "the editor's choice i
 
 After my immigration to Canada, I have removed this app from all markets and am publishing its source code in this repository.
 
-The app is not stable or runnable at this point.
+The app is not stable or runnable at this point .
+
+***********
+in order to be able to show a notification to the user I need:
+
+android.permission.FOREGROUND_SERVICE
+***********
