@@ -298,7 +298,7 @@ public class NotificationService extends Service {
 
 
         return (START_NOT_STICKY);
-    }//end of on start command
+    }
 
     @Override
     public void onDestroy() {

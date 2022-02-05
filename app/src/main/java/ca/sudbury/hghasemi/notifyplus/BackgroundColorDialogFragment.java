@@ -1,7 +1,6 @@
 package ca.sudbury.hghasemi.notifyplus;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.DialogFragment;
+
+import java.util.Objects;
 
 import ca.sudbury.hghasemi.notifyplus.utils.ColorPalette;
 import uz.shift.colorpicker.LineColorPicker;
-import uz.shift.colorpicker.OnColorChangedListener;
 
 /**
  * Created by Hojat_Ghasemi on Monday , 9 April 2017 .
@@ -41,46 +43,27 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
 
 
         backlayout = v.findViewById(R.id.backlayout);
-        backlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
-            }
-        });
+        backlayout.setOnClickListener(v1 -> Objects.requireNonNull(getDialog()).cancel());
         rangpallete = v.findViewById(R.id.colorView);
         colorPicker = v.findViewById(R.id.pickerPrimary);
         colorPicker2 = v.findViewById(R.id.pickerPrimary2);
 
         // set color palette
-        colorPicker.setColors(ColorPalette.getBaseColors(getActivity().getApplicationContext()));
-        colorPicker2.setColors(ColorPalette.getColors(getActivity().getApplicationContext(), colorPicker.getColor()));
+        colorPicker.setColors(ColorPalette.getBaseColors(requireActivity().getApplicationContext()));
+        colorPicker2.setColors(ColorPalette.getColors(requireActivity().getApplicationContext(), colorPicker.getColor()));
         rangpallete.setBackgroundColor(colorPicker2.getColor());
 
         // set on change listener
-        colorPicker.setOnColorChangedListener(new OnColorChangedListener() {
-            @Override
-            public void onColorChanged(int c) {
-                //c is the selected color
-                // rang ra be view emal konid.
+        colorPicker.setOnColorChangedListener(c -> {
+            //c is the selected color
+            // rang ra be view emal konid.
 
-                rangpallete.setBackgroundColor(colorPicker.getColor());
-                colorPicker2.setColors(ColorPalette.getColors(getActivity().getApplicationContext(), colorPicker.getColor()));
-                colorPicker2.setSelectedColor(colorPicker.getColor());
-            }
+            rangpallete.setBackgroundColor(colorPicker.getColor());
+            colorPicker2.setColors(ColorPalette.getColors(requireActivity().getApplicationContext(), colorPicker.getColor()));
+            colorPicker2.setSelectedColor(colorPicker.getColor());
         });
 
-        colorPicker2.setOnColorChangedListener(new OnColorChangedListener() {
-            @Override
-            public void onColorChanged(int c) {
-                rangpallete.setBackgroundColor(colorPicker2.getColor());
-            }
-        });
-
-      /*  rangpallete.setBackgroundColor(Color.argb(
-                alphaSeekBar.getProgress(),
-                redSeekBar.getProgress(),
-                greenSeekBar.getProgress(),
-                blueSeekBar.getProgress()));*/
+        colorPicker2.setOnColorChangedListener(c -> rangpallete.setBackgroundColor(colorPicker2.getColor()));
 
 
         setColorButton = v.findViewById(R.id.setColorButton);
@@ -88,7 +71,7 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
 
         ///////////////////////////////////////////////////////////////////////////
         // dar inja font ra emal mikonim.
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(requireActivity().getAssets(), "kidfont.ttf");
         TextView backlayouttext = v.findViewById(R.id.bazgasht);
         backlayouttext.setTypeface(iransanserif);
         ////////////////////////////////////////////////////////////////////////////
@@ -97,12 +80,12 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
     }//end of onCreateView().
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         try {
             mbuttonlistener = (buttonclicked) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
+            throw new ClassCastException(activity + " must implement OnArticleSelectedListener");
         }
     }
 
@@ -110,7 +93,7 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
     public void onClick(View v) {
         if (v == setColorButton) {
             mbuttonlistener.rangdialogclicked(colorPicker2.getColor());
-            getDialog().cancel();//dismisses the dialog.
+            Objects.requireNonNull(getDialog()).cancel();//dismisses the dialog.
 
         }
     }

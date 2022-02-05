@@ -20,13 +20,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:textSize="18sp"
                 android:id="@+id/am1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@string/helpstring1" />
+                android:text="@string/helpstring1"
+                android:textSize="18sp" />
 
             <view
                 class="android.view.View"
@@ -37,13 +37,13 @@
                 android:background="#5000" />
 
             <TextView
-                android:textSize="18sp"
                 android:id="@+id/am2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@string/helpstring2" />
+                android:text="@string/helpstring2"
+                android:textSize="18sp" />
 
             <view
                 class="android.view.View"
@@ -54,13 +54,13 @@
                 android:background="#5000" />
 
             <TextView
-                android:textSize="18sp"
                 android:id="@+id/am3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@string/helpstring3" />
+                android:text="@string/helpstring3"
+                android:textSize="18sp" />
 
             <view
                 class="android.view.View"
@@ -71,16 +71,13 @@
                 android:background="#5000" />
 
             <TextView
-                android:textSize="18sp"
                 android:id="@+id/am4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@string/helpstring4" />
-
-
-
+                android:text="@string/helpstring4"
+                android:textSize="18sp" />
 
 
         </LinearLayout>

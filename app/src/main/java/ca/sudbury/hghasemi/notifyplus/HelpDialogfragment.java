@@ -1,12 +1,16 @@
 package ca.sudbury.hghasemi.notifyplus;
 
-import android.app.DialogFragment;
+
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.DialogFragment;
+
+import java.util.Objects;
 
 /**
  * Created by hojat_ghasemi on Tuesday , 18 April 2017 in kerman .
@@ -41,7 +45,7 @@ public class HelpDialogfragment extends DialogFragment {
         am4 = v.findViewById(R.id.am4);
 
         bazgasht = v.findViewById(R.id.bazgasht);
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(requireActivity().getAssets(), "kidfont.ttf");
 
         am1.setTypeface(iransanserif);
         am2.setTypeface(iransanserif);
@@ -51,12 +55,7 @@ public class HelpDialogfragment extends DialogFragment {
         bazgasht.setTypeface(iransanserif);
 
         backlayout = v.findViewById(R.id.backlayout);
-        backlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
-            }
-        });
+        backlayout.setOnClickListener(v1 -> Objects.requireNonNull(getDialog()).cancel());
 
 
         return v;

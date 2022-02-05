@@ -3,7 +3,6 @@ package ca.sudbury.hghasemi.notifyplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -18,10 +17,13 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -32,15 +34,6 @@ public class AppsDialogFragment extends DialogFragment {
     dialogclicked mlistener;
     private ApkListAdapter apkListAdapter;
     private ProgressBar progressBar;
-    //    TableLayout appsTableLayout;
-//    TextView apppackagename;
-//    TextView appname;
-//    ImageView appicon;
-//    AsyncTask at;
-//    LayoutInflater infla;
-//    ScrollView sv;
-//    View backlayout;
-    private View v;
 
     static AppsDialogFragment newInstance() {
         AppsDialogFragment f = new AppsDialogFragment();
@@ -53,7 +46,7 @@ public class AppsDialogFragment extends DialogFragment {
 
 //        String[] a = {"a", "s"};
 //        infla = inflater;
-        v = inflater.inflate(R.layout.maindialog, container, false);
+        View v = inflater.inflate(R.layout.maindialog, container, false);
 
 
         RecyclerView listView = v.findViewById(android.R.id.list);
@@ -117,7 +110,7 @@ public class AppsDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         try {
             mlistener = (dialogclicked) activity;
@@ -126,9 +119,9 @@ public class AppsDialogFragment extends DialogFragment {
         }
     }
 
-    public void backtomainactivity(ImageView imv,TextView tv) {
+    public void backtomainactivity(ImageView imv, TextView tv) {
         mlistener.ondialogclick(imv, tv);
-        getDialog().cancel();//dismisses the dialog.
+        Objects.requireNonNull(getDialog()).cancel();//dismisses the dialog.
     }
 
     public interface dialogclicked {

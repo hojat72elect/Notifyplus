@@ -1,21 +1,19 @@
 package ca.sudbury.hghasemi.notifyplus;
 
 
-import android.app.DialogFragment;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,7 +29,6 @@ public class MainActivity extends AppCompatActivity
         BackgroundColorDialogFragment.buttonclicked {
 
 
-    private HomeFragmentJadid hfj = null;
     private int mbc;
 
     @Override
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-    }//end of onCreate.
+    }
 
     @Override
     public void onBackPressed() {
@@ -99,7 +96,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             callhomefragment(null, 0, -1, -100);
-        }  else if (id == R.id.nav_contactus) {
+        } else if (id == R.id.nav_contactus) {
             callaboutappfragment();
         } else if (id == R.id.nav_exit) {
             super.onBackPressed();
@@ -107,8 +104,8 @@ public class MainActivity extends AppCompatActivity
             callhelpdialogfragment();
         } else if (id == R.id.nav_share) {
             sharemethod();
-
         }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -117,7 +114,7 @@ public class MainActivity extends AppCompatActivity
     private void sharemethod() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharetext) + "\n" + "https://cafebazaar.ir/app/kerman.ir.hojat72elect.notifyplus/?l=fa");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.sharetext) + "\n" + "The app isn't currently published in any markets");
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
     }
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         DialogFragment newFragment = AboutappFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getSupportFragmentManager(), "dialog");
 
     }
 
@@ -136,30 +133,12 @@ public class MainActivity extends AppCompatActivity
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        hfj = HomeFragmentJadid.newInstance(tv, bc, nb, color);
-
-
-        getFragmentManager().beginTransaction()
-                .replace(R.id.maincontent, hfj).commit();
-
-
+        HomeFragmentJadid hfj = HomeFragmentJadid.newInstance(tv, bc, nb, color);
+        getSupportFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
         //ba kari ke toye in method kardim ,
         //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
         //user neshan dade khahad shod.
 
-    }
-
-    private void callsettingsfragment() {
-        try {
-            Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setData(Uri.parse("bazaar://details?id=" + "kerman.ir.hojat72elect.ca.sudbury.hghasemi.notifyplus"));
-            intent.setPackage("com.farsitel.bazaar");
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "مشکل در اتصال به سرور کافه بازار", Toast.LENGTH_LONG).show();
-
-
-        }
     }
 
 
@@ -169,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         DialogFragment newFragment = AppsDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getSupportFragmentManager(), "dialog");
         mbc = bc;
 
 
@@ -219,14 +198,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     private void callrequestupdatefragment() {
         // dialogfragment baraye update ra neshan bedahid.
         DialogFragment newFragment = updatedialogfragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.setCancelable(true);
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getSupportFragmentManager(), "dialog");
     }
 
 
@@ -235,31 +213,22 @@ public class MainActivity extends AppCompatActivity
         DialogFragment newFragment = HelpDialogfragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getSupportFragmentManager(), "dialog");
     }
 
     private void callbackgroundcolordialogfragment() {
         DialogFragment newFragment = BackgroundColorDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(getFragmentManager(), "dialog");
-       /* FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment bgcdf = getFragmentManager().findFragmentByTag("dialog");
-        if (bgcdf != null) {
-            ft.remove(bgcdf);
-        }
-        ft.addToBackStack(null);
-        DialogFragment newFragment = BackgroundColorDialogFragment.newInstance();
-        newFragment.show(ft, "dialog");*/
+        newFragment.show(getSupportFragmentManager(), "dialog");
+
     }
 
     private void callnumberofappbuttonsdialogfragment() {
         DialogFragment newFragment = NumberofappbuttonsDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(getFragmentManager(), "dialog");
-
-
+        newFragment.show(getSupportFragmentManager(), "dialog");
     }
 
     @Override

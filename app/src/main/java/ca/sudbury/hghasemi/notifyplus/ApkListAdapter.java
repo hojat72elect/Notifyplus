@@ -32,6 +32,7 @@ import java.util.concurrent.Executors;
  * Created by Hojat Ghasemi on Saturday , 27 May 2017 in kerman.
  */
 public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHolder> {
+
     @SuppressLint("StaticFieldLeak")
     public static AppsDialogFragment mAdf;
     public final PackageManager packageManager;

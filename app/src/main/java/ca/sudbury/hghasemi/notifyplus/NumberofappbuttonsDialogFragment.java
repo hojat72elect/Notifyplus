@@ -1,7 +1,6 @@
 package ca.sudbury.hghasemi.notifyplus;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.DialogFragment;
+
+import java.util.Objects;
 
 /**
  * Created by Hojat_Ghasemi on Saturday , 1 April 2017 in kerman.
@@ -41,85 +44,33 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
 
 
         backlayout = v.findViewById(R.id.backlayout);
-        backlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
-            }
-        });
+        backlayout.setOnClickListener(v1 -> Objects.requireNonNull(getDialog()).cancel());
         b1 = v.findViewById(R.id.mb1);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(1);
-            }
-        });
+        b1.setOnClickListener(v12 -> backtohomefragmentjadid(1));
 
         b2 = v.findViewById(R.id.mb2);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backtohomefragmentjadid(2);
-            }
-        });
+        b2.setOnClickListener(v13 -> backtohomefragmentjadid(2));
 
         b3 = v.findViewById(R.id.mb3);
-        b3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(3);
-            }
-        });
+        b3.setOnClickListener(v14 -> backtohomefragmentjadid(3));
 
         b4 = v.findViewById(R.id.mb4);
-        b4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(4);
-            }
-        });
+        b4.setOnClickListener(v15 -> backtohomefragmentjadid(4));
 
         b5 = v.findViewById(R.id.mb5);
-        b5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(5);
-            }
-        });
+        b5.setOnClickListener(v16 -> backtohomefragmentjadid(5));
 
         b6 = v.findViewById(R.id.mb6);
-        b6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(6);
-            }
-        });
+        b6.setOnClickListener(v17 -> backtohomefragmentjadid(6));
 
         b7 = v.findViewById(R.id.mb7);
-        b7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(7);
-            }
-        });
+        b7.setOnClickListener(v18 -> backtohomefragmentjadid(7));
 
         b8 = v.findViewById(R.id.mb8);
-        b8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                backtohomefragmentjadid(8);
-            }
-        });
+        b8.setOnClickListener(v19 -> backtohomefragmentjadid(8));
 
         //////////////////////////////////////////////////////////////
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(requireActivity().getAssets(), "kidfont.ttf");
 
         TextView backlayouttext = v.findViewById(R.id.bazgasht);
         backlayouttext.setTypeface(iransanserif);
@@ -134,17 +85,17 @@ public class NumberofappbuttonsDialogFragment extends DialogFragment {
     private void backtohomefragmentjadid(int mint) {
 
         mbuttonlistener.dialogbuttonclicked(mint);
-        getDialog().cancel();//dismisses the dialog.
+        Objects.requireNonNull(getDialog()).cancel();//dismisses the dialog.
 
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         try {
             mbuttonlistener = (buttonclicked) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
+            throw new ClassCastException(activity + " must implement OnArticleSelectedListener");
         }
     }
 

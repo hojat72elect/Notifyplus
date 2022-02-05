@@ -2,7 +2,6 @@ package ca.sudbury.hghasemi.notifyplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,12 +14,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import java.util.Objects;
 
@@ -36,9 +37,9 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     private static int kelidsnumber;//total number of buttons which are shown in app.
     private static int rangbackground;//rang pas zamine
     private static SharedPreferences number_of_app_buttons; //shared preferences for saving the number of app buttons.
-    private static String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
+    private static final String write_key = "noab";//the key for writing on the shared preferences that contains the number of app buttons.
 
-    private static String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
+    private static final String write_key_notif = "noton";//the key for writing on the shared preferences that contains the state of notification.
 
     //////////////////////////////////////////////////
     ////////////////////////////////////////////////////
@@ -65,16 +66,16 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     private Button ab6;
     private Button ab7;
     private Button ab8;
-    private String write_key_aval = "bavalsharedpref";
-    private String write_key_dovom = "bdovomsharedpref";
-    private String write_key_sevom = "bsevomsharedpref";
-    private String write_key_charom = "bcharomsharedpref";
-    private String write_key_panjom = "bpanjomsharedpref";
-    private String write_key_shishom = "bshishomsharedpref";
-    private String write_key_haftom = "bhaftomsharedpref";
-    private String write_key_hashtom = "bhashtomsharedpref";
+    private final String write_key_aval = "bavalsharedpref";
+    private final String write_key_dovom = "bdovomsharedpref";
+    private final String write_key_sevom = "bsevomsharedpref";
+    private final String write_key_charom = "bcharomsharedpref";
+    private final String write_key_panjom = "bpanjomsharedpref";
+    private final String write_key_shishom = "bshishomsharedpref";
+    private final String write_key_haftom = "bhaftomsharedpref";
+    private final String write_key_hashtom = "bhashtomsharedpref";
 
-    private String write_key_rang = "rangsharedpref";
+    private final String write_key_rang = "rangsharedpref";
 
     private View noabview;
     private View bgcolorview;
@@ -129,47 +130,41 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         mtogglenot = result.findViewById(R.id.togglenot);
 
 
-        bnot.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor notifeditor = isnotifon.edit();
+        bnot.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor notifeditor = isnotifon.edit();
 
-                if (isChecked) {
-                    // The toggle is enabled
-                    notification_state = true;
-                    notifeditor.putBoolean(write_key_notif, true);
-                    roudaki(notification_state, number_of_app_buttons);
-                    //starting the notification with the shared preferences we have
-                } else {
-                    // The toggle is disabled
-                    notification_state = false;
-                    notifeditor.putBoolean(write_key_notif, false);
-                    getActivity().stopService(new Intent(getActivity(), NotificationService.class));
-                    //stoping the  whole notification thing.
-                }
-                notifeditor.apply();
+            if (isChecked) {
+                // The toggle is enabled
+                notification_state = true;
+                notifeditor.putBoolean(write_key_notif, true);
+                roudaki(notification_state, number_of_app_buttons);
+                //starting the notification with the shared preferences we have
+            } else {
+                // The toggle is disabled
+                notification_state = false;
+                notifeditor.putBoolean(write_key_notif, false);
+                requireActivity().stopService(new Intent(getActivity(), NotificationService.class));
+                //stoping the  whole notification thing.
             }
-
-
+            notifeditor.apply();
         });
-        Context c = getActivity().getApplicationContext();
+        Context c = requireActivity().getApplicationContext();
         mPm = c.getPackageManager();
-        number_of_app_buttons = getActivity().getSharedPreferences("number_of_app_buttons_prefs", 0);
+        number_of_app_buttons = requireActivity().getSharedPreferences("number_of_app_buttons_prefs", 0);
 
-        SharedPreferences tashvigh_number = getActivity().getSharedPreferences("tashvigh_prefs", 0);
 
-        isnotifon = getActivity().getSharedPreferences("notify_on_orefs", 0);
+        isnotifon = requireActivity().getSharedPreferences("notify_on_orefs", 0);
 
-        baval = getActivity().getSharedPreferences("first_button_prefs", 0);
-        bdovom = getActivity().getSharedPreferences("second_button_prefs", 0);
-        bsevom = getActivity().getSharedPreferences("third_button_prefs", 0);
-        bcharom = getActivity().getSharedPreferences("forth_button_prefs", 0);
-        bpanjom = getActivity().getSharedPreferences("fifth_button_prefs", 0);
-        bshishom = getActivity().getSharedPreferences("sixth_button_prefs", 0);
-        bhaftom = getActivity().getSharedPreferences("seventh_button_prefs", 0);
-        bhashtom = getActivity().getSharedPreferences("eighth_button_prefs", 0);
+        baval = requireActivity().getSharedPreferences("first_button_prefs", 0);
+        bdovom = requireActivity().getSharedPreferences("second_button_prefs", 0);
+        bsevom = requireActivity().getSharedPreferences("third_button_prefs", 0);
+        bcharom = requireActivity().getSharedPreferences("forth_button_prefs", 0);
+        bpanjom = requireActivity().getSharedPreferences("fifth_button_prefs", 0);
+        bshishom = requireActivity().getSharedPreferences("sixth_button_prefs", 0);
+        bhaftom = requireActivity().getSharedPreferences("seventh_button_prefs", 0);
+        bhashtom = requireActivity().getSharedPreferences("eighth_button_prefs", 0);
 
-        rangshpref = getActivity().getSharedPreferences("rang_prefs", 0);
+        rangshpref = requireActivity().getSharedPreferences("rang_prefs", 0);
 
         buttons_inflater = inflater;
 
@@ -181,11 +176,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         ///////////////////////////////////////////////////////
         //inja switch marboot be notification ra meghdar dehi mikonim.
         boolean isnotifyon = isnotifon.getBoolean(write_key_notif, false);
-        if (isnotifyon) {
-            bnot.setChecked(true);
-        } else {
-            bnot.setChecked(false);
-        }
+        bnot.setChecked(isnotifyon);
         ///////////////////////////////////////////////////////
 
 
@@ -296,7 +287,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         }
 
         /////////////////////////////////////////////////////////
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(requireActivity().getAssets(), "kidfont.ttf");
         tv1.setTypeface(iransanserif);
         tv2.setTypeface(iransanserif);
         tv3.setTypeface(iransanserif);
@@ -315,7 +306,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         try {
 
@@ -521,25 +512,25 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
             RemoteViews remote;
             switch (number_app_buttons) {
                 case 1:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify1);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify1);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null)};
                     break;
 
                 case 2:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify2);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify2);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)};
                     break;
 
                 case 3:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify3);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify3);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)
                             , bsevom.getString(write_key_sevom, null)};
                     break;
 
                 case 4:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify4);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify4);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)
                             , bsevom.getString(write_key_sevom, null)
@@ -547,7 +538,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     break;
 
                 case 5:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify5);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify5);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)
                             , bsevom.getString(write_key_sevom, null)
@@ -556,7 +547,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     break;
 
                 case 6:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify6);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify6);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)
                             , bsevom.getString(write_key_sevom, null)
@@ -567,7 +558,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
 
                 case 8:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify8);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify8);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)
                             , bsevom.getString(write_key_sevom, null)
@@ -580,7 +571,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
 
                 default:
-                    remote = new RemoteViews(getActivity().getPackageName(), R.layout.notify7);
+                    remote = new RemoteViews(requireActivity().getPackageName(), R.layout.notify7);
                     favoriteapps = new String[]{baval.getString(write_key_aval, null),
                             bdovom.getString(write_key_dovom, null)
                             , bsevom.getString(write_key_sevom, null)
@@ -601,7 +592,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
             notification_intent.putExtra("numberofappbuttons", number_app_buttons);
 
 
-            getActivity().startService(notification_intent);
+            requireActivity().startService(notification_intent);
         } catch (Exception ignored) {
         }
 
@@ -627,11 +618,9 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
                     buttons_row = (LinearLayout) buttons_inflater.inflate(R.layout.apps_1_button, null);
                     ab1 = buttons_row.findViewById(R.id.button1);
                     ab1.setOnTouchListener(this);
-                    ab1.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            bc = 1;
-                            showlist(bc);
-                        }
+                    ab1.setOnClickListener(v -> {
+                        bc = 1;
+                        showlist(bc);
                     });
 
                     break;
@@ -641,20 +630,16 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
 
                     ab1 = buttons_row.findViewById(R.id.button1);
                     ab1.setOnTouchListener(this);
-                    ab1.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            bc = 1;
-                            showlist(bc);
-                        }
+                    ab1.setOnClickListener(v -> {
+                        bc = 1;
+                        showlist(bc);
                     });
 
                     ab2 = buttons_row.findViewById(R.id.button2);
                     ab2.setOnTouchListener(this);
-                    ab2.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            bc = 2;
-                            showlist(bc);
-                        }
+                    ab2.setOnClickListener(v -> {
+                        bc = 2;
+                        showlist(bc);
                     });
 
 

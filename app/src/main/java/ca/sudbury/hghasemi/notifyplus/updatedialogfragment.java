@@ -1,6 +1,6 @@
 package ca.sudbury.hghasemi.notifyplus;
 
-import android.app.DialogFragment;
+
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.DialogFragment;
+
+import java.util.Objects;
 
 /**
  * Created by hojat_ghasemi on Thursday , 25 May 2017 in kerman.
@@ -42,7 +45,7 @@ public class updatedialogfragment extends DialogFragment implements View.OnClick
         updateb.setOnClickListener(this);
         cancelb.setOnClickListener(this);
         backlayout.setOnClickListener(this);
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(requireActivity().getAssets(), "kidfont.ttf");
         bazgasht.setTypeface(iransanserif);
         t1.setTypeface(iransanserif);
         return v;
@@ -58,13 +61,13 @@ public class updatedialogfragment extends DialogFragment implements View.OnClick
                 intent.setPackage("com.farsitel.bazaar");
                 startActivity(intent);
             } catch (Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), "مشکل در اتصال به سرور کافه بازار", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireActivity().getApplicationContext(), "مشکل در اتصال به سرور کافه بازار", Toast.LENGTH_LONG).show();
 
             }
 
 
         } else if ((v == cancelb) || (v == backlayout)) {
-            getDialog().cancel();
+            Objects.requireNonNull(getDialog()).cancel();
         }
     }
 }
