@@ -1,6 +1,5 @@
 package ca.sudbury.hghasemi.notifyplus;
 
-import android.app.DialogFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.DialogFragment;
+
+import java.util.Objects;
 
 /**
  * Created by Hojat_Ghasemi on Monday ,13 March 2017 in kerman.
@@ -53,12 +55,12 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
         ///////////////////////////////////////
         //here we load the animations:
 
-        Animation BaseAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.dialoganim);
-        Animation SecondAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.dialoganimtwo);
-        Animation ThirdAnimation = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.dialoganimthree);
+        Animation BaseAnimation = AnimationUtils.loadAnimation(requireActivity().getApplicationContext(), R.anim.dialoganim);
+        Animation SecondAnimation = AnimationUtils.loadAnimation(requireActivity().getApplicationContext(), R.anim.dialoganimtwo);
+        Animation ThirdAnimation = AnimationUtils.loadAnimation(requireActivity().getApplicationContext(), R.anim.dialoganimthree);
 
         ///////////////////////////////////////////////////////////////
-        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
+        Typeface iransanserif = Typeface.createFromAsset(requireActivity().getAssets(), "kidfont.ttf");
         t1.setTypeface(iransanserif);
         t2.setTypeface(iransanserif);
         ///////////////////////////////////////////////////////////////
@@ -88,7 +90,7 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
             try {
                 startActivity(liketel);
             } catch (Exception e) {
-                Toast.makeText(getActivity().getApplicationContext(), R.string.errortelegram, Toast.LENGTH_LONG).show();
+                Toast.makeText(requireActivity().getApplicationContext(), R.string.errortelegram, Toast.LENGTH_LONG).show();
 
             }
 
@@ -108,7 +110,7 @@ public class AboutappFragment extends DialogFragment implements View.OnClickList
 
 
         } else if (v == backlayout) {
-            getDialog().cancel();
+            Objects.requireNonNull(getDialog()).cancel();
         }
     }
 }
