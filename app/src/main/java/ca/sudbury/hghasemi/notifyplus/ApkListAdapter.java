@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by Hojat_Hhasemi on Saturday , 27 May 2017 in kerman.
+ * Created by Hojat Ghasemi on Saturday , 27 May 2017 in kerman.
  */
 public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHolder> {
     @SuppressLint("StaticFieldLeak")
@@ -37,13 +37,13 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
     public final PackageManager packageManager;
     public MainActivity mActivity;
     int names_to_load = 0;
-    private ArrayList<ApplicationInfo> list = new ArrayList<>();
-    private ArrayList<ApplicationInfo> list_original = new ArrayList<>();
-    private ExecutorService executorServiceNames = Executors.newFixedThreadPool(3);
-    private ExecutorService executorServiceIcons = Executors.newFixedThreadPool(3);
-    private Handler handler = new Handler();
-    private Map<String, String> cache_appName = Collections.synchronizedMap(new LinkedHashMap<String, String>(10, 1.5f, true));
-    private Map<String, Drawable> cache_appIcon = Collections.synchronizedMap(new LinkedHashMap<String, Drawable>(10, 1.5f, true));
+    private final ArrayList<ApplicationInfo> list = new ArrayList<>();
+    private final ArrayList<ApplicationInfo> list_original = new ArrayList<>();
+    private final ExecutorService executorServiceNames = Executors.newFixedThreadPool(3);
+    private final ExecutorService executorServiceIcons = Executors.newFixedThreadPool(3);
+    private final Handler handler = new Handler();
+    private final Map<String, String> cache_appName = Collections.synchronizedMap(new LinkedHashMap<>(10, 1.5f, true));
+    private final Map<String, Drawable> cache_appIcon = Collections.synchronizedMap(new LinkedHashMap<>(10, 1.5f, true));
 
     private String search_pattern;
 
@@ -78,6 +78,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
         return list.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addItem(ApplicationInfo item) {
         names_to_load++;
         executorServiceNames.submit(new AppNameLoader(item));
@@ -86,6 +87,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSearchPattern(String pattern) {
         search_pattern = pattern.toLowerCase();
         filterListByPattern();
@@ -113,8 +115,8 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
         public ImageView imgIcon;
-        private TextView txtPackageName;
-        private TextView txtAppName;
+        private final TextView txtPackageName;
+        private final TextView txtAppName;
 
         public ViewHolder(View v, ApkListAdapter adapter) {
             super(v);
@@ -127,8 +129,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
         @Override
         public void onClick(View v) {
             mAdf.backtomainactivity(imgIcon, txtPackageName);
-            // ApplicationInfo info = adapter.getItem(getPosition());
-            //   adapter.mActivity.doExctract(info);
+
         }
 
         public void setAppName(String name, String highlight) {
@@ -154,7 +155,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
     }
 
     class AppNameLoader implements Runnable {
-        private ApplicationInfo applicationInfo;
+        private final ApplicationInfo applicationInfo;
 
         public AppNameLoader(ApplicationInfo info) {
             applicationInfo = info;
@@ -163,19 +164,16 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
         @Override
         public void run() {
             cache_appName.put(applicationInfo.packageName, (String) applicationInfo.loadLabel(packageManager));
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    names_to_load--;
-                    if (names_to_load == 0) mAdf.hideProgressBar();
-                }
+            handler.post(() -> {
+                names_to_load--;
+                if (names_to_load == 0) mAdf.hideProgressBar();
             });
         }
     }
 
     class GuiLoader implements Runnable {
-        private ViewHolder viewHolder;
-        private ApplicationInfo applicationInfo;
+        private final ViewHolder viewHolder;
+        private final ApplicationInfo applicationInfo;
 
         public GuiLoader(ViewHolder h, ApplicationInfo info) {
             viewHolder = h;
@@ -193,12 +191,9 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
                     final Drawable icon = applicationInfo.loadIcon(packageManager);
                     cache_appName.put(applicationInfo.packageName, appName);
                     cache_appIcon.put(applicationInfo.packageName, icon);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            viewHolder.setAppName(appName, search_pattern);
-                            viewHolder.imgIcon.setImageDrawable(icon);
-                        }
+                    handler.post(() -> {
+                        viewHolder.setAppName(appName, search_pattern);
+                        viewHolder.imgIcon.setImageDrawable(icon);
                     });
 
 
