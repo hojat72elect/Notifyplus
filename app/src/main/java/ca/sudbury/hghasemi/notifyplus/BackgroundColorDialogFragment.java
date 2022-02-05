@@ -50,7 +50,7 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
 
         // set color palette
         colorPicker.setColors(ColorPalette.getBaseColors(requireActivity().getApplicationContext()));
-        colorPicker2.setColors(ColorPalette.getColors(requireActivity().getApplicationContext(), colorPicker.getColor()));
+        colorPicker2.setColors(ColorPalette.getSecondaryColors(requireActivity().getApplicationContext(), colorPicker.getColor()));
         rangpallete.setBackgroundColor(colorPicker2.getColor());
 
         // set on change listener
@@ -59,7 +59,7 @@ public class BackgroundColorDialogFragment extends DialogFragment implements Vie
             // rang ra be view emal konid.
 
             rangpallete.setBackgroundColor(colorPicker.getColor());
-            colorPicker2.setColors(ColorPalette.getColors(requireActivity().getApplicationContext(), colorPicker.getColor()));
+            colorPicker2.setColors(ColorPalette.getSecondaryColors(requireActivity().getApplicationContext(), colorPicker.getColor()));
             colorPicker2.setSelectedColor(colorPicker.getColor());
         });
 
