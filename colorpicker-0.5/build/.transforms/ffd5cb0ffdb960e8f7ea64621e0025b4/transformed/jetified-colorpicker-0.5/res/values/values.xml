@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LineColorPicker"><attr format="enum" name="orientation"><enum name="horizontal" value="0"/><enum name="vertical" value="1"/></attr><attr format="reference" name="colors"/><attr format="integer" name="selectedColorIndex"/></declare-styleable>
+</resources>

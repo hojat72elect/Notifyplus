@@ -1,0 +1,9 @@
+int attr colors 0x7f010001
+int attr orientation 0x7f010000
+int attr selectedColorIndex 0x7f010002
+int id horizontal 0x7f020000
+int id vertical 0x7f020001
+int[] styleable LineColorPicker { 0x7f010000, 0x7f010001, 0x7f010002 }
+int styleable LineColorPicker_colors 1
+int styleable LineColorPicker_orientation 0
+int styleable LineColorPicker_selectedColorIndex 2
