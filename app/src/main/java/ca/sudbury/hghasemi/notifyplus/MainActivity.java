@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
         HomeFragmentJadid.listenerfornoab,
         AppsDialogFragment.dialogclicked,
         ButtonCountDialogFragment.ButtonCountChangedListener,
-        BackgroundColorDialogFragment.buttonclicked {
+        ColorDialogFragment.buttonclicked {
 
 
     private int mbc;
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callbackgroundcolordialogfragment() {
-        DialogFragment newFragment = BackgroundColorDialogFragment.newInstance();
+        DialogFragment newFragment = ColorDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.show(getSupportFragmentManager(), "dialog");
