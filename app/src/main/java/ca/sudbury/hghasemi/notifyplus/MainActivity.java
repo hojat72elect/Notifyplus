@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity
 
     private void callhelpdialogfragment() {
 
-        DialogFragment newFragment = HelpDialogfragment.newInstance();
+        DialogFragment newFragment = HelpDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.show(getSupportFragmentManager(), "dialog");
