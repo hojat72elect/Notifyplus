@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity
 
     private void callrequestupdatefragment() {
         // dialogfragment baraye update ra neshan bedahid.
-        DialogFragment newFragment = updatedialogfragment.newInstance();
+        DialogFragment newFragment = UpdateDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.setCancelable(true);
