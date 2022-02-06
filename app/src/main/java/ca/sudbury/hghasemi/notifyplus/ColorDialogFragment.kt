@@ -33,13 +33,13 @@ class ColorDialogFragment() : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.background_color_dialog_jadid, container, false)
+        val inflatedView = inflater.inflate(R.layout.background_color_dialog_jadid, container, false)
 
-        colorPicker = v.findViewById(R.id.pickerPrimary)
-        colorPicker2 = v.findViewById(R.id.pickerPrimary2)
-        rangpallete = v.findViewById(R.id.colorView)
+        colorPicker = inflatedView.findViewById(R.id.pickerPrimary)
+        colorPicker2 = inflatedView.findViewById(R.id.pickerPrimary2)
+        rangpallete = inflatedView.findViewById(R.id.colorView)
 
-        v.findViewById<View>(R.id.backlayout).let { it.setOnClickListener { dialog?.cancel() } }
+        inflatedView.findViewById<View>(R.id.backlayout).let { it.setOnClickListener { dialog?.cancel() } }
 
         colorPicker.colors = ColorPalette.getBaseColors(requireActivity().applicationContext)
         colorPicker2.colors =
@@ -59,13 +59,13 @@ class ColorDialogFragment() : DialogFragment() {
             rangpallete.setBackgroundColor(colorPicker2.color)
         }
 
-        v.findViewById<View>(R.id.setColorButton).let {
+        inflatedView.findViewById<View>(R.id.setColorButton).let {
             it.setOnClickListener {
                 mbuttonlistener.rangdialogclicked(colorPicker2.color)
                 dialog?.cancel()
             }
         }
-        return v
+        return inflatedView
     }
 
 
@@ -80,7 +80,7 @@ class ColorDialogFragment() : DialogFragment() {
 
     interface buttonclicked {
         fun rangdialogclicked(color: Int)
-        //ma ba in interface be HomeFragmentJadid bar khahim gasht.
+        //ma ba in interface be HomeFragmentJadidJAVA bar khahim gasht.
     }
 
 

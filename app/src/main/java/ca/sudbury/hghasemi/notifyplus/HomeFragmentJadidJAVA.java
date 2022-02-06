@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * Created by Hojat_Ghasemi on Thursday , 30 March 2017 in kerman.
  */
-public class HomeFragmentJadid extends Fragment implements View.OnClickListener, View.OnTouchListener {
+public class HomeFragmentJadidJAVA extends Fragment implements View.OnClickListener, View.OnTouchListener {
 
     @SuppressLint("StaticFieldLeak")
     private static TextView tvofappclicked;
@@ -86,7 +86,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
     private boolean notification_state;
 
 
-    static HomeFragmentJadid newInstance(TextView tv, int mbc, int nb, int color) {
+    static HomeFragmentJadidJAVA newInstance(TextView tv, int mbc, int nb, int color) {
 
         tvofappclicked = tv;// in va balayi ash faghat agar az dialoge entekhabe app bargardim
         //null nakhahand bood.
@@ -105,7 +105,7 @@ public class HomeFragmentJadid extends Fragment implements View.OnClickListener,
         //va vaghti ke az dialog be an bar migardim ba etelaate haghighi porash mikonim.
 
 
-        return new HomeFragmentJadid();
+        return new HomeFragmentJadidJAVA();
     }
 
 

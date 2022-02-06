@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        HomeFragmentJadid.listenerfornoab,
+        HomeFragmentJadidJAVA.listenerfornoab,
         AppsDialogFragment.dialogclicked,
         ButtonCountDialogFragment.ButtonCountChangedListener,
         ColorDialogFragment.buttonclicked {
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callaboutappfragment() {
-        DialogFragment newFragment = AboutappFragment.newInstance();
+        DialogFragment newFragment = ContactUsDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.show(getSupportFragmentManager(), "dialog");
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        HomeFragmentJadid hfj = HomeFragmentJadid.newInstance(tv, bc, nb, color);
+        HomeFragmentJadidJAVA hfj = HomeFragmentJadidJAVA.newInstance(tv, bc, nb, color);
         getSupportFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
         //ba kari ke toye in method kardim ,
         //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
