@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragmentJadid.listenerfornoab,
         AppsDialogFragment.dialogclicked,
-        NumberofappbuttonsDialogFragment.buttonclicked,
+        ButtonCountDialogFragment.ButtonCountChangedListener,
         BackgroundColorDialogFragment.buttonclicked {
 
 
@@ -225,21 +225,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void callnumberofappbuttonsdialogfragment() {
-        DialogFragment newFragment = NumberofappbuttonsDialogFragment.newInstance();
+        DialogFragment newFragment = ButtonCountDialogFragment.newInstance();
         newFragment.setStyle(DialogFragment.STYLE_NO_TITLE,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar);//in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.show(getSupportFragmentManager(), "dialog");
-    }
-
-    @Override
-    public void dialogbuttonclicked(int nbc) {
-        //inja homefragmentjadid ra seda mizanim.
-        callhomefragment(null, 0, nbc, -100);
     }
 
 
     @Override
     public void rangdialogclicked(int color) {
         callhomefragment(null, 0, -1, color);
+    }
+
+    @Override
+    public void buttonCountChanged(int numButtons) {
+        //inja homefragmentjadid ra seda mizanim.
+        callhomefragment(null, 0, numButtons, -100);
     }
 }
