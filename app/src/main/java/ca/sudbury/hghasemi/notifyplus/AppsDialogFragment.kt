@@ -35,7 +35,7 @@ class AppsDialogFragment : DialogFragment() {
 //        infla = inflater;
         val v = inflater.inflate(R.layout.maindialog, container, false)
         val listView: RecyclerView = v.findViewById(android.R.id.list)
-        apkListAdapter = ApkListAdapter(activity as MainActivity?, this)
+        apkListAdapter = (activity as MainActivity?)?.let { ApkListAdapter(it, this) }
         listView.layoutManager = LinearLayoutManager(activity)
         listView.adapter = apkListAdapter
         progressBar = v.findViewById(android.R.id.progress)
@@ -69,7 +69,9 @@ class AppsDialogFragment : DialogFragment() {
     }
 
     fun addItem(item: ApplicationInfo?) {
-        apkListAdapter!!.addItem(item)
+        if (item != null) {
+            apkListAdapter!!.addItem(item)
+        }
     }
 
     override fun onAttach(context: Context) {
