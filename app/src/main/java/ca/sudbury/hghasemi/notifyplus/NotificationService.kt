@@ -1,307 +1,717 @@
-package ca.sudbury.hghasemi.notifyplus;
+package ca.sudbury.hghasemi.notifyplus
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.IBinder;
-import android.widget.RemoteViews;
-
-import java.util.Objects;
-
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.PendingIntent
+import android.app.Service
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.os.IBinder
+import android.widget.RemoteViews
+import java.util.*
 
 /**
  * Created by Hojat_Ghasemi on 13 March 2017 in Kerman.
  */
-public class NotificationService extends Service {
-
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap;
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
+class NotificationService : Service() {
+    override fun onBind(intent: Intent): IBinder? {
+        return null
     }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-        Context c = getApplicationContext();
-        PackageManager mpm = c.getPackageManager();
-        final int HELLO_ID = 10;
-
-        String[] favorite_apps = (String[]) Objects.requireNonNull(intent.getExtras()).get("ufa");
-        RemoteViews remote = (RemoteViews) intent.getExtras().get("viewgroup");
-        int n = intent.getIntExtra("numberofappbuttons", 7);
-
+    @SuppressLint("UnspecifiedImmutableFlag")
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        val c = applicationContext
+        val mpm = c.packageManager
+        val HELLO_ID = 10
+        val favoriteApps = (intent.extras)?.get("ufa") as kotlin.Array<String>
+        val remote = intent.extras!!["viewgroup"] as RemoteViews?
+        val n = intent.getIntExtra("numberofappbuttons", 7)
         try {
-            switch (n) {
-                case 1:
+            when (n) {
+                1 -> try {
+                    assert(remote != null)
+                    assert(favoriteApps != null)
+                    remote!!.setImageViewBitmap(
+                        R.id.notifimv1, drawableToBitmap(
+                            mpm.getApplicationIcon(
+                                favoriteApps!![0]
+                            )
+                        )
+                    )
+                    remote.setOnClickPendingIntent(
+                        R.id.notifimv1, PendingIntent.getActivity(
+                            applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                favoriteApps[0]
+                            ), 0
+                        )
+                    )
+                } catch (ignored: Exception) {
+                }
+                2 -> {
                     try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    break;
-
-                case 2:
-                    try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
-                    }
-
-                    break;
-
-                case 3:
-                    try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                        remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    break;
-
-                case 4:
-                    try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
+                        assert(remote != null)
+                        assert(favoriteApps != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                }
+                3 -> {
+                    try {
+                        assert(remote != null)
+                        assert(favoriteApps != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                        remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                        remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv3, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![2]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv3, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[2]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
-                    break;
-
-                case 5:
+                }
+                4 -> {
                     try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                        remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                        remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                        remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    break;
-
-                case 6:
-                    try {
-                        assert favorite_apps != null;
-                        assert remote != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
+                        assert(remote != null)
+                        assert(favoriteApps != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                        remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv3, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![2]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv3, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[2]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                        remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv4, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![3]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv4, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[3]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                }
+                5 -> {
+                    try {
+                        assert(remote != null)
+                        assert(favoriteApps != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                        remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
-                        remote.setOnClickPendingIntent(R.id.notifimv6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    break;
-
-                case 7:
-                    try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv3, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![2]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv3, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[2]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                        remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv4, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![3]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv4, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[3]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                        remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv5, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![4]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv5, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[4]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                }
+                6 -> {
+                    try {
+                        assert(favoriteApps != null)
+                        assert(remote != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                        remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
-                        remote.setOnClickPendingIntent(R.id.notifimv6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv3, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![2]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv3, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[2]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv7, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[6])));
-                        remote.setOnClickPendingIntent(R.id.notifimv7, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[6]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    break;
-
-
-                default:
-                    try {
-                        assert remote != null;
-                        assert favorite_apps != null;
-                        remote.setImageViewBitmap(R.id.notifimv1, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[0])));
-                        remote.setOnClickPendingIntent(R.id.notifimv1, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[0]), 0));
-                    } catch (Exception ignored) {
-                    }
-                    try {
-                        remote.setImageViewBitmap(R.id.notifimv2, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[1])));
-                        remote.setOnClickPendingIntent(R.id.notifimv2, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[1]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv4, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![3]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv4, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[3]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv3, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[2])));
-                        remote.setOnClickPendingIntent(R.id.notifimv3, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[2]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv5, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![4]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv5, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[4]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv4, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[3])));
-                        remote.setOnClickPendingIntent(R.id.notifimv4, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[3]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv6, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![5]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv6, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[5]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                }
+                7 -> {
+                    try {
+                        assert(remote != null)
+                        assert(favoriteApps != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv5, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[4])));
-                        remote.setOnClickPendingIntent(R.id.notifimv5, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[4]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv6, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[5])));
-                        remote.setOnClickPendingIntent(R.id.notifimv6, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[5]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv3, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![2]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv3, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[2]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv7, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[6])));
-                        remote.setOnClickPendingIntent(R.id.notifimv7, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[6]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv4, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![3]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv4, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[3]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
                     try {
-                        remote.setImageViewBitmap(R.id.notifimv8, drawableToBitmap(mpm.getApplicationIcon(favorite_apps[7])));
-                        remote.setOnClickPendingIntent(R.id.notifimv8, PendingIntent.getActivity(getApplicationContext(), 0, mpm.getLaunchIntentForPackage(favorite_apps[7]), 0));
-                    } catch (Exception ignored) {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv5, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![4]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv5, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[4]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
                     }
-                    break;
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv6, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![5]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv6, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[5]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv7, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![6]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv7, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[6]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                }
+                else -> {
+                    try {
+                        assert(remote != null)
+                        assert(favoriteApps != null)
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv1, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![0]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv1, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[0]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv2, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![1]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv2, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[1]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv3, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![2]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv3, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[2]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv4, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![3]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv4, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[3]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv5, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![4]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv5, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[4]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv6, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![5]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv6, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[5]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv7, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![6]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv7, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[6]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                    try {
+                        remote!!.setImageViewBitmap(
+                            R.id.notifimv8, drawableToBitmap(
+                                mpm.getApplicationIcon(
+                                    favoriteApps!![7]
+                                )
+                            )
+                        )
+                        remote.setOnClickPendingIntent(
+                            R.id.notifimv8, PendingIntent.getActivity(
+                                applicationContext, 0, mpm.getLaunchIntentForPackage(
+                                    favoriteApps[7]
+                                ), 0
+                            )
+                        )
+                    } catch (ignored: Exception) {
+                    }
+                }
             }
-
-        } catch (Exception ignored) {
+        } catch (ignored: Exception) {
         }
-
-        Notification note = new Notification(R.mipmap.ic_launcher, "", System.currentTimeMillis());
-
-        note.flags |= Notification.FLAG_NO_CLEAR;
-
-        note.contentView = remote;
-
-
-        startForeground(HELLO_ID, note);
-
-
-        return (START_NOT_STICKY);
+        val note = Notification(R.mipmap.ic_launcher, "", System.currentTimeMillis())
+        note.flags = note.flags or Notification.FLAG_NO_CLEAR
+        note.contentView = remote
+        startForeground(HELLO_ID, note)
+        return START_NOT_STICKY
     }
 
-    @Override
-    public void onDestroy() {
-        stopForeground(true);
+    override fun onDestroy() {
+        stopForeground(true)
+    }
+
+    companion object {
+        fun drawableToBitmap(drawable: Drawable): Bitmap {
+            if (drawable is BitmapDrawable) {
+                if (drawable.bitmap != null) {
+                    return drawable.bitmap
+                }
+            }
+            val bitmap: Bitmap =
+                if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+                    Bitmap.createBitmap(
+                        1,
+                        1,
+                        Bitmap.Config.ARGB_8888
+                    ) // Single color bitmap will be created of 1x1 pixel
+                } else {
+                    Bitmap.createBitmap(
+                        drawable.intrinsicWidth,
+                        drawable.intrinsicHeight,
+                        Bitmap.Config.ARGB_8888
+                    )
+                }
+            val canvas = Canvas(bitmap)
+            drawable.setBounds(0, 0, canvas.width, canvas.height)
+            drawable.draw(canvas)
+            return bitmap
+        }
     }
 }
