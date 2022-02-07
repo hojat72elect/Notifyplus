@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        HomeFragmentJadidJAVA.listenerfornoab,
+        HomeFragment.Listenerfornoab,
         AppsDialogFragment.dialogclicked,
         ButtonCountDialogFragment.ButtonCountChangedListener,
         ColorDialogFragment.buttonclicked {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         //TextView tv , name applicationi ke click shode ast.
         //int bc , shomareye kelidi ast ke click shode ast.
         //int nb , tedade kelid haye neshan dade shode dar barname ast.
-        HomeFragmentJadidJAVA hfj = HomeFragmentJadidJAVA.newInstance(tv, bc, nb, color);
+        HomeFragment hfj = HomeFragment.newInstance(tv, bc, nb, color);
         getSupportFragmentManager().beginTransaction().replace(R.id.maincontent, hfj).commit();
         //ba kari ke toye in method kardim ,
         //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
