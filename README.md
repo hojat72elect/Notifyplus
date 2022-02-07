@@ -1,5 +1,10 @@
 NotifyPlus:
 
+NOTIFYPLUS!!!
+this is an open source application with which you can have shortcuts of your favorite apps in the notification bar.
+it has been published through most famous android market in Iran on the list of "best new apps" in the category of "tools".
+please help us to improve it's functionality.
+
 shortcuts to your favorite apps in the notification bar of your Android device.
 
 back in 2017 I published a Persian version of this app in the most famous local android market of Iran: "https://cafebazaar.ir/app". 
