@@ -129,7 +129,7 @@ public class ApkListAdapter extends RecyclerView.Adapter<ApkListAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            mAdf.backtomainactivity(imgIcon, txtPackageName);
+            mAdf.backToMainActivity(imgIcon, txtPackageName);
 
         }
 

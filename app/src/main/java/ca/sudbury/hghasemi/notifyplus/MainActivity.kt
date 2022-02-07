@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
-import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.dialogclicked
+import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.DialogClicked
 import ca.sudbury.hghasemi.notifyplus.ButtonCountDialogFragment.ButtonCountChangedListener
 import ca.sudbury.hghasemi.notifyplus.ColorDialogFragment.buttonclicked
 import ca.sudbury.hghasemi.notifyplus.HomeFragment.Companion.newInstance
@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView
  *
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    Listenerfornoab, dialogclicked, ButtonCountChangedListener, buttonclicked {
+    Listenerfornoab, DialogClicked, ButtonCountChangedListener, buttonclicked {
     private var mbc = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,9 +139,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mbc = bc
     }
 
-    override fun ondialogclick(imv: ImageView, tv: TextView) {
-        callhomefragment(tv, mbc, -1, -100)
-    }
 
     override fun noabmethod(dialognumber: Int, bc: Int) {
         // mitoonam inja bar asase meghdare yek moteghayere integer , tasmim begiram ke
@@ -203,5 +200,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun buttonCountChanged(numButtons: Int) {
         //inja homefragmentjadid ra seda mizanim.
         callhomefragment(null, 0, numButtons, -100)
+    }
+
+    override fun ondialogclick(imv: ImageView?, tv: TextView?) {
+        callhomefragment(tv, mbc, -1, -100)
     }
 }

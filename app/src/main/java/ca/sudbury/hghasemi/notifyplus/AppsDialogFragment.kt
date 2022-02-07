@@ -1,168 +1,133 @@
-package ca.sudbury.hghasemi.notifyplus;
+package ca.sudbury.hghasemi.notifyplus
 
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.SearchView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
-import java.util.Objects;
-
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
+import android.app.SearchManager
+import android.content.Context
+import android.content.pm.ApplicationInfo
+import android.os.AsyncTask
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.SearchView
+import android.widget.TextView
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by hojat_ghasemi on 16 March 2017 in kerman.
  */
-public class AppsDialogFragment extends DialogFragment {
-
-    dialogclicked mlistener;
-    private ApkListAdapter apkListAdapter;
-    private ProgressBar progressBar;
-
-    static AppsDialogFragment newInstance() {
-        AppsDialogFragment f = new AppsDialogFragment();
-        return f;
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+class AppsDialogFragment : DialogFragment() {
+    var mlistener: DialogClicked? = null
+    private var apkListAdapter: ApkListAdapter? = null
+    private var progressBar: ProgressBar? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
 //        String[] a = {"a", "s"};
 //        infla = inflater;
-        View v = inflater.inflate(R.layout.maindialog, container, false);
-
-
-        RecyclerView listView = v.findViewById(android.R.id.list);
-
-        apkListAdapter = new ApkListAdapter((MainActivity) getActivity(), this);
-        listView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listView.setAdapter(apkListAdapter);
-
-        progressBar = v.findViewById(android.R.id.progress);
-        progressBar.setVisibility(View.VISIBLE);
-
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        final SearchView searchView = (SearchView) v.findViewById(R.id.searchView1);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean queryTextFocused) {
-                if (!queryTextFocused) {
-                    searchView.getQuery().length();
-                }//bayad bebandamesh
-            }
-        });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
+        val v = inflater.inflate(R.layout.maindialog, container, false)
+        val listView: RecyclerView = v.findViewById(android.R.id.list)
+        apkListAdapter = ApkListAdapter(activity as MainActivity?, this)
+        listView.layoutManager = LinearLayoutManager(activity)
+        listView.adapter = apkListAdapter
+        progressBar = v.findViewById(android.R.id.progress)
+        progressBar?.visibility = View.VISIBLE
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = v.findViewById<View>(R.id.searchView1) as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView.setOnQueryTextFocusChangeListener { _, queryTextFocused ->
+            if (!queryTextFocused) {
+                searchView.query.length
+            } //bayad bebandamesh
+        }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(s: String): Boolean {
+                return false
             }
 
-            @Override
-            public boolean onQueryTextChange(String s) {
-                apkListAdapter.setSearchPattern(s);
-                return true;
+            override fun onQueryTextChange(s: String): Boolean {
+                apkListAdapter!!.setSearchPattern(s)
+                return true
             }
-        });
-//        sv = (ScrollView) v.findViewById(R.id.queryScrollView);
-//        at = new LoadHome();
-//        at.execute(a);
-//        appsTableLayout.setVisibility(View.INVISIBLE);
-//
-//        ////////////////////////////////////
-//        backlayout = v.findViewById(R.id.backlayout);
-//        Typeface iransanserif = Typeface.createFromAsset(getActivity().getAssets(), "kidfont.ttf");
-//        TextView backlayouttext = (TextView) v.findViewById(R.id.bazgasht);
-//        backlayouttext.setTypeface(iransanserif);
-//
-//        /////////////////////////////////////
-        new Loader(this).execute();
+        })
 
-        return v;
+        Loader(this).execute()
+        return v
     }
 
-    public void hideProgressBar() {
-        progressBar.setVisibility(View.GONE);
+    fun hideProgressBar() {
+        progressBar!!.visibility = View.GONE
     }
 
-    public void addItem(ApplicationInfo item) {
-        apkListAdapter.addItem(item);
-
+    fun addItem(item: ApplicationInfo?) {
+        apkListAdapter!!.addItem(item)
     }
 
-    @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        try {
-            mlistener = (dialogclicked) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnArticleSelectedListener");
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mlistener = try {
+            activity as DialogClicked
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$activity must implement OnArticleSelectedListener")
         }
     }
 
-    public void backtomainactivity(ImageView imv, TextView tv) {
-        mlistener.ondialogclick(imv, tv);
-        Objects.requireNonNull(getDialog()).cancel();//dismisses the dialog.
+    fun backToMainActivity(imv: ImageView?, tv: TextView?) {
+        mlistener!!.ondialogclick(imv, tv)
+        dialog?.cancel() //dismisses the dialog.
     }
 
-    public interface dialogclicked {
-        void ondialogclick(ImageView imv, TextView tv);
+    interface DialogClicked {
+        fun ondialogclick(imv: ImageView?, tv: TextView?)
     }
 
     @SuppressLint("StaticFieldLeak")
-    class Loader extends AsyncTask<Void, ApplicationInfo, Void> {
-        ProgressDialog dialog;
-        AppsDialogFragment adf;
-
-        public Loader(AppsDialogFragment a) {
-            dialog = ProgressDialog.show(getActivity(), getString(R.string.dlg_loading_title), getString(R.string.dlg_loading_body));
-            adf = a;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            List<ApplicationInfo> packages = getActivity().getPackageManager().getInstalledApplications(0);
-            for (ApplicationInfo packageInfo : packages) {
-                if ((getActivity().getPackageManager().getLaunchIntentForPackage(packageInfo.packageName)) != null) {
-                    publishProgress(packageInfo);
+    internal inner class Loader(a: AppsDialogFragment) :
+        AsyncTask<Void?, ApplicationInfo?, Void?>() {
+        var dialog: ProgressDialog
+        var adf: AppsDialogFragment
+        override fun doInBackground(vararg p0: Void?): Void? {
+            val packages = activity!!.packageManager.getInstalledApplications(0)
+            for (packageInfo in packages) {
+                if (activity!!.packageManager.getLaunchIntentForPackage(packageInfo.packageName) != null) {
+                    publishProgress(packageInfo)
                 }
-
             }
-            return null;
+            return null
         }
 
-        @Override
-        protected void onProgressUpdate(ApplicationInfo... values) {
-            super.onProgressUpdate(values);
-            adf.addItem(values[0]);
+        override fun onProgressUpdate(vararg values: ApplicationInfo?) {
+            super.onProgressUpdate(*values)
+            adf.addItem(values[0])
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            dialog.dismiss();
+        override fun onPostExecute(aVoid: Void?) {
+            super.onPostExecute(aVoid)
+            dialog.dismiss()
+        }
+
+        init {
+            dialog = ProgressDialog.show(
+                activity,
+                getString(R.string.dlg_loading_title),
+                getString(R.string.dlg_loading_body)
+            )
+            adf = a
         }
     }
 
+    companion object {
+        fun newInstance(): AppsDialogFragment {
+            return AppsDialogFragment()
+        }
+    }
 }
-
-
