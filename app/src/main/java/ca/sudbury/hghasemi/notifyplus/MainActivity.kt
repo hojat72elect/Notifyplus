@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     Listenerfornoab, DialogClicked, ButtonCountChangedListener, buttonclicked {
     private var mbc = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -116,17 +117,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         newFragment.show(supportFragmentManager, "dialog")
     }
 
+    /**
+     * tv: The name of the app which was clicked.
+     * bc: The number of the button which was clicked.
+     * nb: Number of the buttons shown in the home fragment.
+     *
+     * Each time you call this method, HomeFragment will be rebuilt.
+     */
     private fun callhomefragment(tv: TextView?, bc: Int, nb: Int, color: Int) {
-
-        //ImageView imv , akse applicationi ke click shode ast.
-        //TextView tv , name applicationi ke click shode ast.
-        //int bc , shomareye kelidi ast ke click shode ast.
-        //int nb , tedade kelid haye neshan dade shode dar barname ast.
         val hfj = newInstance(tv, bc, nb, color)
         supportFragmentManager.beginTransaction().replace(R.id.maincontent, hfj).commit()
-        //ba kari ke toye in method kardim ,
-        //har bar ke in method farakhani shavad , kole homefragment az aval sakhte shode va be
-        //user neshan dade khahad shod.
     }
 
     private fun callAppsDialogFragment(bc: Int) {

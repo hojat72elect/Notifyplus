@@ -14,6 +14,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import java.util.*
 
@@ -21,8 +22,6 @@ import java.util.*
  * Created by Hojat_Ghasemi on Thursday , 30 March 2017 in kerman.
  */
 class HomeFragment : Fragment(), OnTouchListener {
-    //////////////////////////////////////////////////
-    ////////////////////////////////////////////////////
     var buttonsInflater: LayoutInflater? = null
     var mnoabListener: Listenerfornoab? = null
     private var buttonsholder //linear layout that contains the linear layout with buttons.
@@ -57,7 +56,7 @@ class HomeFragment : Fragment(), OnTouchListener {
     private val colorWriteKey = "rangsharedpref"
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private var bnot: Switch? = null
+    private var bnot: SwitchCompat? = null
     private var notificationState = false
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,7 +87,7 @@ class HomeFragment : Fragment(), OnTouchListener {
 
 
 
-        bnot = result.findViewById<View>(R.id.notifyswitch) as Switch
+        bnot = result.findViewById(R.id.notifyswitch)
         result.findViewById<View>(R.id.togglenot).let {
             it.setOnClickListener {
                 bnot?.toggle()
@@ -231,7 +230,7 @@ class HomeFragment : Fragment(), OnTouchListener {
         tv5.setTypeface(iransanserif)
         tv6.setTypeface(iransanserif)
         return result
-    } //end of oncreateview().
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -1243,6 +1242,6 @@ class HomeFragment : Fragment(), OnTouchListener {
             //sakhte mishavad . vaghti baraye avalin bar sakhte mishavad ba null por mishavad
             //va vaghti ke az dialog be an bar migardim ba etelaate haghighi porash mikonim.
             return HomeFragment()
-        } // implemented
+        }
     }
 }
