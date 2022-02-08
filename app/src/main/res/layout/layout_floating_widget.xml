@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!--Root container-->
+    <RelativeLayout
+        android:id="@+id/root_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <!--View while view is collapsed-->
+        <RelativeLayout
+            android:id="@+id/collapse_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <!--Icon of floating widget -->
+            <ImageView
+                android:id="@+id/collapsed_iv"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/button_floating_widget"
+                android:src="@mipmap/ic_launcher"
+                tools:ignore="ContentDescription" />
+
+            <!--Close button-->
+            <ImageView
+                android:id="@+id/close_btn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="45dp"
+                android:background="@drawable/button_floating_widget"
+                android:src="@drawable/ic_close"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <!--View while view is expanded-->
+
+        <LinearLayout
+            android:id="@+id/main_expanded_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/floating_widget_drawable"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+
+                        android:id="@+id/volume"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/volume" />
+
+                    <TextView
+                        android:id="@+id/volume_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="تنظیم صدا"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/control_center"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/control_center" />
+
+                    <TextView
+                        android:id="@+id/control_center_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="مرکز کنترل"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/close_button1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:alpha="0.5"
+                    android:background="@drawable/button_floating_widget"
+                    android:src="@drawable/ic_close" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/mail"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/mail" />
+
+                    <TextView
+                        android:id="@+id/mail_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="ایمیل"
+                        android:textColor="#ff000000" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/phone"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/phone" />
+
+
+                    <TextView
+                        android:id="@+id/phone_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="تلفن"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/volume_expanded_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/floating_widget_drawable"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/volume_down"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/volume_down" />
+
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="صدا کم"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="10dp"
+
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/volume_up"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/volume_up" />
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="صدا زیاد"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/close_button"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/ic_close" />
+
+                    <ImageView
+                        android:id="@+id/back_button"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/back" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="10dp"
+
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/mute"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/mute" />
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="بی صدا"
+                        android:textColor="#ff000000" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/vibrate"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:alpha="0.5"
+                        android:background="@drawable/button_floating_widget"
+                        android:src="@drawable/vibrate" />
+
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:alpha="0.5"
+                        android:text="لرزش"
+                        android:textColor="#ff000000" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/control_center_expanded_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/floating_widget_drawable"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="270dp"
+                android:layout_height="210dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/bluetooth"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/button_floating_widget"
+                            android:src="@drawable/bluetooth" />
+
+
+                        <TextView
+                            android:id="@+id/bluetooth_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="بلوتوث"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/wifi"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/button_floating_widget"
+                            android:src="@drawable/wifi" />
+
+
+                        <TextView
+                            android:id="@+id/wifi_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="wifi"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/rotate"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/button_floating_widget"
+                            android:src="@drawable/rotate" />
+
+
+                        <TextView
+                            android:id="@+id/rotate_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="چرخش"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/airplane"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/button_floating_widget"
+                            android:src="@drawable/airplane" />
+
+
+                        <TextView
+                            android:id="@+id/airplane_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="هواپیما"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/battery"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:src="@drawable/battery" />
+
+
+                        <TextView
+                            android:id="@+id/battery_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="باتری"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/camera"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/button_floating_widget"
+                            android:src="@drawable/camera" />
+
+
+                        <TextView
+                            android:id="@+id/camera_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="دوربین"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/calculator"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:alpha="0.5"
+                            android:background="@drawable/button_floating_widget"
+                            android:src="@drawable/calculator" />
+
+
+                        <TextView
+                            android:id="@+id/calculator_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:alpha="0.5"
+                            android:text="ماشین حساب"
+                            android:textColor="#ff000000" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:alpha="0.5"
+                        android:src="@drawable/night_brightness" />
+
+                    <SeekBar
+                        android:id="@+id/seekBar1"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:alpha="0.5" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:alpha="0.5"
+                        android:src="@drawable/day_brightness" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/button_floating_widget"
+                    android:src="@drawable/ic_close" />
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/button_floating_widget"
+                    android:src="@drawable/back" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

@@ -7,7 +7,10 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -37,6 +40,7 @@ class HomeFragment : Fragment(), OnTouchListener {
     private var bhaftom: SharedPreferences? = null
     private var bhashtom: SharedPreferences? = null
     private var rangshpref: SharedPreferences? = null
+    private var isfloatingon: SharedPreferences? = null
     private var ab1: Button? = null
     private var ab2: Button? = null
     private var ab3: Button? = null
@@ -54,6 +58,8 @@ class HomeFragment : Fragment(), OnTouchListener {
     private val seventhWriteKey = "bhaftomsharedpref"
     private val eighthWriteKey = "bhashtomsharedpref"
     private val colorWriteKey = "rangsharedpref"
+    private var bftool: SwitchCompat? = null
+
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private var bnot: SwitchCompat? = null
@@ -229,7 +235,81 @@ class HomeFragment : Fragment(), OnTouchListener {
         tv4.setTypeface(iransanserif)
         tv5.setTypeface(iransanserif)
         tv6.setTypeface(iransanserif)
+
+        result.findViewById<View>(R.id.floatingtool).let {
+            it.setOnClickListener {
+
+            }
+        }
+
+        bftool = result.findViewById(R.id.toolswitch)
+        bftool?.setOnCheckedChangeListener { _, isChecked ->
+            val floatEditor = isfloatingon?.edit()
+            if (isChecked) {
+                floatEditor?.putBoolean(write_key_floating, true)
+                // The toggle is enabled
+                //  :show the floating view.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                    !Settings.canDrawOverlays(activity?.applicationContext)
+                ) {
+                    //If the "draw over" permission is not available open the settings screen
+                    //to grant the permission.
+
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + activity?.packageName)
+                    )
+                    startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION)
+                    Toast.makeText(
+                        activity?.applicationContext,
+                        "You need to first accept the permission requests of this app.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    parvinetesami()
+                }
+            } else {
+                // The toggle is disabled
+                // clear the floating view.
+                floatEditor?.putBoolean(write_key_floating, false)
+                requireActivity().stopService(
+                    Intent(
+                        requireContext(),
+                        FloatingViewService::class.java
+                    )
+                )
+            }
+            floatEditor?.commit()
+        }
+
+        val isFloatOn = isfloatingon?.getBoolean(write_key_floating, false)
+
+        bftool?.isChecked = isFloatOn ?: false
+
+        result.findViewById<View>(R.id.floatingtool).let {
+            it.setOnClickListener {
+                bftool?.toggle()
+            }
+        }
+
+
+
         return result
+    }
+
+    private fun parvinetesami() {
+        //cals the FloatingViewService.
+        try {
+            val fli = Intent(activity, FloatingViewService::class.java)
+            activity?.startService(fli)
+        } catch (e: Exception) {
+            Toast.makeText(
+                requireActivity().applicationContext,
+                "Error in starting the floating control center",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
     }
 
     override fun onDestroy() {
@@ -1212,20 +1292,26 @@ class HomeFragment : Fragment(), OnTouchListener {
     }
 
     companion object {
+
+        private const val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
+
+
         @SuppressLint("StaticFieldLeak")
         private var tvofappclicked: TextView? = null
-        private var bc // the number of button which is clicked.
-                = 0
-        private var kelidsnumber //total number of buttons which are shown in app.
-                = 0
-        private var rangbackground //rang pas zamine
-                = 0
-        private var number_of_app_buttons //shared preferences for saving the number of app buttons.
-                : SharedPreferences? = null
-        private const val write_key =
-            "noab" //the key for writing on the shared preferences that contains the number of app buttons.
-        private const val write_key_notif =
-            "noton" //the key for writing on the shared preferences that contains the state of notification.
+        private var bc = 0
+        private var kelidsnumber = 0
+        private var rangbackground = 0
+        private var number_of_app_buttons: SharedPreferences? = null
+
+        //shared preferences for saving the number of app buttons.
+        private const val write_key = "noab"
+
+        //the key for writing on the shared preferences that contains the number of app buttons.
+        private const val write_key_notif = "noton"
+
+        //the key for writing on the shared preferences that contains the state of notification.
+        private const val write_key_floating = "floaton"
+
 
         @JvmStatic
         fun newInstance(tv: TextView?, mbc: Int, nb: Int, color: Int): HomeFragment {
