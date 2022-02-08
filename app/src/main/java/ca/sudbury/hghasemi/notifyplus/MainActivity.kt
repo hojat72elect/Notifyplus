@@ -40,9 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-        if (fragmentManager.findFragmentById(R.id.maincontent) == null) {
-            callhomefragment(null, 0, -1, -100)
-        }
+
+
     }
 
     override fun onBackPressed() {
@@ -96,51 +95,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun sharemethod() {
-        val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_SEND
-        sendIntent.putExtra(
-            Intent.EXTRA_TEXT, """
-     ${getString(R.string.sharetext)}
-     The app isn't currently published in any markets
-     """.trimIndent()
-        )
-        sendIntent.type = "text/plain"
-        startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
-    }
-
-    private fun callAboutAppFragment() {
-        val newFragment: DialogFragment = ContactUsDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(supportFragmentManager, "dialog")
-    }
-
-    /**
-     * tv: The name of the app which was clicked.
-     * bc: The number of the button which was clicked.
-     * nb: Number of the buttons shown in the home fragment.
-     *
-     * Each time you call this method, HomeFragment will be rebuilt.
-     */
-    private fun callhomefragment(tv: TextView?, bc: Int, nb: Int, color: Int) {
-        val hfj = newInstance(tv, bc, nb, color)
-        supportFragmentManager.beginTransaction().replace(R.id.maincontent, hfj).commit()
-    }
-
-    private fun callAppsDialogFragment(bc: Int) {
-        val newFragment: DialogFragment = AppsDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(supportFragmentManager, "dialog")
-        mbc = bc
-    }
-
-
     override fun noabmethod(dialognumber: Int, bc: Int) {
         // mitoonam inja bar asase meghdare yek moteghayere integer , tasmim begiram ke
         //kodam yek az 3 ta diloge mazkoor dar in fragment ra neshan bedaham.
@@ -155,6 +109,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             else -> {}
         }
     }
+
+    override fun rangdialogclicked(color: Int) {
+        callhomefragment(null, 0, -1, color)
+    }
+
+    override fun buttonCountChanged(numButtons: Int) {
+        //inja homefragmentjadid ra seda mizanim.
+        callhomefragment(null, 0, numButtons, -100)
+    }
+
+    override fun ondialogclick(imv: ImageView?, tv: TextView?) {
+        callhomefragment(tv, mbc, -1, -100)
+    }
+
 
     private fun callrequestupdatefragment() {
         // dialogfragment baraye update ra neshan bedahid.
@@ -194,16 +162,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         newFragment.show(supportFragmentManager, "dialog")
     }
 
-    override fun rangdialogclicked(color: Int) {
-        callhomefragment(null, 0, -1, color)
+    private fun sharemethod() {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT, """
+     ${getString(R.string.sharetext)}
+     The app isn't currently published in any markets
+     """.trimIndent()
+        )
+        sendIntent.type = "text/plain"
+        startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
     }
 
-    override fun buttonCountChanged(numButtons: Int) {
-        //inja homefragmentjadid ra seda mizanim.
-        callhomefragment(null, 0, numButtons, -100)
+    private fun callAboutAppFragment() {
+        val newFragment: DialogFragment = ContactUsDialogFragment.newInstance()
+        newFragment.setStyle(
+            DialogFragment.STYLE_NO_TITLE,
+            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
+        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(supportFragmentManager, "dialog")
     }
 
-    override fun ondialogclick(imv: ImageView?, tv: TextView?) {
-        callhomefragment(tv, mbc, -1, -100)
+    /**
+     * tv: The name of the app which was clicked.
+     * bc: The number of the button which was clicked.
+     * nb: Number of the buttons shown in the home fragment.
+     *
+     * Each time you call this method, HomeFragment will be rebuilt.
+     */
+    private fun callhomefragment(tv: TextView?, bc: Int, nb: Int, color: Int) {
+        val hfj = newInstance(tv, bc, nb, color)
+//        supportFragmentManager.beginTransaction().replace(R.id.maincontent, hfj).commit()
     }
+
+    private fun callAppsDialogFragment(bc: Int) {
+        val newFragment: DialogFragment = AppsDialogFragment.newInstance()
+        newFragment.setStyle(
+            DialogFragment.STYLE_NO_TITLE,
+            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
+        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        newFragment.show(supportFragmentManager, "dialog")
+        mbc = bc
+    }
+
 }
