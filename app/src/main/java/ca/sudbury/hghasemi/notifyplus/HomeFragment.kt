@@ -26,7 +26,7 @@ import java.util.*
  */
 class HomeFragment : Fragment(), OnTouchListener {
     var buttonsInflater: LayoutInflater? = null
-    var mnoabListener: Listenerfornoab? = null
+    private var mnoabListener: HomeFragmentInterface? = null
     private var buttonsholder //linear layout that contains the linear layout with buttons.
             : LinearLayout? = null
     private var mPm: PackageManager? = null
@@ -319,7 +319,7 @@ class HomeFragment : Fragment(), OnTouchListener {
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         mnoabListener = try {
-            activity as Listenerfornoab
+            activity as HomeFragmentInterface
         } catch (e: ClassCastException) {
             throw ClassCastException("$activity must implement OnArticleSelectedListener")
         }
@@ -1281,14 +1281,17 @@ class HomeFragment : Fragment(), OnTouchListener {
         return false
     }
 
-    interface Listenerfornoab {
+    /**
+     * This interface is for communication between "HomeFragment" and "MainActivity"
+     */
+     interface HomeFragmentInterface {
         fun noabmethod(
             dialognumber: Int,
             bc: Int
-        ) //bc !=0 yani inke bayad app haye daroone dastgah ra neshan bedahim.
-        //dialognumber=0  dialogi ke tedade kelid haye daroone safhe asli ra az karbar miporsad.
-        //dialognumber=1 dialogi ke app haye nasb shode dar dastgah ra neshan midahad.
-        //dialognumber=2 dialogi ke background color ra miporsad.
+        ) //bc !=0 means we need to show a list of apps installed on device.
+          //dialognumber=0  dialog for number of shortcuts.
+          //dialognumber=1  dialog for installed apps on device.
+          //dialognumber=2  dialog for background color.
     }
 
     companion object {

@@ -16,14 +16,15 @@ import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.DialogClicked
 import ca.sudbury.hghasemi.notifyplus.ButtonCountDialogFragment.ButtonCountChangedListener
 import ca.sudbury.hghasemi.notifyplus.ColorDialogFragment.buttonclicked
 import ca.sudbury.hghasemi.notifyplus.HomeFragment.Companion.newInstance
-import ca.sudbury.hghasemi.notifyplus.HomeFragment.Listenerfornoab
+import ca.sudbury.hghasemi.notifyplus.HomeFragment.HomeFragmentInterface
 import com.google.android.material.navigation.NavigationView
 
-/*created by Hojat_Ghasemi on Saturday , 11 March 2017.
- *
+/*
+ First created by Hojat Ghasemi on Saturday , 11 March 2017.
+ Contact the author at "https://github.com/hojat72elect"
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    Listenerfornoab, DialogClicked, ButtonCountChangedListener, buttonclicked {
+    HomeFragmentInterface, DialogClicked, ButtonCountChangedListener, buttonclicked {
     private var mbc = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
