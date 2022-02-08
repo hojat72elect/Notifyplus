@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
 
@@ -33,7 +33,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
 
-                android:text="1" />
+                android:text="@string/_1" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb2"
@@ -44,7 +44,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:text="2" />
+                android:text="@string/_2" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -57,7 +57,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
 
-                android:text="3" />
+                android:text="@string/_3" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -69,7 +69,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:text="4" />
+                android:text="@string/_4" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:text="5" />
+                android:text="@string/_5" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -93,7 +93,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:text="6" />
+                android:text="@string/_6" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -105,7 +105,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:text="7" />
+                android:text="@string/_7" />
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -117,7 +117,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="4dp"
-                android:text="8" />
+                android:text="@string/_8" />
 
         </LinearLayout>
     </ScrollView>
