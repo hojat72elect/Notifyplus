@@ -16,7 +16,6 @@ import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.DialogClicked
 import ca.sudbury.hghasemi.notifyplus.ButtonCountDialogFragment.ButtonCountChangedListener
 import ca.sudbury.hghasemi.notifyplus.ColorDialogFragment.buttonclicked
 import ca.sudbury.hghasemi.notifyplus.HomeFragment.Companion.newInstance
-import ca.sudbury.hghasemi.notifyplus.HomeFragment.HomeFragmentInterface
 import com.google.android.material.navigation.NavigationView
 
 /*
@@ -24,7 +23,7 @@ import com.google.android.material.navigation.NavigationView
  Contact the author at "https://github.com/hojat72elect"
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    HomeFragmentInterface, DialogClicked, ButtonCountChangedListener, buttonclicked {
+    DialogClicked, ButtonCountChangedListener, buttonclicked {
     private var mbc = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +39,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
-
-
     }
 
+    /**
+     * When user presses the back button in the app.
+     */
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -53,94 +53,80 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    /**
+     * Inflate the menu items in the action bar.
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-        if (id == R.id.action_settings) {
-            sharemethod()
-            return true
+        when (item.itemId) {
+            R.id.action_settings -> {
+                suggestShare()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Handle navigation view item clicks here.
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_home -> {
-                callhomefragment(null, 0, -1, -100)
-            }
             R.id.nav_contactus -> {
                 callAboutAppFragment()
-            }
-            R.id.nav_exit -> {
-                super.onBackPressed()
             }
             R.id.nav_help -> {
                 callhelpdialogfragment()
             }
             R.id.nav_share -> {
-                sharemethod()
+                suggestShare()
             }
         }
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawer.closeDrawer(GravityCompat.START)
+        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)
         return true
     }
 
-    override fun noabmethod(dialognumber: Int, bc: Int) {
-        // mitoonam inja bar asase meghdare yek moteghayere integer , tasmim begiram ke
-        //kodam yek az 3 ta diloge mazkoor dar in fragment ra neshan bedaham.
-        when (dialognumber) {
-            0 -> callnumberofappbuttonsdialogfragment()
-            1 ->                 //  app haye nasb shode dar dastgah ra neshan midahad.
-                callAppsDialogFragment(bc)
-            2 ->                 // changes background color.
-                callbackgroundcolordialogfragment()
-            3 -> callhelpdialogfragment()
-            5 -> callrequestupdatefragment()
-            else -> {}
-        }
-    }
+//    override fun noabmethod(dialognumber: Int, bc: Int) {
+//        // mitoonam inja bar asase meghdare yek moteghayere integer , tasmim begiram ke
+//        //kodam yek az 3 ta diloge mazkoor dar in fragment ra neshan bedaham.
+//        when (dialognumber) {
+//            0 -> callnumberofappbuttonsdialogfragment()
+//            1 ->                 //  app haye nasb shode dar dastgah ra neshan midahad.
+//                callAppsDialogFragment(bc)
+//            2 ->                 // changes background color.
+//                callbackgroundcolordialogfragment()
+//            3 -> callhelpdialogfragment()
+//            5 -> callrequestupdatefragment()
+//            else -> {}
+//        }
+//    }
 
+    // The color should be changed.
     override fun rangdialogclicked(color: Int) {
         callhomefragment(null, 0, -1, color)
     }
 
+    // The number of shortcuts should be changed.
     override fun buttonCountChanged(numButtons: Int) {
-        //inja homefragmentjadid ra seda mizanim.
         callhomefragment(null, 0, numButtons, -100)
     }
 
+    // One app was chosen in the apps dialog.
     override fun ondialogclick(imv: ImageView?, tv: TextView?) {
         callhomefragment(tv, mbc, -1, -100)
     }
 
-
-    private fun callrequestupdatefragment() {
-        // dialogfragment baraye update ra neshan bedahid.
-        val newFragment: DialogFragment = UpdateDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.isCancelable = true
-        newFragment.show(supportFragmentManager, "dialog")
-    }
-
+    // A very simple dialog containing info about app's capabilities.
     private fun callhelpdialogfragment() {
         val newFragment: DialogFragment = HelpDialogFragment.newInstance()
         newFragment.setStyle(
             DialogFragment.STYLE_NO_TITLE,
             android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+        )
         newFragment.show(supportFragmentManager, "dialog")
     }
 
@@ -162,7 +148,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         newFragment.show(supportFragmentManager, "dialog")
     }
 
-    private fun sharemethod() {
+    // Suggesting the user to share a link to this app.
+    private fun suggestShare() {
         val sendIntent = Intent()
         sendIntent.action = Intent.ACTION_SEND
         sendIntent.putExtra(

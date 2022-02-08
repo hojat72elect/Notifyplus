@@ -312,9 +312,7 @@ class HomeFragment : Fragment(), OnTouchListener {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
