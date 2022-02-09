@@ -1,10 +1,12 @@
 package ca.sudbury.hghasemi.notifyplus
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +17,6 @@ import androidx.fragment.app.DialogFragment
 import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.DialogClicked
 import ca.sudbury.hghasemi.notifyplus.ButtonCountDialogFragment.ButtonCountChangedListener
 import ca.sudbury.hghasemi.notifyplus.ColorDialogFragment.buttonclicked
-import ca.sudbury.hghasemi.notifyplus.HomeFragment.Companion.newInstance
 import com.google.android.material.navigation.NavigationView
 
 /*
@@ -24,7 +25,10 @@ import com.google.android.material.navigation.NavigationView
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     DialogClicked, ButtonCountChangedListener, buttonclicked {
+
+    private var buttonsHolder: LinearLayout? = null
     private var mbc = 0
+    private var rangshpref: SharedPreferences? = null // SharedPreferences for background color
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
+        buttonsHolder = findViewById(R.id.newbuttonsholder)
+
+        // Loading all the needed SharedPreferences
+        rangshpref = getSharedPreferences("rang_prefs", 0)
+
     }
 
     /**
@@ -77,7 +87,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_contactus -> {
-                callAboutAppFragment()
+                ContactUsDialogFragment().show(supportFragmentManager, "contactus")
             }
             R.id.nav_help -> {
                 callhelpdialogfragment()
@@ -107,17 +117,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     // The color should be changed.
     override fun rangdialogclicked(color: Int) {
-        callhomefragment(null, 0, -1, color)
+//        callhomefragment(null, 0, -1, color)
     }
 
     // The number of shortcuts should be changed.
     override fun buttonCountChanged(numButtons: Int) {
-        callhomefragment(null, 0, numButtons, -100)
+//        callhomefragment(null, 0, numButtons, -100)
     }
 
     // One app was chosen in the apps dialog.
     override fun ondialogclick(imv: ImageView?, tv: TextView?) {
-        callhomefragment(tv, mbc, -1, -100)
+//        callhomefragment(tv, mbc, -1, -100)
     }
 
     // A very simple dialog containing info about app's capabilities.
@@ -162,14 +172,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
     }
 
-    private fun callAboutAppFragment() {
-        val newFragment: DialogFragment = ContactUsDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(supportFragmentManager, "dialog")
-    }
 
     /**
      * tv: The name of the app which was clicked.
@@ -178,10 +180,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      *
      * Each time you call this method, HomeFragment will be rebuilt.
      */
-    private fun callhomefragment(tv: TextView?, bc: Int, nb: Int, color: Int) {
-        val hfj = newInstance(tv, bc, nb, color)
-//        supportFragmentManager.beginTransaction().replace(R.id.maincontent, hfj).commit()
-    }
+
+//    private fun callhomefragment(tv: TextView?, bc: Int, nb: Int, color: Int) {
+//        val hfj = newInstance(tv, bc, nb, color)
+////        supportFragmentManager.beginTransaction().replace(R.id.maincontent, hfj).commit()
+//    }
 
     private fun callAppsDialogFragment(bc: Int) {
         val newFragment: DialogFragment = AppsDialogFragment.newInstance()
@@ -191,6 +194,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
         newFragment.show(supportFragmentManager, "dialog")
         mbc = bc
+    }
+
+    companion object {
+
     }
 
 }
