@@ -90,7 +90,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ContactUsDialogFragment().show(supportFragmentManager, "contactus")
             }
             R.id.nav_help -> {
-                callhelpdialogfragment()
+                HelpDialogFragment().show(supportFragmentManager, "help")
+
             }
             R.id.nav_share -> {
                 suggestShare()
@@ -128,16 +129,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // One app was chosen in the apps dialog.
     override fun ondialogclick(imv: ImageView?, tv: TextView?) {
 //        callhomefragment(tv, mbc, -1, -100)
-    }
-
-    // A very simple dialog containing info about app's capabilities.
-    private fun callhelpdialogfragment() {
-        val newFragment: DialogFragment = HelpDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        )
-        newFragment.show(supportFragmentManager, "dialog")
     }
 
     private fun callbackgroundcolordialogfragment() {
