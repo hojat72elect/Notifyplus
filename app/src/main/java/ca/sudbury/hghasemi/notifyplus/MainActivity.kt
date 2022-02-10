@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,7 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.DialogClicked
 import ca.sudbury.hghasemi.notifyplus.ButtonCountDialogFragment.ButtonCountChangedListener
-import ca.sudbury.hghasemi.notifyplus.ColorDialogFragment.buttonclicked
 import com.google.android.material.navigation.NavigationView
 
 /*
@@ -24,7 +24,7 @@ import com.google.android.material.navigation.NavigationView
  Contact the author at "https://github.com/hojat72elect"
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    DialogClicked, ButtonCountChangedListener, buttonclicked {
+    DialogClicked, ButtonCountChangedListener {
 
     private var buttonsHolder: LinearLayout? = null
     private var mbc = 0
@@ -49,6 +49,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Loading all the needed SharedPreferences
         rangshpref = getSharedPreferences("rang_prefs", 0)
 
+        // Registering the listener for color dialog:
+        findViewById<View>(R.id.bgcolorlayout).let {
+            it.setOnClickListener {
+                ColorDialogFragment().show(supportFragmentManager, "color")
+            }
+        }
     }
 
     /**
@@ -91,7 +97,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_help -> {
                 HelpDialogFragment().show(supportFragmentManager, "help")
-
             }
             R.id.nav_share -> {
                 suggestShare()
@@ -117,9 +122,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //    }
 
     // The color should be changed.
-    override fun rangdialogclicked(color: Int) {
-//        callhomefragment(null, 0, -1, color)
-    }
+//    override fun rangdialogclicked(color: Int) {
+////        callhomefragment(null, 0, -1, color)
+//    }
 
     // The number of shortcuts should be changed.
     override fun buttonCountChanged(numButtons: Int) {
@@ -129,15 +134,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // One app was chosen in the apps dialog.
     override fun ondialogclick(imv: ImageView?, tv: TextView?) {
 //        callhomefragment(tv, mbc, -1, -100)
-    }
-
-    private fun callbackgroundcolordialogfragment() {
-        val newFragment: DialogFragment = ColorDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(supportFragmentManager, "dialog")
     }
 
     private fun callnumberofappbuttonsdialogfragment() {

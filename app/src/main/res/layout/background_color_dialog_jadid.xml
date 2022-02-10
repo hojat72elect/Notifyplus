@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/dialog_header" />
-
-
     <uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pickerPrimary"
         android:layout_width="match_parent"

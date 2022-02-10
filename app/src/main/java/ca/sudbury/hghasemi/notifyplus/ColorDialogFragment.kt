@@ -1,11 +1,10 @@
 package ca.sudbury.hghasemi.notifyplus
 
-import android.content.Context
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import ca.sudbury.hghasemi.notifyplus.utils.ColorPalette
 import uz.shift.colorpicker.LineColorPicker
@@ -14,61 +13,57 @@ import uz.shift.colorpicker.LineColorPicker
  *Created by Hojat Ghasemi at 2022-02-06
  *contact the author at "https://github.com/hojat72elect"
  */
-class ColorDialogFragment() : DialogFragment() {
+class ColorDialogFragment : DialogFragment() {
 
-    private val TAG = "ColorDF_Log"
-    lateinit var colorPicker: LineColorPicker
-    lateinit var colorPicker2: LineColorPicker
-    lateinit var rangpallete: View
-    lateinit var mbuttonlistener: buttonclicked
+    @SuppressLint("InflateParams")
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val inflater = requireActivity().layoutInflater
+        val dialogView = inflater.inflate(R.layout.background_color_dialog_jadid, null)
+
+        val primaryColorPicker = dialogView.findViewById<LineColorPicker>(R.id.pickerPrimary)
+        val secondaryColorPicker = dialogView.findViewById<LineColorPicker>(R.id.pickerPrimary2)
+        val colorView = dialogView.findViewById<View>(R.id.colorView)
 
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = ColorDialogFragment()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val inflatedView = inflater.inflate(R.layout.background_color_dialog_jadid, container, false)
-
-        colorPicker = inflatedView.findViewById(R.id.pickerPrimary)
-        colorPicker2 = inflatedView.findViewById(R.id.pickerPrimary2)
-        rangpallete = inflatedView.findViewById(R.id.colorView)
-
-        inflatedView.findViewById<View>(R.id.backlayout).let { it.setOnClickListener { dialog?.cancel() } }
-
-        colorPicker.colors = ColorPalette.getBaseColors(requireActivity().applicationContext)
-        colorPicker2.colors =
-            ColorPalette.getSecondaryColors(requireActivity().applicationContext, colorPicker.color)
-        rangpallete.setBackgroundColor(colorPicker2.color)
-
-        colorPicker.setOnColorChangedListener {
-            rangpallete.setBackgroundColor(colorPicker.color)
-            colorPicker2.colors = ColorPalette.getSecondaryColors(
+        primaryColorPicker.colors = ColorPalette.getBaseColors(requireActivity().applicationContext)
+        secondaryColorPicker.colors =
+            ColorPalette.getSecondaryColors(
                 requireActivity().applicationContext,
-                colorPicker.color
+                primaryColorPicker.color
             )
-            colorPicker2.setSelectedColor(colorPicker.color)
+        colorView.setBackgroundColor(secondaryColorPicker.color)
+
+        primaryColorPicker.setOnColorChangedListener {
+            colorView.setBackgroundColor(primaryColorPicker.color)
+            secondaryColorPicker.colors = ColorPalette.getSecondaryColors(
+                requireActivity().applicationContext,
+                primaryColorPicker.color
+            )
+            secondaryColorPicker.setSelectedColor(primaryColorPicker.color)
         }
 
-        colorPicker2.setOnColorChangedListener {
-            rangpallete.setBackgroundColor(colorPicker2.color)
+        secondaryColorPicker.setOnColorChangedListener {
+            colorView.setBackgroundColor(secondaryColorPicker.color)
         }
 
-        inflatedView.findViewById<View>(R.id.setColorButton).let {
+        dialogView.findViewById<View>(R.id.setColorButton).let {
             it.setOnClickListener {
-                mbuttonlistener.rangdialogclicked(colorPicker2.color)
+                //  user wants the color to be applied, do something about it.
+                //  mbuttonlistener.rangdialogclicked(colorPicker2.color)
                 dialog?.cancel()
             }
         }
-        return inflatedView
+
+        return activity.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setView(dialogView)
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
+}
 
 
+/*
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
@@ -82,6 +77,4 @@ class ColorDialogFragment() : DialogFragment() {
         fun rangdialogclicked(color: Int)
         //ma ba in interface be HomeFragmentJadidJAVA bar khahim gasht.
     }
-
-
-}
+* */
