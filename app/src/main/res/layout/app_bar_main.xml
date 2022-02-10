@@ -118,6 +118,15 @@
                 android:textSize="@dimen/matnrighonormal"
                 tools:ignore="SpUsage" />
 
+            <Spinner
+                android:id="@+id/shortcuts_count_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/appsnumberrigho"
+                android:layout_toRightOf="@id/appsnumberrigho" />
+
         </RelativeLayout>
 
         <view

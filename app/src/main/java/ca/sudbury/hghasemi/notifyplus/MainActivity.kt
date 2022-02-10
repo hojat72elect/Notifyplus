@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,7 +14,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import ca.sudbury.hghasemi.notifyplus.AppsDialogFragment.DialogClicked
-import ca.sudbury.hghasemi.notifyplus.ButtonCountDialogFragment.ButtonCountChangedListener
 import com.google.android.material.navigation.NavigationView
 
 /*
@@ -24,7 +21,7 @@ import com.google.android.material.navigation.NavigationView
  Contact the author at "https://github.com/hojat72elect"
  */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    DialogClicked, ButtonCountChangedListener {
+    DialogClicked {
 
     private var buttonsHolder: LinearLayout? = null
     private var mbc = 0
@@ -49,12 +46,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Loading all the needed SharedPreferences
         rangshpref = getSharedPreferences("rang_prefs", 0)
 
-        // Registering the listener for color dialog:
+
         findViewById<View>(R.id.bgcolorlayout).let {
             it.setOnClickListener {
+                // show the dialog of "Background color".
                 ColorDialogFragment().show(supportFragmentManager, "color")
             }
         }
+
+        findViewById<View>(R.id.noalayout).let {
+            it.setOnClickListener {
+                // show the dialog of "Number of shortcuts".
+            }
+        }
+
+        // shortcut count picker:
+        val mySpinner = findViewById<Spinner>(R.id.shortcuts_count_picker)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.number_of_shortcuts,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            mySpinner.adapter = adapter
+        }
+
     }
 
     /**
@@ -127,23 +143,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //    }
 
     // The number of shortcuts should be changed.
-    override fun buttonCountChanged(numButtons: Int) {
-//        callhomefragment(null, 0, numButtons, -100)
-    }
+//    override fun buttonCountChanged(numButtons: Int) {
+////        callhomefragment(null, 0, numButtons, -100)
+//    }
 
     // One app was chosen in the apps dialog.
     override fun ondialogclick(imv: ImageView?, tv: TextView?) {
 //        callhomefragment(tv, mbc, -1, -100)
     }
 
-    private fun callnumberofappbuttonsdialogfragment() {
-        val newFragment: DialogFragment = ButtonCountDialogFragment.newInstance()
-        newFragment.setStyle(
-            DialogFragment.STYLE_NO_TITLE,
-            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
-        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
-        newFragment.show(supportFragmentManager, "dialog")
-    }
+//    private fun callnumberofappbuttonsdialogfragment() {
+//        val newFragment: DialogFragment = ButtonCountDialogFragment.newInstance()
+//        newFragment.setStyle(
+//            DialogFragment.STYLE_NO_TITLE,
+//            android.R.style.Theme_Holo_Light_Dialog_NoActionBar
+//        ) //in khat baraye inke kar konad bayad hatman az daroone acrivity seda zade shavad.
+//        newFragment.show(supportFragmentManager, "dialog")
+//    }
 
     // Suggesting the user to share a link to this app.
     private fun suggestShare() {
@@ -183,8 +199,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mbc = bc
     }
 
-    companion object {
-
-    }
 
 }
