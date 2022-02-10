@@ -2,6 +2,7 @@ package ca.sudbury.hghasemi.notifyplus
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -20,16 +21,22 @@ import com.google.android.material.navigation.NavigationView
  First created by Hojat Ghasemi on Saturday , 11 March 2017.
  Contact the author at "https://github.com/hojat72elect"
  */
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    DialogClicked {
+class MainActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener,
+    DialogClicked,
+    ColorDialog.ColorDialogListener {
 
-    private var buttonsHolder: LinearLayout? = null
+    private var buttonsHolder: LinearLayout? = null // The LinearLayout that contains the buttons
     private var mbc = 0
-    private var rangshpref: SharedPreferences? = null // SharedPreferences for background color
+    private var rangshpref: SharedPreferences? = null // SharedPrefs for background color
+    private val colorWriteKey = "rangsharedpref"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -46,21 +53,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Loading all the needed SharedPreferences
         rangshpref = getSharedPreferences("rang_prefs", 0)
 
+        // when the app starts up, color should be applied to UI
+        updateBackgroundColor(rangshpref)
 
         findViewById<View>(R.id.bgcolorlayout).let {
             it.setOnClickListener {
                 // show the dialog of "Background color".
-                ColorDialogFragment().show(supportFragmentManager, "color")
+                ColorDialog().show(supportFragmentManager, "color")
             }
         }
 
-        findViewById<View>(R.id.noalayout).let {
-            it.setOnClickListener {
-                // show the dialog of "Number of shortcuts".
-            }
-        }
 
-        // shortcut count picker:
+        // The spinner that shows the number of shortcuts
         val mySpinner = findViewById<Spinner>(R.id.shortcuts_count_picker)
         ArrayAdapter.createFromResource(
             this,
@@ -70,6 +74,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             mySpinner.adapter = adapter
         }
+
 
     }
 
@@ -175,7 +180,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
     }
 
-
     /**
      * tv: The name of the app which was clicked.
      * bc: The number of the button which was clicked.
@@ -199,5 +203,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mbc = bc
     }
 
+    // The ColorDialog receives a reference to MainActivity through the
+    // DialogFragment.onAttach() callback, which it uses to call the following methods
+    // defined by the ColorDialog.ColorDialogListener interface
+    override fun onColorChanged(dialog: DialogFragment, newColor: Int) {
+        // Update the SharedPrefs with the new color
+        rangshpref?.edit().let {
+            it?.putInt(
+                colorWriteKey, Color.argb(
+                    Color.alpha(newColor),
+                    Color.red(newColor),
+                    Color.green(newColor),
+                    Color.blue(newColor)
+                )
+            )
+            it?.apply()
+        }
+        updateBackgroundColor(rangshpref)
+    }
+
+    private fun updateBackgroundColor(color: SharedPreferences?) {
+        // Whenever you want to update the background color with
+        // sharedPrefs, just call this function
+        buttonsHolder?.setBackgroundColor(
+            color?.getInt(colorWriteKey, 0) ?: Color.WHITE
+        )
+    }
 
 }

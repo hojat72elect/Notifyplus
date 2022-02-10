@@ -35,7 +35,15 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal"
 
-            ></LinearLayout>
+            >
+
+            <Button
+                android:text="test UI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/togglenot"
@@ -122,9 +130,9 @@
                 android:id="@+id/shortcuts_count_picker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/appsnumberrigho"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignBottom="@id/appsnumberrigho"
                 android:layout_toRightOf="@id/appsnumberrigho" />
 
         </RelativeLayout>
