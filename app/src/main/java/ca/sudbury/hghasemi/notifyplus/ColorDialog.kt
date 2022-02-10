@@ -11,8 +11,8 @@ import ca.sudbury.hghasemi.notifyplus.utils.ColorPalette
 import uz.shift.colorpicker.LineColorPicker
 
 /**
- *Created by Hojat Ghasemi at 2022-02-06
- *contact the author at "https://github.com/hojat72elect"
+ * Created by Hojat Ghasemi at 2022-02-06
+ * Contact the author at "https://github.com/hojat72elect"
  */
 class ColorDialog : DialogFragment() {
 
@@ -85,11 +85,3 @@ class ColorDialog : DialogFragment() {
         }
     }
 }
-
-
-/*
-    interface buttonclicked {
-        fun rangdialogclicked(color: Int)
-        //ma ba in interface be HomeFragmentJadidJAVA bar khahim gasht.
-    }
-* */
