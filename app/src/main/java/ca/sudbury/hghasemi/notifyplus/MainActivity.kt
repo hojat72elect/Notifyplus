@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(),
 
         // Loading all the other UI elements
         buttonsHolder = findViewById(R.id.newbuttonsholder)
-        val mySpinner = findViewById<Spinner>(R.id.shortcuts_count_picker)
 
 
         // Loading all the needed SharedPreferences
@@ -68,18 +67,6 @@ class MainActivity : AppCompatActivity(),
                 ColorDialog().show(supportFragmentManager, "color")
             }
         }
-
-
-        // Filling up the Spinner with an adapter
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.number_of_shortcuts,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            mySpinner.adapter = adapter
-        }
-
 
     }
 

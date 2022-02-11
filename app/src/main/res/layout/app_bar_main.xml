@@ -37,7 +37,10 @@
 
             <!--even though this Layout is empty now, we will fill it via
             kotlin code-->
-
+            <include
+                layout="@layout/notify8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -81,56 +84,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-        </RelativeLayout>
-
-        <view
-            class="android.view.View"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15sp"
-            android:layout_marginRight="10sp"
-            android:background="#5000" />
-
-        <RelativeLayout
-            android:id="@+id/noalayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15sp"
-            android:layout_marginTop="5sp"
-            android:layout_marginRight="10sp"
-            android:layout_marginBottom="5sp"
-            android:background="@drawable/button">
-
-
-            <TextView
-                android:id="@+id/appsnumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:text="@string/apps_per_row"
-                android:textColor="@color/jetblack"
-                android:textSize="@dimen/matngondenormal" />
-
-            <TextView
-                android:id="@+id/appsnumberrigho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/appsnumber"
-                android:text="@string/number_of_apps_in_the_notification"
-                android:textSize="@dimen/matnrighonormal"
-                tools:ignore="SpUsage" />
-
-            <Spinner
-                android:id="@+id/shortcuts_count_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/appsnumberrigho"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@id/appsnumberrigho" />
-
         </RelativeLayout>
 
         <view

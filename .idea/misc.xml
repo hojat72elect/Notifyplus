@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw300dp/notify8.xml" value="0.3998015873015873" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw350dp/notify8.xml" value="0.2708333333333333" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw370dp/notify8.xml" value="0.25441919191919193" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw400dp/notify8.xml" value="0.182518115942029" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw600dp/notify8.xml" value="0.13763661202185792" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/about_app_fragment.xml" value="0.1796875" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
-        <entry key="..\:/NotifyPlus/app/src/main/res/layout/app_bar_main.xml" value="0.12041884816753927" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/app_bar_main.xml" value="0.22" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/appnameandicon.xml" value="0.1" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/apps_1_button.xml" value="0.1" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/apps_2_button.xml" value="0.1" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/apps_3_button.xml" value="0.182518115942029" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/background_color_dialog_jadid.xml" value="0.19270833333333334" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/content_main.xml" value="0.19270833333333334" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/dialog_header.xml" value="0.3333333333333333" />
@@ -14,6 +22,12 @@
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/help_dialog_fragment.xml" value="0.22" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/home_layout_jadid.xml" value="0.20729166666666668" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/maindialog.xml" value="0.1796875" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/notify1.xml" value="0.182518115942029" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/notify2.xml" value="0.182518115942029" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/notify3.xml" value="0.182518115942029" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/notify8.xml" value="0.662828947368421" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/progress_dialog.xml" value="0.182518115942029" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/layout/snackbar.xml" value="0.182518115942029" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout/update_dialog_fragment.xml" value="0.22" />
         <entry key="..\:/NotifyPlus/app/src/main/res/menu/activity_main_drawer.xml" value="0.1796875" />
         <entry key="..\:/NotifyPlus/app/src/main/res/menu/main.xml" value="0.19270833333333334" />
