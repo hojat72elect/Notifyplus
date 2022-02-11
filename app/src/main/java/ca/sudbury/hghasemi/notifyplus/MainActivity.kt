@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Spinner
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -27,11 +26,41 @@ class MainActivity : AppCompatActivity(),
     ColorDialog.ColorDialogListener {
 
     // The LinearLayout that contains the buttons
+    // (the background color will be applied to this layout)
     private var buttonsHolder: LinearLayout? = null
 
-    //    private var mbc = 0
-    private var colorSharedPref: SharedPreferences? = null // SharedPrefs for background color
+    // All the buttons
+    private var ab1: Button? = null
+    private var ab2: Button? = null
+    private var ab3: Button? = null
+    private var ab4: Button? = null
+    private var ab5: Button? = null
+    private var ab6: Button? = null
+    private var ab7: Button? = null
+    private var ab8: Button? = null
+
+    // All the SharedPrefs used by this app
+    private var colorSharedPref: SharedPreferences? = null
+    private var firstButtonSharedPref: SharedPreferences? = null
+    private var secondButtonSharedPref: SharedPreferences? = null
+    private var thirdButtonSharedPref: SharedPreferences? = null
+    private var fourthButtonSharedPref: SharedPreferences? = null
+    private var fifthButtonSharedPref: SharedPreferences? = null
+    private var sixthButtonSharedPref: SharedPreferences? = null
+    private var seventhButtonSharedPref: SharedPreferences? = null
+    private var eighthButtonSharedPref: SharedPreferences? = null
+
+    // All the keys for reading from and writing to SharedPrefs
     private val colorWriteKey = "color_shared_preferences_read/write_key"
+    private val firstButtonWriteKey = "first_button_write_key"
+    private val secondButtonWriteKey = "second_button_write_key"
+    private val thirdButtonWriteKey = "third_button_write_key"
+    private val fourthButtonWriteKey = "fourth_button_write_key"
+    private val fifthButtonWriteKey = "fifth_button_write_key"
+    private val sixthButtonWriteKey = "sixth_button_write_key"
+    private val seventhButtonWriteKey = "seventh_button_write_key"
+    private val eighthButtonWriteKey = "eighth_button_write_key"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -52,10 +81,26 @@ class MainActivity : AppCompatActivity(),
 
         // Loading all the other UI elements
         buttonsHolder = findViewById(R.id.newbuttonsholder)
-
+        ab1 = findViewById(R.id.button1)
+        ab2 = findViewById(R.id.button2)
+        ab3 = findViewById(R.id.button3)
+        ab4 = findViewById(R.id.button4)
+        ab5 = findViewById(R.id.button5)
+        ab6 = findViewById(R.id.button6)
+        ab7 = findViewById(R.id.button7)
+        ab8 = findViewById(R.id.button8)
 
         // Loading all the needed SharedPreferences
         colorSharedPref = getSharedPreferences("rang_prefs", 0)
+        firstButtonSharedPref = getSharedPreferences("first_button_prefs", 0)
+        secondButtonSharedPref = getSharedPreferences("second_button_prefs", 0)
+        thirdButtonSharedPref = getSharedPreferences("third_button_prefs", 0)
+        fourthButtonSharedPref = getSharedPreferences("forth_button_prefs", 0)
+        fifthButtonSharedPref = getSharedPreferences("fifth_button_prefs", 0)
+        sixthButtonSharedPref = getSharedPreferences("sixth_button_prefs", 0)
+        seventhButtonSharedPref = getSharedPreferences("seventh_button_prefs", 0)
+        eighthButtonSharedPref = getSharedPreferences("eighth_button_prefs", 0)
+
 
         // when the app starts up, color should be applied to UI
         updateBackgroundColor(colorSharedPref)
