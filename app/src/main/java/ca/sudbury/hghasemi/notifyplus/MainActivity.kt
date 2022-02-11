@@ -119,36 +119,52 @@ class MainActivity : AppCompatActivity(),
             }
         }
         ab1 = findViewById<Button?>(R.id.button1).also {
-            buttonPosition = 0
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 0
+                showAppsDialog()
+            }
         }
         ab2 = findViewById<Button?>(R.id.button2).also {
-            buttonPosition = 1
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 1
+                showAppsDialog()
+            }
         }
         ab3 = findViewById<Button?>(R.id.button3).also {
-            buttonPosition = 2
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 2
+                showAppsDialog()
+            }
         }
         ab4 = findViewById<Button?>(R.id.button4).also {
-            buttonPosition = 3
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 3
+                showAppsDialog()
+            }
         }
         ab5 = findViewById<Button?>(R.id.button5).also {
-            buttonPosition = 4
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 4
+                showAppsDialog()
+            }
         }
         ab6 = findViewById<Button?>(R.id.button6).also {
-            buttonPosition = 5
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 5
+                showAppsDialog()
+            }
         }
         ab7 = findViewById<Button?>(R.id.button7).also {
-            buttonPosition = 6
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 6
+                showAppsDialog()
+            }
         }
         ab8 = findViewById<Button?>(R.id.button8).also {
-            buttonPosition = 7
-            it.setOnClickListener { showAppsDialog() }
+            it.setOnClickListener {
+                buttonPosition = 7
+                showAppsDialog()
+            }
         }
 
     }
@@ -203,8 +219,16 @@ class MainActivity : AppCompatActivity(),
     // DialogFragment.onAttach() callback, which it uses to call the following methods
     // defined by the AppsDialog.AppsDialogListener interface.
     override fun onAppChanged(imv: ImageView?, tv: TextView?) {
-        //TODO: user came back by choosing an app(or maybe just cancelled the dialog),
-        // do something about it.
+        when (buttonPosition) {
+            0 -> ab1?.setBackgroundDrawable(imv?.drawable)
+            1 -> ab2?.setBackgroundDrawable(imv?.drawable)
+            2 -> ab3?.setBackgroundDrawable(imv?.drawable)
+            3 -> ab4?.setBackgroundDrawable(imv?.drawable)
+            4 -> ab5?.setBackgroundDrawable(imv?.drawable)
+            5 -> ab6?.setBackgroundDrawable(imv?.drawable)
+            6 -> ab7?.setBackgroundDrawable(imv?.drawable)
+            7 -> ab8?.setBackgroundDrawable(imv?.drawable)
+        }
     }
 
 
