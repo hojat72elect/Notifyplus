@@ -19,10 +19,12 @@ import java.util.*
 import java.util.concurrent.Executors
 
 /**
- * Created by Hojat Ghasemi on Saturday , 27 May 2017 in kerman.
+ * Created by Hojat Ghasemi on Saturday , 27 May 2017.
+ * Contact the author at "https://github.com/hojat72elect"
  */
-class ApkListAdapter(activity: MainActivity, adf: AppsDialogFragment) :
+class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
     RecyclerView.Adapter<ApkListAdapter.ViewHolder>() {
+
     val packageManager: PackageManager = activity.packageManager
     var namesToLoad = 0
     private val list = ArrayList<ApplicationInfo>()
@@ -35,10 +37,11 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialogFragment) :
     private val cacheAppIcon =
         Collections.synchronizedMap(LinkedHashMap<String, Drawable>(10, 1.5f, true))
     private var searchPattern: String? = null
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.appnameandicon, viewGroup, false), this
+                .inflate(R.layout.appnameandicon, viewGroup, false)
         )
     }
 
@@ -97,7 +100,7 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialogFragment) :
         }
     }
 
-    class ViewHolder(v: View, adapter: ApkListAdapter?) : RecyclerView.ViewHolder(v),
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v),
         View.OnClickListener {
         var imgIcon: ImageView = v.findViewById(R.id.appicon)
         private val txtPackageName: TextView = v.findViewById(R.id.apppackagename)
@@ -185,7 +188,7 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialogFragment) :
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-        lateinit var mAdf: AppsDialogFragment
+        lateinit var mAdf: AppsDialog
     }
 
     init {

@@ -8,7 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,11 +25,15 @@ import com.google.android.material.navigation.NavigationView
  */
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
-    ColorDialog.ColorDialogListener {
+    ColorDialog.ColorDialogListener,
+    AppsDialog.AppsDialogListener {
 
     // The LinearLayout that contains the buttons
     // (the background color will be applied to this layout)
     private var buttonsHolder: LinearLayout? = null
+
+    // Position of the button clicked by user
+    private var buttonPosition: Int? = null
 
     // All the buttons
     private var ab1: Button? = null
@@ -112,8 +118,95 @@ class MainActivity : AppCompatActivity(),
                 ColorDialog().show(supportFragmentManager, "color")
             }
         }
+        ab1 = findViewById<Button?>(R.id.button1).also {
+            buttonPosition = 0
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab2 = findViewById<Button?>(R.id.button2).also {
+            buttonPosition = 1
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab3 = findViewById<Button?>(R.id.button3).also {
+            buttonPosition = 2
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab4 = findViewById<Button?>(R.id.button4).also {
+            buttonPosition = 3
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab5 = findViewById<Button?>(R.id.button5).also {
+            buttonPosition = 4
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab6 = findViewById<Button?>(R.id.button6).also {
+            buttonPosition = 5
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab7 = findViewById<Button?>(R.id.button7).also {
+            buttonPosition = 6
+            it.setOnClickListener { showAppsDialog() }
+        }
+        ab8 = findViewById<Button?>(R.id.button8).also {
+            buttonPosition = 7
+            it.setOnClickListener { showAppsDialog() }
+        }
 
     }
+
+    // show the dialog of installed apps.
+    private fun showAppsDialog() {
+        AppsDialog().show(supportFragmentManager, "installed_apps")
+    }
+
+    // Suggesting the user to share a link to this app.
+    private fun suggestShare() {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT, """
+     ${getString(R.string.sharetext)}
+     The app isn't currently published in any markets
+     """.trimIndent()
+        )
+        sendIntent.type = "text/plain"
+        startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
+    }
+
+    private fun updateBackgroundColor(color: SharedPreferences?) {
+        // Whenever you want to update the background color with
+        // sharedPrefs, just call this function
+        buttonsHolder?.setBackgroundColor(
+            color?.getInt(colorWriteKey, 0) ?: Color.WHITE
+        )
+    }
+
+    // The ColorDialog receives a reference to MainActivity through the
+    // DialogFragment.onAttach() callback, which it uses to call the following methods
+    // defined by the ColorDialog.ColorDialogListener interface.
+    override fun onColorChanged(dialog: DialogFragment, newColor: Int) {
+        // Update the SharedPrefs with the new color
+        colorSharedPref?.edit().let {
+            it?.putInt(
+                colorWriteKey, Color.argb(
+                    Color.alpha(newColor),
+                    Color.red(newColor),
+                    Color.green(newColor),
+                    Color.blue(newColor)
+                )
+            )
+            it?.apply()
+        }
+        updateBackgroundColor(colorSharedPref)
+    }
+
+    // The AppsDialog receives a reference to MainActivity through the
+    // DialogFragment.onAttach() callback, which it uses to call the following methods
+    // defined by the AppsDialog.AppsDialogListener interface.
+    override fun onAppChanged(imv: ImageView?, tv: TextView?) {
+        //TODO: user came back by choosing an app(or maybe just cancelled the dialog),
+        // do something about it.
+    }
+
 
     /**
      * When user presses the back button in the app.
@@ -164,44 +257,4 @@ class MainActivity : AppCompatActivity(),
         return true
     }
 
-    // Suggesting the user to share a link to this app.
-    private fun suggestShare() {
-        val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_SEND
-        sendIntent.putExtra(
-            Intent.EXTRA_TEXT, """
-     ${getString(R.string.sharetext)}
-     The app isn't currently published in any markets
-     """.trimIndent()
-        )
-        sendIntent.type = "text/plain"
-        startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
-    }
-
-    // The ColorDialog receives a reference to MainActivity through the
-    // DialogFragment.onAttach() callback, which it uses to call the following methods
-    // defined by the ColorDialog.ColorDialogListener interface
-    override fun onColorChanged(dialog: DialogFragment, newColor: Int) {
-        // Update the SharedPrefs with the new color
-        colorSharedPref?.edit().let {
-            it?.putInt(
-                colorWriteKey, Color.argb(
-                    Color.alpha(newColor),
-                    Color.red(newColor),
-                    Color.green(newColor),
-                    Color.blue(newColor)
-                )
-            )
-            it?.apply()
-        }
-        updateBackgroundColor(colorSharedPref)
-    }
-
-    private fun updateBackgroundColor(color: SharedPreferences?) {
-        // Whenever you want to update the background color with
-        // sharedPrefs, just call this function
-        buttonsHolder?.setBackgroundColor(
-            color?.getInt(colorWriteKey, 0) ?: Color.WHITE
-        )
-    }
 }

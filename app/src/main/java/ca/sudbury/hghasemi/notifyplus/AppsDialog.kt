@@ -1,54 +1,55 @@
 package ca.sudbury.hghasemi.notifyplus
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.SearchView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Created by hojat_ghasemi on 16 March 2017 in kerman.
+ * First created by Hojat Ghasemi on 16 March 2017.
+ * Contact the author at "https://github.com/hojat72elect"
  */
-class AppsDialogFragment : DialogFragment() {
-    var mlistener: DialogClicked? = null
+class AppsDialog : DialogFragment() {
+
+    private lateinit var listener: AppsDialogListener
     private var apkListAdapter: ApkListAdapter? = null
     private var progressBar: ProgressBar? = null
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
 
-//        String[] a = {"a", "s"};
-//        infla = inflater;
-        val v = inflater.inflate(R.layout.maindialog, container, false)
-        val listView: RecyclerView = v.findViewById(android.R.id.list)
-        apkListAdapter = (activity as MainActivity?)?.let { ApkListAdapter(it, this) }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val inflater = requireActivity().layoutInflater
+        val dialogView = inflater.inflate(R.layout.maindialog, null)
+
+        val listView = dialogView.findViewById<RecyclerView>(android.R.id.list)
         listView.layoutManager = LinearLayoutManager(activity)
+        apkListAdapter = (activity as MainActivity?)?.let { ApkListAdapter(it, this) }
+
         listView.adapter = apkListAdapter
-        progressBar = v.findViewById(android.R.id.progress)
+        progressBar = dialogView.findViewById(android.R.id.progress)
         progressBar?.visibility = View.VISIBLE
+
         val searchManager =
             requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = v.findViewById<View>(R.id.searchView1) as SearchView
+        val searchView = dialogView.findViewById<View>(R.id.searchView1) as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         searchView.setOnQueryTextFocusChangeListener { _, queryTextFocused ->
             if (!queryTextFocused) {
                 searchView.query.length
-            } //bayad bebandamesh
+            }
         }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 return false
@@ -61,7 +62,12 @@ class AppsDialogFragment : DialogFragment() {
         })
 
         Loader(this).execute()
-        return v
+
+        return activity.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setView(dialogView)
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 
     fun hideProgressBar() {
@@ -74,29 +80,35 @@ class AppsDialogFragment : DialogFragment() {
         }
     }
 
+    // Override the DialogFragment.onAttach() method to instantiate the AppsDialogListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mlistener = try {
-            activity as DialogClicked
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the AppsDialogListener so we can send events to MainActivity
+            listener = context as AppsDialogListener
         } catch (e: ClassCastException) {
-            throw ClassCastException("$activity must implement OnArticleSelectedListener")
+            // The activity doesn't implement the interface, throw an exception
+            throw ClassCastException((context.toString() + "must implement AppsDialogListener"))
         }
     }
 
     fun backToMainActivity(imv: ImageView?, tv: TextView?) {
-        mlistener!!.ondialogclick(imv, tv)
-        dialog?.cancel() //dismisses the dialog.
+        listener.onAppChanged(imv, tv)
+        dialog?.cancel()
     }
 
-    interface DialogClicked {
-        fun ondialogclick(imv: ImageView?, tv: TextView?)
+    interface AppsDialogListener {
+        fun onAppChanged(imv: ImageView?, tv: TextView?)
     }
 
     @SuppressLint("StaticFieldLeak")
-    internal inner class Loader(a: AppsDialogFragment) :
+    internal inner class Loader(a: AppsDialog) :
         AsyncTask<Void?, ApplicationInfo?, Void?>() {
         var dialog: ProgressDialog
-        var adf: AppsDialogFragment
+        var adf: AppsDialog
+
+        @SuppressLint("QueryPermissionsNeeded")
         override fun doInBackground(vararg p0: Void?): Void? {
             val packages = activity!!.packageManager.getInstalledApplications(0)
             for (packageInfo in packages) {
@@ -124,12 +136,6 @@ class AppsDialogFragment : DialogFragment() {
                 getString(R.string.dlg_loading_body)
             )
             adf = a
-        }
-    }
-
-    companion object {
-        fun newInstance(): AppsDialogFragment {
-            return AppsDialogFragment()
         }
     }
 }

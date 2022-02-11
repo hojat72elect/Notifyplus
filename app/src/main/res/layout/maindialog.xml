@@ -23,15 +23,13 @@
             android:visibility="gone" />
 
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-
-            android:queryHint="@string/queryhint"
-            />
+            android:queryHint="@string/queryhint" />
 
     </RelativeLayout>
 
