@@ -22,7 +22,7 @@ import java.util.concurrent.Executors
  * Created by Hojat Ghasemi on Saturday , 27 May 2017.
  * Contact the author at "https://github.com/hojat72elect"
  */
-class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
+class ApkListAdapter(activity: MainActivity, appsDialog: AppsDialog) :
     RecyclerView.Adapter<ApkListAdapter.ViewHolder>() {
 
     val packageManager: PackageManager = activity.packageManager
@@ -38,6 +38,7 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
         Collections.synchronizedMap(LinkedHashMap<String, Drawable>(10, 1.5f, true))
     private var searchPattern: String? = null
 
+    // Returns the ViewHolder which contains the UI of each row of RecyclerView
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(viewGroup.context)
@@ -45,8 +46,9 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, i: Int) {
-        val item = list[i]
+    // Called by RecyclerView to display the data at the specified position
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = list[position]
         holder.setPackageName(item.packageName, searchPattern)
         if (cacheAppIcon.containsKey(item.packageName) && cacheAppName.containsKey(item.packageName)) {
             holder.setAppName(cacheAppName[item.packageName], searchPattern)
@@ -61,6 +63,7 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
     override fun getItemCount(): Int {
         return list.size
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     fun addItem(item: ApplicationInfo) {
@@ -86,11 +89,10 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
                 if (searchPattern == null || searchPattern!!.isEmpty()) {
                     break // empty search pattern: add everything
                 }
-                if (cacheAppName.containsKey(info.packageName) && Objects.requireNonNull(
-                        cacheAppName[info.packageName]
-                    )?.lowercase(Locale.getDefault())?.contains(
-                        searchPattern!!
-                    ) == true
+                if (cacheAppName.containsKey(info.packageName) && cacheAppName[info.packageName]
+                        ?.lowercase(Locale.getDefault())?.contains(
+                            searchPattern!!
+                        ) == true
                 ) {
                     break // search in application name
                 }
@@ -105,8 +107,9 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
         var imgIcon: ImageView = v.findViewById(R.id.appicon)
         private val txtPackageName: TextView = v.findViewById(R.id.apppackagename)
         private val txtAppName: TextView = v.findViewById(R.id.appname)
+
         override fun onClick(v: View) {
-            mAdf.backToMainActivity(imgIcon, txtPackageName)
+            mAppsDialog.backToMainActivity(imgIcon, txtPackageName)
         }
 
         fun setAppName(name: String?, highlight: String?) {
@@ -118,13 +121,14 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
         }
 
         private fun setAndHighlight(view: TextView, value: String?, pattern: String?) {
-            var value = value
+
             view.text = value
             if (pattern == null || pattern.isEmpty()) return  // nothing to highlight
-            value = value!!.lowercase(Locale.getDefault())
+
+            val lowerCaseValue = value!!.lowercase(Locale.getDefault())
             var offset = 0
-            var index = value.indexOf(pattern, offset)
-            while (index >= 0 && offset < value.length) {
+            var index = lowerCaseValue.indexOf(pattern, offset)
+            while (index >= 0 && offset < lowerCaseValue.length) {
                 val span: Spannable = SpannableString(view.text)
                 span.setSpan(
                     ForegroundColorSpan(Color.BLUE),
@@ -134,7 +138,7 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
                 )
                 view.text = span
                 offset += index + pattern.length
-                index = value.indexOf(pattern, offset)
+                index = lowerCaseValue.indexOf(pattern, offset)
             }
         }
 
@@ -149,7 +153,7 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
                 applicationInfo.loadLabel(packageManager) as String
             handler.post {
                 namesToLoad--
-                if (namesToLoad == 0) mAdf.hideProgressBar()
+                if (namesToLoad == 0) mAppsDialog.hideProgressBar()
             }
         }
     }
@@ -188,10 +192,10 @@ class ApkListAdapter(activity: MainActivity, adf: AppsDialog) :
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-        lateinit var mAdf: AppsDialog
+        lateinit var mAppsDialog: AppsDialog
     }
 
     init {
-        mAdf = adf
+        mAppsDialog = appsDialog
     }
 }
