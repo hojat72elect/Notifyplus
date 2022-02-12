@@ -1,6 +1,6 @@
 package ca.sudbury.hghasemi.notifyplus
 
-import android.annotation.SuppressLint
+
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -18,16 +18,17 @@ class ColorDialog : DialogFragment() {
 
     private lateinit var listener: ColorDialogListener
 
-    @SuppressLint("InflateParams")
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        // Loading all the UI elements
         val inflater = requireActivity().layoutInflater
         val dialogView = inflater.inflate(R.layout.background_color_dialog_jadid, null)
-
         val primaryColorPicker = dialogView.findViewById<LineColorPicker>(R.id.pickerPrimary)
         val secondaryColorPicker = dialogView.findViewById<LineColorPicker>(R.id.pickerPrimary2)
         val colorView = dialogView.findViewById<View>(R.id.colorView)
 
-
+        // Filling up color pickers and colorView with suitable colors
         primaryColorPicker.colors = ColorPalette.getBaseColors(requireActivity().applicationContext)
         secondaryColorPicker.colors =
             ColorPalette.getSecondaryColors(
@@ -36,6 +37,7 @@ class ColorDialog : DialogFragment() {
             )
         colorView.setBackgroundColor(secondaryColorPicker.color)
 
+        // Registering the listeners
         primaryColorPicker.setOnColorChangedListener {
             colorView.setBackgroundColor(primaryColorPicker.color)
             secondaryColorPicker.colors = ColorPalette.getSecondaryColors(
@@ -44,20 +46,19 @@ class ColorDialog : DialogFragment() {
             )
             secondaryColorPicker.setSelectedColor(primaryColorPicker.color)
         }
-
         secondaryColorPicker.setOnColorChangedListener {
             colorView.setBackgroundColor(secondaryColorPicker.color)
         }
-
         dialogView.findViewById<View>(R.id.setColorButton).let {
             it.setOnClickListener {
-                // The user has chosen and submitted the new color, we send the new color
+                // The user has chosen and submitted the new color, we send it
                 // to MainActivity and close this dialog.
                 listener.onColorChanged(this, secondaryColorPicker.color)
                 dialog?.cancel()
             }
         }
 
+        // Dispatching the dialog
         return activity.let {
             val builder = AlertDialog.Builder(it)
             builder.setView(dialogView)
@@ -66,13 +67,14 @@ class ColorDialog : DialogFragment() {
     }
 
     /*
-    * MainActivity must implement this interface to receive event callback.
-    * Method passes the DialogFragment in case the host needs to query it. */
+    * MainActivity must implement this interface to receive event callbacks.
+    **/
     interface ColorDialogListener {
         fun onColorChanged(dialog: DialogFragment, newColor: Int)
     }
 
-    // Override the DialogFragment.onAttach() method to instantiate the ColorDialogListener
+    // Override the DialogFragment.onAttach() method to make sure the class that has started this
+    // Dialog, has implemented ColorDialogListener interface.
     override fun onAttach(context: Context) {
         super.onAttach(context)
         // Verify that the host activity implements the callback interface
