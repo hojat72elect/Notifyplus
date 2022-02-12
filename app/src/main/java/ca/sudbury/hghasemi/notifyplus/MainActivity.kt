@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity(),
 
     // All the SharedPrefs used by this app
     private var colorSharedPref: SharedPreferences? = null
-    private var firstButtonSharedPref: SharedPreferences? = null
-    private var secondButtonSharedPref: SharedPreferences? = null
-    private var thirdButtonSharedPref: SharedPreferences? = null
-    private var fourthButtonSharedPref: SharedPreferences? = null
-    private var fifthButtonSharedPref: SharedPreferences? = null
-    private var sixthButtonSharedPref: SharedPreferences? = null
-    private var seventhButtonSharedPref: SharedPreferences? = null
-    private var eighthButtonSharedPref: SharedPreferences? = null
+    private var firstButtonSharedPref: SharedPreferences? = null // package name of 1st button.
+    private var secondButtonSharedPref: SharedPreferences? = null // package name of 2nd button.
+    private var thirdButtonSharedPref: SharedPreferences? = null // package name of 3rd button.
+    private var fourthButtonSharedPref: SharedPreferences? = null // package name of 4th button.
+    private var fifthButtonSharedPref: SharedPreferences? = null // package name of 5th button.
+    private var sixthButtonSharedPref: SharedPreferences? = null // package name of 6th button.
+    private var seventhButtonSharedPref: SharedPreferences? = null // package name of 7th button.
+    private var eighthButtonSharedPref: SharedPreferences? = null // package name of 8th button.
 
     // All the keys for reading from and writing to SharedPrefs
     private val colorWriteKey = "color_shared_preferences_read/write_key"
@@ -167,6 +167,35 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
+
+        // Update the background drawable of all buttons in main UI according to SharedPrefs
+        val packageManager = applicationContext.packageManager
+        ab1?.background = firstButtonSharedPref?.getString(firstButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab2?.background = secondButtonSharedPref?.getString(secondButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab3?.background = thirdButtonSharedPref?.getString(thirdButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab4?.background = fourthButtonSharedPref?.getString(fourthButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab5?.background = fifthButtonSharedPref?.getString(fifthButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab6?.background = sixthButtonSharedPref?.getString(sixthButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab7?.background = seventhButtonSharedPref?.getString(seventhButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+        ab8?.background = eighthButtonSharedPref?.getString(eighthButtonWriteKey, null).let {
+            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+
+
     }
 
     // show the dialog of installed apps.
@@ -188,9 +217,9 @@ class MainActivity : AppCompatActivity(),
         startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
     }
 
+    // Whenever you want to update the background color according to
+    // sharedPrefs, just call this function
     private fun updateBackgroundColor(color: SharedPreferences?) {
-        // Whenever you want to update the background color with
-        // sharedPrefs, just call this function
         buttonsHolder?.setBackgroundColor(
             color?.getInt(colorWriteKey, 0) ?: Color.WHITE
         )
@@ -219,15 +248,65 @@ class MainActivity : AppCompatActivity(),
     // DialogFragment.onAttach() callback, which it uses to call the following methods
     // defined by the AppsDialog.AppsDialogListener interface.
     override fun onAppChanged(imv: ImageView?, tv: TextView?) {
+        // apply the icon to corresponding button
+        // and update the related SharedPref
         when (buttonPosition) {
-            0 -> ab1?.setBackgroundDrawable(imv?.drawable)
-            1 -> ab2?.setBackgroundDrawable(imv?.drawable)
-            2 -> ab3?.setBackgroundDrawable(imv?.drawable)
-            3 -> ab4?.setBackgroundDrawable(imv?.drawable)
-            4 -> ab5?.setBackgroundDrawable(imv?.drawable)
-            5 -> ab6?.setBackgroundDrawable(imv?.drawable)
-            6 -> ab7?.setBackgroundDrawable(imv?.drawable)
-            7 -> ab8?.setBackgroundDrawable(imv?.drawable)
+            0 -> {
+                ab1?.background = imv?.drawable
+                firstButtonSharedPref?.edit().let {
+                    it?.putString(firstButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            1 -> {
+                ab2?.background = imv?.drawable
+                secondButtonSharedPref?.edit().let {
+                    it?.putString(secondButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            2 -> {
+                ab3?.background = imv?.drawable
+                thirdButtonSharedPref?.edit().let {
+                    it?.putString(thirdButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            3 -> {
+                ab4?.background = imv?.drawable
+                fourthButtonSharedPref?.edit().let {
+                    it?.putString(fourthButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            4 -> {
+                ab5?.background = imv?.drawable
+                fifthButtonSharedPref?.edit().let {
+                    it?.putString(fifthButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            5 -> {
+                ab6?.background = imv?.drawable
+                sixthButtonSharedPref?.edit().let {
+                    it?.putString(sixthButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            6 -> {
+                ab7?.background = imv?.drawable
+                seventhButtonSharedPref?.edit().let {
+                    it?.putString(seventhButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
+            7 -> {
+                ab8?.background = imv?.drawable
+                eighthButtonSharedPref?.edit().let {
+                    it?.putString(eighthButtonWriteKey, tv?.text.toString())
+                    it?.apply()
+                }
+            }
         }
     }
 
