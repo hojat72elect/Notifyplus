@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(),
     // Position of the button clicked by user
     private var buttonPosition: Int? = null
 
+
     // All the buttons
     private var ab1: Button? = null
     private var ab2: Button? = null
@@ -127,25 +128,25 @@ class MainActivity : AppCompatActivity(),
                 notificationToggle?.toggle()
             }
         }
-        notificationToggle?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, isChecked ->
+        notificationToggle?.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
                 // Show the notification
-                notificationToggleSharedPref?.edit()
-                    .let {
-                        it?.putBoolean(notificationToggleWriteKey, true)
-                        it?.apply()
-                    }
+                notificationToggleSharedPref?.edit().let {
+                    it?.putBoolean(notificationToggleWriteKey, true)
+                    it?.apply()
+                }
+                startNotification()
             } else {
                 // stop showing the notification
-                notificationToggleSharedPref?.edit()
-                    .let {
-                        it?.putBoolean(notificationToggleWriteKey, false)
-                        it?.apply()
-                    }
+                notificationToggleSharedPref?.edit().let {
+                    it?.putBoolean(notificationToggleWriteKey, false)
+                    it?.apply()
+                }
+                stopService(Intent(this, NotificationService::class.java))
             }
 
-        })
+        }
         ab1 = findViewById<Button?>(R.id.button1).also {
             it.setOnClickListener {
                 buttonPosition = 0
@@ -199,28 +200,28 @@ class MainActivity : AppCompatActivity(),
         // Update the background drawable of all buttons in main UI according to SharedPrefs
         val packageManager = applicationContext.packageManager
         ab1?.background = firstButtonSharedPref?.getString(firstButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab2?.background = secondButtonSharedPref?.getString(secondButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab3?.background = thirdButtonSharedPref?.getString(thirdButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab4?.background = fourthButtonSharedPref?.getString(fourthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab5?.background = fifthButtonSharedPref?.getString(fifthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab6?.background = sixthButtonSharedPref?.getString(sixthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab7?.background = seventhButtonSharedPref?.getString(seventhButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
         ab8?.background = eighthButtonSharedPref?.getString(eighthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+            packageManager.getApplicationIcon(it ?: this.packageName)
         }
 
         // Update the state of notification switch according to SharedPref
@@ -395,15 +396,36 @@ class MainActivity : AppCompatActivity(),
         )
     }
 
-    private fun StartNotification(faveApps: Array<String>) {
-
+    private fun startNotification() {
+        // First make a list of all the current favorite apps
+        val faveApps = arrayOf(
+            firstButtonSharedPref?.getString(firstButtonWriteKey, null)
+                ?: this.packageName,
+            secondButtonSharedPref?.getString(secondButtonWriteKey, null)
+                ?: this.packageName,
+            thirdButtonSharedPref?.getString(thirdButtonWriteKey, null)
+                ?: this.packageName,
+            fourthButtonSharedPref?.getString(fourthButtonWriteKey, null)
+                ?: this.packageName,
+            fifthButtonSharedPref?.getString(fifthButtonWriteKey, null)
+                ?: this.packageName,
+            sixthButtonSharedPref?.getString(sixthButtonWriteKey, null)
+                ?: this.packageName,
+            seventhButtonSharedPref?.getString(seventhButtonWriteKey, null)
+                ?: this.packageName,
+            eighthButtonSharedPref?.getString(eighthButtonWriteKey, null)
+                ?: this.packageName
+        )
         try {
-            val remoteView = RemoteViews(packageName, R.layout.notify8)
+            // Creating the view hierarchy that will be shown in the notification
+            val remoteView = RemoteViews(this.packageName, R.layout.notify8)
             remoteView.setInt(
                 R.id.notificationlayout,
                 "setBackgroundColor",
                 colorSharedPref?.getInt(colorWriteKey, 0) ?: 0
             )
+
+            // Starting up the notification
             val notificationIntent = Intent(this, NotificationService::class.java)
             notificationIntent.putExtra("ufa", faveApps)
             notificationIntent.putExtra("viewgroup", remoteView)
