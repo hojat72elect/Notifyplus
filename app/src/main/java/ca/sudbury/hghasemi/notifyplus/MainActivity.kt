@@ -127,6 +127,25 @@ class MainActivity : AppCompatActivity(),
                 notificationToggle?.toggle()
             }
         }
+        notificationToggle?.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { compoundButton, isChecked ->
+
+            if (isChecked) {
+                // Show the notification
+                notificationToggleSharedPref?.edit()
+                    .let {
+                        it?.putBoolean(notificationToggleWriteKey, true)
+                        it?.apply()
+                    }
+            } else {
+                // stop showing the notification
+                notificationToggleSharedPref?.edit()
+                    .let {
+                        it?.putBoolean(notificationToggleWriteKey, false)
+                        it?.apply()
+                    }
+            }
+
+        })
         ab1 = findViewById<Button?>(R.id.button1).also {
             it.setOnClickListener {
                 buttonPosition = 0
@@ -202,6 +221,13 @@ class MainActivity : AppCompatActivity(),
         }
         ab8?.background = eighthButtonSharedPref?.getString(eighthButtonWriteKey, null).let {
             packageManager.getApplicationIcon(it ?: "ca.sudbury.hghasemi.notifyplus")
+        }
+
+        // Update the state of notification switch according to SharedPref
+        notificationToggleSharedPref?.getBoolean(notificationToggleWriteKey, false).let {
+            if (it != null) {
+                notificationToggle?.isChecked = it
+            }
         }
 
 
