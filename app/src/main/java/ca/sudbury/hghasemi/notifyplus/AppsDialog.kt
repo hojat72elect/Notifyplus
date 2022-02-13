@@ -3,7 +3,6 @@ package ca.sudbury.hghasemi.notifyplus
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.app.SearchManager
 import android.content.Context
 import android.content.pm.ApplicationInfo
@@ -19,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * First created by Hojat Ghasemi on 16 March 2017.
+ * First created by Hojat Ghasemi on 16th March 2017.
  * Contact the author at "https://github.com/hojat72elect"
  */
 class AppsDialog : DialogFragment() {
@@ -105,8 +104,7 @@ class AppsDialog : DialogFragment() {
     @SuppressLint("StaticFieldLeak")
     internal inner class Loader(a: AppsDialog) :
         AsyncTask<Void?, ApplicationInfo?, Void?>() {
-        var dialog: ProgressDialog
-        var adf: AppsDialog
+        private var adf: AppsDialog = a
 
         @SuppressLint("QueryPermissionsNeeded")
         override fun doInBackground(vararg p0: Void?): Void? {
@@ -124,18 +122,5 @@ class AppsDialog : DialogFragment() {
             adf.addItem(values[0])
         }
 
-        override fun onPostExecute(aVoid: Void?) {
-            super.onPostExecute(aVoid)
-            dialog.dismiss()
-        }
-
-        init {
-            dialog = ProgressDialog.show(
-                activity,
-                getString(R.string.dlg_loading_title),
-                getString(R.string.dlg_loading_body)
-            )
-            adf = a
-        }
     }
 }
