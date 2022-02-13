@@ -11,10 +11,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.IBinder
 import android.widget.RemoteViews
-import java.util.*
 
 /**
  * Created by Hojat_Ghasemi on 13 March 2017 in Kerman.
+ * Contact the author at "https://github.com/hojat72elect"
  */
 class NotificationService : Service() {
     override fun onBind(intent: Intent): IBinder? {

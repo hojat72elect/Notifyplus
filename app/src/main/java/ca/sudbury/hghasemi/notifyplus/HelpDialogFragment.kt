@@ -7,8 +7,8 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
 /**
- *Created by Hojat Ghasemi at 2022-02-06
- *contact the author at "https://github.com/hojat72elect"
+ * Created by Hojat Ghasemi at 2022-02-06
+ * Contact the author at "https://github.com/hojat72elect"
  */
 class HelpDialogFragment : DialogFragment() {
     @SuppressLint("InflateParams")

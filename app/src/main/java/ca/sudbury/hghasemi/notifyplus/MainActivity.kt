@@ -7,12 +7,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -44,6 +42,7 @@ class MainActivity : AppCompatActivity(),
     private var ab6: Button? = null
     private var ab7: Button? = null
     private var ab8: Button? = null
+    private var notificationToggle: SwitchCompat? = null
 
     // All the SharedPrefs used by this app
     private var colorSharedPref: SharedPreferences? = null
@@ -55,6 +54,7 @@ class MainActivity : AppCompatActivity(),
     private var sixthButtonSharedPref: SharedPreferences? = null // package name of 6th button.
     private var seventhButtonSharedPref: SharedPreferences? = null // package name of 7th button.
     private var eighthButtonSharedPref: SharedPreferences? = null // package name of 8th button.
+
 
     // All the keys for reading from and writing to SharedPrefs
     private val colorWriteKey = "color_shared_preferences_read/write_key"
@@ -198,33 +198,6 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    // show the dialog of installed apps.
-    private fun showAppsDialog() {
-        AppsDialog().show(supportFragmentManager, "installed_apps")
-    }
-
-    // Suggesting the user to share a link to this app.
-    private fun suggestShare() {
-        val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_SEND
-        sendIntent.putExtra(
-            Intent.EXTRA_TEXT, """
-     ${getString(R.string.share_text)}
-     The app isn't currently published in any markets
-     """.trimIndent()
-        )
-        sendIntent.type = "text/plain"
-        startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
-    }
-
-    // Whenever you want to update the background color according to
-    // sharedPrefs, just call this function
-    private fun updateBackgroundColor(color: SharedPreferences?) {
-        buttonsHolder?.setBackgroundColor(
-            color?.getInt(colorWriteKey, 0) ?: Color.WHITE
-        )
-    }
-
     // The ColorDialog receives a reference to MainActivity through the
     // DialogFragment.onAttach() callback, which it uses to call the following methods
     // defined by the ColorDialog.ColorDialogListener interface.
@@ -358,6 +331,53 @@ class MainActivity : AppCompatActivity(),
         }
         findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)
         return true
+    }
+
+    // show the dialog of installed apps.
+    private fun showAppsDialog() {
+        AppsDialog().show(supportFragmentManager, "installed_apps")
+    }
+
+    // Suggesting the user to share a link to this app.
+    private fun suggestShare() {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT, """
+     ${getString(R.string.share_text)}
+     The app isn't currently published in any markets
+     """.trimIndent()
+        )
+        sendIntent.type = "text/plain"
+        startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_to)))
+    }
+
+    // Whenever you want to update the background color according to
+    // sharedPrefs, just call this function
+    private fun updateBackgroundColor(color: SharedPreferences?) {
+        buttonsHolder?.setBackgroundColor(
+            color?.getInt(colorWriteKey, 0) ?: Color.WHITE
+        )
+    }
+
+    private fun StartNotification(faveApps: Array<String>) {
+
+        try {
+            val remoteView = RemoteViews(packageName, R.layout.notify8)
+            remoteView.setInt(
+                R.id.notificationlayout,
+                "setBackgroundColor",
+                colorSharedPref?.getInt(colorWriteKey, 0) ?: 0
+            )
+            val notificationIntent = Intent(this, NotificationService::class.java)
+            notificationIntent.putExtra("ufa", faveApps)
+            notificationIntent.putExtra("viewgroup", remoteView)
+            startService(notificationIntent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "unable to start notification\n${e.message}", Toast.LENGTH_LONG)
+                .show()
+        }
+
     }
 
 }
