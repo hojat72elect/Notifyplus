@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="@string/helpstring1"
+            android:text="@string/help_string_1"
             android:textSize="18sp" />
 
         <view
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="@string/helpstring2"
+            android:text="@string/help_string_2"
             android:textSize="18sp" />
 
         <view
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="@string/helpstring3"
+            android:text="@string/help_string_3"
             android:textSize="18sp" />
 
         <view
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="@string/helpstring4"
+            android:text="@string/help_string_4"
             android:textSize="18sp" />
 
 

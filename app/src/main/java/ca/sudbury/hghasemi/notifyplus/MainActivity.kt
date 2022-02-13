@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity(),
         sendIntent.action = Intent.ACTION_SEND
         sendIntent.putExtra(
             Intent.EXTRA_TEXT, """
-     ${getString(R.string.sharetext)}
+     ${getString(R.string.share_text)}
      The app isn't currently published in any markets
      """.trimIndent()
         )
