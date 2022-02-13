@@ -30,12 +30,6 @@
     <string name="sharetext">Open your favorite apps in a split second!!!</string>
     <string name="errortelegram">there\'s a problem conecting server of Telegram!</string>
     <string name="queryhint">search app\'s name:</string>
-    <string name="dlg_loading_title">Loading</string>
-    <string name="dlg_loading_body">loading list of installed applications!</string>
-    <string name="kharidbuttontext">Buy</string>
-    <string name="tashvightext">Dear user! do you want to install the paid version of this app with full capabilities?</string>
-    <string name="home">Home</string>
-    <string name="todo">TODO</string>
     <string name="control_center">Floating control center</string>
     <string name="toggle_control_center">Turn on/off floating control center</string>
     <string name="_8">8</string>
@@ -46,4 +40,8 @@
     <string name="_3">3</string>
     <string name="_2">2</string>
     <string name="_1">1</string>
+    <string name="twitter_handle">https://twitter.com/hojat_93</string>
+    <string name="github_handle">https://github.com/hojat72elect</string>
+    <string name="dev_intro">Developed by "Hojat Ghasemi" \nFollow me on social media</string>
+    <string name="app_icons">Icons for each installed app on your device</string>
 </resources>

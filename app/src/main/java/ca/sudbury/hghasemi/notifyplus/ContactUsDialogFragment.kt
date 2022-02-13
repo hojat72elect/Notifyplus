@@ -16,20 +16,20 @@ class ContactUsDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Developed by \"Hojat Ghasemi\"\n\nFollow me on social media")
+            builder.setMessage(getString(R.string.dev_intro))
                 .setPositiveButton("Twitter") { _, _ ->
                     try {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://twitter.com/hojat_93")
+                                Uri.parse(getString(R.string.twitter_handle))
                             ).setPackage("com.twitter.android")
                         )
                     } catch (e: ActivityNotFoundException) {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://twitter.com/hojat_93")
+                                Uri.parse(getString(R.string.twitter_handle))
                             )
                         )
                     }
@@ -47,7 +47,7 @@ class ContactUsDialogFragment : DialogFragment() {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/hojat72elect")
+                                Uri.parse(getString(R.string.github_handle))
                             )
                         )
                     }
