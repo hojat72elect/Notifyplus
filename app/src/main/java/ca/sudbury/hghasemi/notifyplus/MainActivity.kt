@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity(),
     private var sixthButtonSharedPref: SharedPreferences? = null // package name of 6th button.
     private var seventhButtonSharedPref: SharedPreferences? = null // package name of 7th button.
     private var eighthButtonSharedPref: SharedPreferences? = null // package name of 8th button.
+    private var notificationToggleSharedPref: SharedPreferences? =
+        null // the state of the notification service.
 
 
     // All the keys for reading from and writing to SharedPrefs
@@ -66,7 +68,7 @@ class MainActivity : AppCompatActivity(),
     private val sixthButtonWriteKey = "sixth_button_write_key"
     private val seventhButtonWriteKey = "seventh_button_write_key"
     private val eighthButtonWriteKey = "eighth_button_write_key"
-
+    private val notificationToggleWriteKey = "notification_toggle_write_key"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -95,6 +97,7 @@ class MainActivity : AppCompatActivity(),
         ab6 = findViewById(R.id.button6)
         ab7 = findViewById(R.id.button7)
         ab8 = findViewById(R.id.button8)
+        notificationToggle = findViewById(R.id.notifyswitch)
 
         // Loading all the needed SharedPreferences
         colorSharedPref = getSharedPreferences("rang_prefs", 0)
@@ -106,7 +109,7 @@ class MainActivity : AppCompatActivity(),
         sixthButtonSharedPref = getSharedPreferences("sixth_button_prefs", 0)
         seventhButtonSharedPref = getSharedPreferences("seventh_button_prefs", 0)
         eighthButtonSharedPref = getSharedPreferences("eighth_button_prefs", 0)
-
+        notificationToggleSharedPref = getSharedPreferences("notification_toggle_prefs", 0)
 
         // when the app starts up, color should be applied to UI
         updateBackgroundColor(colorSharedPref)
@@ -116,6 +119,12 @@ class MainActivity : AppCompatActivity(),
             it.setOnClickListener {
                 // show the dialog of "Background color".
                 ColorDialog().show(supportFragmentManager, "color")
+            }
+        }
+        findViewById<View>(R.id.togglenot).let {
+            it.setOnClickListener {
+                // toggle the notification switch
+                notificationToggle?.toggle()
             }
         }
         ab1 = findViewById<Button?>(R.id.button1).also {
