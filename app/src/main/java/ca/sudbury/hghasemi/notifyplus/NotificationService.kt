@@ -1,16 +1,17 @@
 package ca.sudbury.hghasemi.notifyplus
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.IBinder
 import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 
 /**
  * Created by Hojat_Ghasemi on 13 March 2017 in Kerman.
@@ -24,7 +25,8 @@ class NotificationService : Service() {
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
-        val HELLO_ID = 10
+        val DEFAULT_CHANNEL_ID = "Notify_Plus_Channel_ID"
+        val NOTIFICATION_ID = 102
         val favoriteApps = intent.getStringArrayExtra("ufa")
         val remote = intent.extras!!["viewgroup"] as RemoteViews
 
@@ -196,19 +198,24 @@ class NotificationService : Service() {
         // android.app.RemoteServiceException: Bad notification for startForeground
 
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            val notification = Notification.Builder(applicationContext)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notification = Notification.Builder(
+                applicationContext,
+                createNotificationChannel(DEFAULT_CHANNEL_ID, "Notify Plus")
+            )
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setCustomContentView(remote) // this line is available only for SDK 24+
                 .build()
             notification.flags = Notification.FLAG_NO_CLEAR or notification.flags
-            startForeground(HELLO_ID, notification)
+            startForeground(NOTIFICATION_ID, notification)
         } else {
             val notification = Notification(R.mipmap.ic_launcher, "", System.currentTimeMillis())
             notification.flags = Notification.FLAG_NO_CLEAR or notification.flags
             notification.contentView = remote
-            startForeground(HELLO_ID, notification)
+            startForeground(NOTIFICATION_ID, notification)
         }
+
+
 
         return START_NOT_STICKY
     }
@@ -244,4 +251,13 @@ class NotificationService : Service() {
         return bitmap
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(channelID: String, channelName: String): String {
+        val channel =
+            NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_LOW)
+        channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        service.createNotificationChannel(channel)
+        return channelID
+    }
 }

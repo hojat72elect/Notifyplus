@@ -7,10 +7,9 @@ android {
     defaultConfig {
         applicationId "ca.sudbury.hghasemi.notifyplus"
         minSdkVersion 21
-        //noinspection OldTargetApi
         targetSdkVersion 31
-        versionCode 25
-        versionName "0.0.2"
+        versionCode 26
+        versionName "0.1.0"
     }
     buildTypes {
         release {
