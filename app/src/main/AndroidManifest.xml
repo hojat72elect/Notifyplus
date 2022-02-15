@@ -46,7 +46,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".NotificationService" />
+        <service
+            android:name=".NotificationService"
+            android:foregroundServiceType="dataSync" />
 
 
     </application>
