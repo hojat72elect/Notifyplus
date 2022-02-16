@@ -252,8 +252,7 @@ class MainActivity : AppCompatActivity(),
         }
         updateBackgroundColor(colorSharedPref)
         // If the notification is on, the new color should be applied to it too
-        // in order to apply the color to notification, we just call the corresponding
-        // function after we have updated the SharedPref of color.
+        // we just call the corresponding function after we have updated the SharedPref of color.
         if (notificationToggleSharedPref?.getBoolean(notificationToggleWriteKey, false) == true) {
             startNotification()
         }
@@ -322,6 +321,11 @@ class MainActivity : AppCompatActivity(),
                     it?.apply()
                 }
             }
+        }
+        // If the notification is on, the change in favorite apps should be applied to it too.
+        // we just call the corresponding function after we have updated the SharedPref of favorite apps.
+        if (notificationToggleSharedPref?.getBoolean(notificationToggleWriteKey, false) == true) {
+            startNotification()
         }
     }
 

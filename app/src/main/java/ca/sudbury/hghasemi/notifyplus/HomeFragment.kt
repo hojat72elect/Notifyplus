@@ -12,24 +12,17 @@
 //import android.widget.*
 //import androidx.appcompat.widget.SwitchCompat
 //import java.util.*
-//
-///**
-// * Created by Hojat_Ghasemi on Thursday , 30 March 2017 in kerman.
-// */
+
 //class HomeFragment {
-//
-//
 //    private var isfloatingon: SharedPreferences? = null
-//
-//
 //    private var bftool: SwitchCompat? = null
-//
-//
+
 //    override fun onCreateView(
 //        inflater: LayoutInflater,
 //        container: ViewGroup?,
 //        savedInstanceState: Bundle?
 //    ): View? {
+
 //        val result = inflater.inflate(R.layout.home_layout_jadid, container, false)
 //        sadie()
 //        hafez()
