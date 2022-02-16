@@ -1,7 +1,7 @@
-# NotifyPlus
-
+<p align="center">
 <img alt="Logo" src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="120" />
-
+</p>
+<h1 align="center">NotifyPlus</h1>
 
 NotifyPlus is an open source application with which you can have shortcuts of your favorite apps in the notification bar.
 

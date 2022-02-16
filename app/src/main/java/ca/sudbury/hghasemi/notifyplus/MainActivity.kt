@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(),
         notificationToggle?.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
-                // Show the notification
+                // The switch is turned on; show the notification.
                 notificationToggleSharedPref?.edit().let {
                     it?.putBoolean(notificationToggleWriteKey, true)
                     it?.apply()
@@ -251,6 +251,12 @@ class MainActivity : AppCompatActivity(),
             it?.apply()
         }
         updateBackgroundColor(colorSharedPref)
+        // If the notification is on, the new color should be applied to it too
+        // in order to apply the color to notification, we just call the corresponding
+        // function after we have updated the SharedPref of color.
+        if (notificationToggleSharedPref?.getBoolean(notificationToggleWriteKey, false) == true) {
+            startNotification()
+        }
     }
 
     // The AppsDialog receives a reference to MainActivity through the
