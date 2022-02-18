@@ -165,7 +165,6 @@ class MainActivity : AppCompatActivity(),
         }
         floatingControlCenterToggle?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                // start the floating control center
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                     !Settings.canDrawOverlays(applicationContext)
                 ) {
@@ -175,12 +174,10 @@ class MainActivity : AppCompatActivity(),
                         Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                         Uri.parse("package:$packageName")
                     )
-
                     (this as Activity).startActivityForResult(
                         intent,
                         CODE_DRAW_OVER_OTHER_APP_PERMISSION
                     )
-
                     Toast.makeText(
                         applicationContext,
                         "You need to first accept the permission requests of this app.",
@@ -191,21 +188,21 @@ class MainActivity : AppCompatActivity(),
                         it?.putBoolean(controlCenterToggleWriteKey, false)
                         it?.apply()
                     }
-
                 } else {
-                    // User has already granted the permissions
+                    // User has already granted the permissions; start the floating control center.
                     controlCenterToggleSharedPref?.edit().let {
                         it?.putBoolean(controlCenterToggleWriteKey, true)
                         it?.apply()
                     }
+                    startFloatingControlCenter()
                 }
-
             } else {
                 // stop showing the control center
                 controlCenterToggleSharedPref?.edit().let {
                     it?.putBoolean(controlCenterToggleWriteKey, false)
                     it?.apply()
                 }
+                stopService(Intent(this, FloatingViewService::class.java))
             }
         }
 
@@ -301,6 +298,7 @@ class MainActivity : AppCompatActivity(),
         }
 
     }
+
 
     // The ColorDialog receives a reference to MainActivity through the
     // DialogFragment.onAttach() callback, which it uses to call the following methods
@@ -515,4 +513,7 @@ class MainActivity : AppCompatActivity(),
 
     }
 
+    private fun startFloatingControlCenter() {
+        TODO("Not yet implemented")
+    }
 }
