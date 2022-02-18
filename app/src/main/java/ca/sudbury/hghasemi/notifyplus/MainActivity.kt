@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity(),
     private var eighthButtonSharedPref: SharedPreferences? = null // package name of 8th button.
     private var notificationToggleSharedPref: SharedPreferences? =
         null // the state of the notification service.
-
+    private var controlCenterToggleSharedPref: SharedPreferences? =
+        null // switch for floating control center.
 
     // All the keys for reading from and writing to SharedPrefs
     private val colorWriteKey = "color_shared_preferences_read/write_key"
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(),
     private val seventhButtonWriteKey = "seventh_button_write_key"
     private val eighthButtonWriteKey = "eighth_button_write_key"
     private val notificationToggleWriteKey = "notification_toggle_write_key"
+    private val controlCenterToggleWriteKey = "control_center_toggle_write_key"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -119,6 +121,7 @@ class MainActivity : AppCompatActivity(),
         seventhButtonSharedPref = getSharedPreferences("seventh_button_prefs", 0)
         eighthButtonSharedPref = getSharedPreferences("eighth_button_prefs", 0)
         notificationToggleSharedPref = getSharedPreferences("notification_toggle_prefs", 0)
+        controlCenterToggleSharedPref = getSharedPreferences("control_center_toggle_prefs", 0)
 
         // when the app starts up, color should be applied to UI
         updateBackgroundColor(colorSharedPref)
@@ -163,11 +166,10 @@ class MainActivity : AppCompatActivity(),
         floatingControlCenterToggle?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // start the floating control center
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(
-                        applicationContext
-                    )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                    !Settings.canDrawOverlays(applicationContext)
                 ) {
-                    // The API is more than 23 and the permission to draw over
+                    // The API is above 23 and the permission to draw over
                     // other apps is not yet granted. Ask them to grant the permission.
                     val intent = Intent(
                         Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
@@ -185,13 +187,25 @@ class MainActivity : AppCompatActivity(),
                         Toast.LENGTH_LONG
                     ).show()
                     floatingControlCenterToggle?.isChecked = false
+                    controlCenterToggleSharedPref?.edit().let {
+                        it?.putBoolean(controlCenterToggleWriteKey, false)
+                        it?.apply()
+                    }
+
                 } else {
                     // User has already granted the permissions
-
+                    controlCenterToggleSharedPref?.edit().let {
+                        it?.putBoolean(controlCenterToggleWriteKey, true)
+                        it?.apply()
+                    }
                 }
 
             } else {
                 // stop showing the control center
+                controlCenterToggleSharedPref?.edit().let {
+                    it?.putBoolean(controlCenterToggleWriteKey, false)
+                    it?.apply()
+                }
             }
         }
 
@@ -279,6 +293,12 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
+        // Update the state of floating control center switch according to SharedPref
+        controlCenterToggleSharedPref?.getBoolean(controlCenterToggleWriteKey, false).let {
+            if (it != null) {
+                floatingControlCenterToggle?.isChecked = it
+            }
+        }
 
     }
 
