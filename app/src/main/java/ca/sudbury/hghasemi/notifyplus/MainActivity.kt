@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(),
     private var ab7: Button? = null
     private var ab8: Button? = null
     private var notificationToggle: SwitchCompat? = null
+    private var floatingControlCenterToggle: SwitchCompat? = null
 
     // All the SharedPrefs used by this app
     private var colorSharedPref: SharedPreferences? = null
@@ -98,7 +99,8 @@ class MainActivity : AppCompatActivity(),
         ab6 = findViewById(R.id.button6)
         ab7 = findViewById(R.id.button7)
         ab8 = findViewById(R.id.button8)
-        notificationToggle = findViewById(R.id.notifyswitch)
+        notificationToggle = findViewById(R.id.notify_switch)
+        floatingControlCenterToggle = findViewById(R.id.floating_control_center_switch)
 
         // Loading all the needed SharedPreferences
         colorSharedPref = getSharedPreferences("rang_prefs", 0)
@@ -122,14 +124,20 @@ class MainActivity : AppCompatActivity(),
                 ColorDialog().show(supportFragmentManager, "color")
             }
         }
-        findViewById<View>(R.id.togglenot).let {
+        findViewById<View>(R.id.notification_toggle_layout).let {
             it.setOnClickListener {
                 // toggle the notification switch
                 notificationToggle?.toggle()
             }
         }
-        notificationToggle?.setOnCheckedChangeListener { _, isChecked ->
+        findViewById<View>(R.id.floating_control_center_layout).let {
+            it.setOnClickListener {
+                // toggle the floating control center switch
+                floatingControlCenterToggle?.toggle()
+            }
+        }
 
+        notificationToggle?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // The switch is turned on; show the notification.
                 notificationToggleSharedPref?.edit().let {
@@ -145,8 +153,15 @@ class MainActivity : AppCompatActivity(),
                 }
                 stopService(Intent(this, NotificationService::class.java))
             }
-
         }
+        floatingControlCenterToggle?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // start the floating control center
+            } else {
+                // stop showing the control center
+            }
+        }
+
         ab1 = findViewById<Button?>(R.id.button1).also {
             it.setOnClickListener {
                 buttonPosition = 0
