@@ -1,5 +1,6 @@
 package ca.sudbury.hghasemi.notifyplus
 
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -172,7 +173,12 @@ class MainActivity : AppCompatActivity(),
                         Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                         Uri.parse("package:$packageName")
                     )
-                    startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION)
+
+                    (this as Activity).startActivityForResult(
+                        intent,
+                        CODE_DRAW_OVER_OTHER_APP_PERMISSION
+                    )
+
                     Toast.makeText(
                         applicationContext,
                         "You need to first accept the permission requests of this app.",
