@@ -3,7 +3,10 @@ package ca.sudbury.hghasemi.notifyplus
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
     ColorDialog.ColorDialogListener,
     AppsDialog.AppsDialogListener {
+
+    private val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
 
     // The LinearLayout that contains the buttons
     // (the background color will be applied to this layout)
@@ -157,6 +162,28 @@ class MainActivity : AppCompatActivity(),
         floatingControlCenterToggle?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // start the floating control center
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(
+                        applicationContext
+                    )
+                ) {
+                    // The API is more than 23 and the permission to draw over
+                    // other apps is not yet granted. Ask them to grant the permission.
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:$packageName")
+                    )
+                    startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION)
+                    Toast.makeText(
+                        applicationContext,
+                        "You need to first accept the permission requests of this app.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    floatingControlCenterToggle?.isChecked = false
+                } else {
+                    // User has already granted the permissions
+
+                }
+
             } else {
                 // stop showing the control center
             }
