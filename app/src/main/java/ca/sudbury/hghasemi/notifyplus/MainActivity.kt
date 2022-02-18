@@ -21,7 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.navigation.NavigationView
 
-/*
+/**
  First created by Hojat Ghasemi on Saturday , 11 March 2017.
  Contact the author at "https://github.com/hojat72elect"
  */
@@ -299,7 +299,6 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-
     // The ColorDialog receives a reference to MainActivity through the
     // DialogFragment.onAttach() callback, which it uses to call the following methods
     // defined by the ColorDialog.ColorDialogListener interface.
@@ -394,7 +393,6 @@ class MainActivity : AppCompatActivity(),
             startNotification()
         }
     }
-
 
     /**
      * When user presses the back button in the app.
@@ -507,13 +505,28 @@ class MainActivity : AppCompatActivity(),
             notificationIntent.putExtra("viewgroup", remoteView)
             startService(notificationIntent)
         } catch (e: Exception) {
-            Toast.makeText(this, "unable to start notification\n${e.message}", Toast.LENGTH_LONG)
+            Toast.makeText(
+                this,
+                "unable to start notification\n${e.message}",
+                Toast.LENGTH_LONG
+            )
                 .show()
         }
 
     }
 
     private fun startFloatingControlCenter() {
-        TODO("Not yet implemented")
+        try {
+            startService(Intent(this, FloatingViewService::class.java))
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                "unable to start floating control center\n${e.message}",
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
+
+
     }
 }

@@ -28,9 +28,11 @@ import java.io.File
 import java.util.*
 
 /**
- * Created by hojat72elect on yekshanbe 14 khordad 1396 in kerman.
+First created by Hojat Ghasemi on Sunday, 4th June 2017.
+Contact the author at "https://github.com/hojat72elect"
  */
 class FloatingViewService : Service(), View.OnClickListener, OnSeekBarChangeListener {
+
     var volume: ImageView? = null
     var control_center: ImageView? = null
     var close_button1: ImageView? = null
@@ -53,6 +55,7 @@ class FloatingViewService : Service(), View.OnClickListener, OnSeekBarChangeList
     var closeButtonCollapsed: ImageView? = null
     var back_button: ImageView? = null
     var batterystate: TextView? = null
+
     private val batteryRcv: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             try {
@@ -82,6 +85,7 @@ class FloatingViewService : Service(), View.OnClickListener, OnSeekBarChangeList
     private val window: Window? = null
     private var mWindowManager: WindowManager? = null
     private var mFloatingView: View? = null
+
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
@@ -234,26 +238,39 @@ class FloatingViewService : Service(), View.OnClickListener, OnSeekBarChangeList
             })
     }
 
-    private fun maryamheydarzadeh() {
-        //we adopt the seekbar for the current brightness level of screen.
-        try {
-            brighval!!.progress = Settings.System.getInt(
-                applicationContext.contentResolver,
-                Settings.System.SCREEN_BRIGHTNESS,
-                0
-            ) //////////////////////////////////////
-        } catch (e: Exception) {
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        if (fromUser) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                !Settings.System.canWrite(applicationContext)
+            ) {
+                //If the "write settings" permission is not available open the settings screen
+                //to grant the permission.
+                onsori(0)
+            } else {
+                brightness = brighval!!.progress
+                if (brightness < 0) {
+                    brightness = 0
+                } else if (brightness > 255) {
+                    brightness = 255
+                }
+                val cResolver = this.applicationContext.contentResolver
+                Settings.System.putInt(cResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
+
+
+                /*    Intent intent = new Intent(getBaseContext(), DummyBrightnessActivity.class);
+            //    Log.d("brightend", String.valueOf(brightness / (float)255));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
+            //in the next line 'brightness' should be a float number between 0.0 and 1.0
+            intent.putExtra("brightness value", brightness / (float) 255);
+            startActivity(intent);
+
+*/
+            }
         }
     }
 
-    /**
-     * Detect if the floating view is collapsed or expanded.
-     *
-     * @return true if the floating view is collapsed.
-     */
-    private val isViewCollapsed: Boolean
-        get() = mFloatingView == null || mFloatingView!!.findViewById<View>(R.id.collapse_view).visibility == View.VISIBLE
-
+    override fun onStartTrackingTouch(seekBar: SeekBar) {}
+    override fun onStopTrackingTouch(seekBar: SeekBar) {}
     override fun onDestroy() {
         super.onDestroy()
         if (mFloatingView != null) mWindowManager!!.removeView(mFloatingView)
@@ -398,6 +415,27 @@ class FloatingViewService : Service(), View.OnClickListener, OnSeekBarChangeList
         }
     }
 
+
+    private fun maryamheydarzadeh() {
+        //we adopt the seekbar for the current brightness level of screen.
+        try {
+            brighval!!.progress = Settings.System.getInt(
+                applicationContext.contentResolver,
+                Settings.System.SCREEN_BRIGHTNESS,
+                0
+            ) //////////////////////////////////////
+        } catch (e: Exception) {
+        }
+    }
+
+    /**
+     * Detect if the floating view is collapsed or expanded.
+     *
+     * @return true if the floating view is collapsed.
+     */
+    private val isViewCollapsed: Boolean
+        get() = mFloatingView == null || mFloatingView!!.findViewById<View>(R.id.collapse_view).visibility == View.VISIBLE
+
     private fun manochehridamghani() {
         //in 17+ android APIs , we use intent for leading the user to airplane section in settings.
         //todo : do the toggling of airplane mode.
@@ -528,41 +566,4 @@ class FloatingViewService : Service(), View.OnClickListener, OnSeekBarChangeList
         i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output))
         startActivity(Intent.createChooser(i, "یک برنامه عکاسی را انتخاب کنید."))
     }
-
-
-    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        if (fromUser) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                !Settings.System.canWrite(applicationContext)
-            ) {
-                //If the "write settings" permission is not available open the settings screen
-                //to grant the permission.
-                onsori(0)
-            } else {
-                brightness = brighval!!.progress
-                if (brightness < 0) {
-                    brightness = 0
-                } else if (brightness > 255) {
-                    brightness = 255
-                }
-                val cResolver = this.applicationContext.contentResolver
-                Settings.System.putInt(cResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
-
-
-                /*    Intent intent = new Intent(getBaseContext(), DummyBrightnessActivity.class);
-            //    Log.d("brightend", String.valueOf(brightness / (float)255));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
-            //in the next line 'brightness' should be a float number between 0.0 and 1.0
-            intent.putExtra("brightness value", brightness / (float) 255);
-            startActivity(intent);
-
-*/
-            }
-        }
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar) {}
-    override fun onStopTrackingTouch(seekBar: SeekBar) {}
-
-
 }
