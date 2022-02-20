@@ -193,6 +193,22 @@ class FloatingViewService : Service()
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
             }
         }
+        mFloatingView?.findViewById<View>(R.id.back).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
+                    View.GONE
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.VISIBLE
+            }
+        }
+        mFloatingView?.findViewById<View>(R.id.close_button3).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
+                    View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+            }
+
+        }
+
 
         // view should be collapsed at th start
         isViewCollapsed = true
