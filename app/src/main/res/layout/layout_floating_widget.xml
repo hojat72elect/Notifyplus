@@ -225,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="صدا کم"
+                        android:text="@string/volume_down"
                         android:textColor="#ff000000" />
 
                 </LinearLayout>
@@ -256,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="صدا زیاد"
+                        android:text="@string/volume_up"
                         android:textColor="#ff000000" />
 
                 </LinearLayout>
@@ -269,9 +269,9 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/close_button"
+                        android:id="@+id/close_button2"
                         android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_height="11dp"
                         android:layout_marginBottom="20dp"
                         android:alpha="0.5"
                         android:background="@drawable/button_floating_widget"
@@ -313,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="بی صدا"
+                        android:text="@string/mute"
                         android:textColor="#ff000000" />
 
 
@@ -345,7 +345,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="لرزش"
+                        android:text="@string/vibrate"
                         android:textColor="#ff000000" />
 
                 </LinearLayout>

@@ -171,7 +171,28 @@ class FloatingViewService : Service()
                     View.VISIBLE
             }
         }
+        mFloatingView?.findViewById<View>(R.id.volume).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
+                mFloatingView?.findViewById<View>(R.id.volume_expanded_container)?.visibility =
+                    View.VISIBLE
+            }
+        }
+        mFloatingView?.findViewById<View>(R.id.back_button).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.volume_expanded_container)?.visibility =
+                    View.GONE
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.VISIBLE
+            }
 
+        }
+        mFloatingView?.findViewById<View>(R.id.close_button2).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.volume_expanded_container)?.visibility =
+                    View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+            }
+        }
 
         // view should be collapsed at th start
         isViewCollapsed = true
@@ -249,23 +270,6 @@ class FloatingViewService : Service()
 //
 //    @SuppressLint("InflateParams")
 //    override fun onCreate() {
-//        super.onCreate()
-//        //Inflate the floating view layout we created
-//        mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null)
-//
-//        //Add the view to the window.
-//        val params = WindowManager.LayoutParams(
-//            WindowManager.LayoutParams.WRAP_CONTENT,
-//            WindowManager.LayoutParams.WRAP_CONTENT,
-//            WindowManager.LayoutParams.TYPE_PHONE,
-//            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-//            PixelFormat.TRANSLUCENT
-//        )
-//
-//
-//
-//
-//
 //
 //        collapsedView = mFloatingView?.findViewById(R.id.collapsed_view)
 //        mainexpandedView = mFloatingView?.findViewById(R.id.expanded_view)

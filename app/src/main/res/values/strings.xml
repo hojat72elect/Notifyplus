@@ -42,4 +42,8 @@
     <string name="control_center">Control center</string>
     <string name="phone">Phone</string>
     <string name="email">Email</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="mute">Mute</string>
+    <string name="volume_down">Volume Down</string>
+    <string name="volume_up">Volume Up</string>
 </resources>
