@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/NotifyPlus/app/src/main/res/drawable/background_button_float.xml" value="0.1225" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/drawable/ic_close_black.xml" value="0.1945" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/drawable/ic_close_red.xml" value="0.1225" />
+        <entry key="..\:/NotifyPlus/app/src/main/res/drawable/ic_close_white.xml" value="0.1225" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw300dp/notify8.xml" value="0.3998015873015873" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw350dp/notify8.xml" value="0.2708333333333333" />
         <entry key="..\:/NotifyPlus/app/src/main/res/layout-sw370dp/notify8.xml" value="0.25441919191919193" />

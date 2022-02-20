@@ -6,10 +6,12 @@ import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
+import android.view.*
+import android.view.View.OnTouchListener
+import android.widget.ImageView
+import android.widget.Toast
+import java.util.*
+
 
 /**
 First created by Hojat Ghasemi on Sunday, 4th June 2017.
@@ -21,6 +23,9 @@ class FloatingViewService : Service()
 
     private var windowManager: WindowManager? = null
     private var mFloatingView: View? = null
+    var imageClose: ImageView? = null
+    var width = 0f
+    var height = 0f
 
 
     /**
@@ -31,7 +36,7 @@ class FloatingViewService : Service()
         return null
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "ClickableViewAccessibility")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         val LAYOUT_FLAG = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -40,6 +45,7 @@ class FloatingViewService : Service()
             WindowManager.LayoutParams.TYPE_PHONE
         }
 
+        // inflating the widget's layout
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null)
 
         //Add the view to the window.
@@ -56,11 +62,90 @@ class FloatingViewService : Service()
         layoutParams.x = 0
         layoutParams.y = 100
 
+        // layout params for close button
+        val imageParams = WindowManager.LayoutParams(
+            140,
+            140,
+            LAYOUT_FLAG,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+        imageParams.gravity = Gravity.BOTTOM or Gravity.CENTER
+        imageParams.y = 100
 
         // Add the view to the window
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+        imageClose = ImageView(this).also {
+            it.setImageResource(R.drawable.ic_close_white)
+            it.visibility = View.INVISIBLE
+
+        }
+
+        windowManager?.addView(imageClose, imageParams)
         windowManager?.addView(mFloatingView, layoutParams)
 
+        mFloatingView?.visibility = View.VISIBLE // why?
+        height = windowManager!!.defaultDisplay.height.toFloat() // deprecated in API 30
+        width = windowManager!!.defaultDisplay.width.toFloat()
+
+        // drag movement for the widget
+        mFloatingView?.setOnTouchListener(object : OnTouchListener {
+            var initialX = 0
+            var initialY = 0
+            var initialTouchX = 0f
+            var initialTouchY = 0f
+            var startClickTime: Long = 0
+            val MAX_CLICK_DURATION = 200
+            override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
+                when (motionEvent.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        startClickTime = Calendar.getInstance().timeInMillis
+                        imageClose?.visibility = View.VISIBLE
+                        initialX = layoutParams.x
+                        initialY = layoutParams.y
+                        // getting the touch position
+                        initialTouchX = motionEvent.rawX
+                        initialTouchY = motionEvent.rawY
+                        return true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        val clickDuration = Calendar.getInstance().timeInMillis - startClickTime
+                        imageClose?.visibility = View.GONE
+                        layoutParams.x = initialX + (initialTouchX - motionEvent.rawX).toInt()
+                        layoutParams.y = initialY + (motionEvent.rawY - initialTouchY).toInt()
+                        if (clickDuration < MAX_CLICK_DURATION) {
+                            // user clicked on the floating widget
+                            Toast.makeText(this@FloatingViewService, "click!", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            // remove widget
+                            if (layoutParams.y > height * 0.6) {
+                                stopSelf()
+                            }
+                        }
+                        return true
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        // calculate X & Y coordinates of view
+                        layoutParams.x = initialX + (initialTouchX - motionEvent.rawX).toInt()
+                        layoutParams.y = initialY + (motionEvent.rawY - initialTouchY).toInt()
+
+                        // update layout with new coordinates
+                        windowManager?.updateViewLayout(mFloatingView, layoutParams)
+                        if (layoutParams.y > height * 0.6) {
+                            // the pic when user's about to delete the floating widget
+                            imageClose?.setImageResource(R.drawable.ic_close_red)
+                        } else {
+                            // the normal pic
+                            imageClose?.setImageResource(R.drawable.ic_close_white)
+                        }
+                        return true
+
+                    }
+                }
+                return false
+            }
+        })
 
         return START_STICKY
     }
@@ -69,6 +154,9 @@ class FloatingViewService : Service()
         super.onDestroy()
         if (mFloatingView != null) {
             windowManager?.removeView(mFloatingView)
+        }
+        if (imageClose != null) {
+            windowManager?.removeView(imageClose)
         }
     }
 //
