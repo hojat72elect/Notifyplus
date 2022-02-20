@@ -164,6 +164,13 @@ class FloatingViewService : Service()
 
             }
         }
+        mFloatingView?.findViewById<View>(R.id.control_center).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
+                mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
+                    View.VISIBLE
+            }
+        }
 
 
         // view should be collapsed at th start
