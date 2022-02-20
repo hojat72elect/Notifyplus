@@ -237,7 +237,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:text="@string/control_center"
+                android:text="@string/floating_control_center"
                 android:textColor="@color/jetblack"
                 android:textSize="@dimen/matngondenormal"
                 tools:ignore="RelativeOverlap" />

@@ -9,7 +9,6 @@ import android.os.IBinder
 import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.ImageView
-import android.widget.Toast
 import java.util.*
 
 
@@ -24,8 +23,10 @@ class FloatingViewService : Service()
     private var windowManager: WindowManager? = null
     private var mFloatingView: View? = null
     var imageClose: ImageView? = null
-    var width = 0f
-    var height = 0f
+    private var width = 0f
+    private var height = 0f
+    private var isViewCollapsed: Boolean? =
+        null // notifies whether the widget is collapsed or expanded
 
 
     /**
@@ -88,7 +89,7 @@ class FloatingViewService : Service()
         height = windowManager!!.defaultDisplay.height.toFloat() // deprecated in API 30
         width = windowManager!!.defaultDisplay.width.toFloat()
 
-        // drag movement for the widget
+        // Registering all the listeners for this tool
         mFloatingView?.setOnTouchListener(object : OnTouchListener {
             var initialX = 0
             var initialY = 0
@@ -115,8 +116,17 @@ class FloatingViewService : Service()
                         layoutParams.y = initialY + (motionEvent.rawY - initialTouchY).toInt()
                         if (clickDuration < MAX_CLICK_DURATION) {
                             // user clicked on the floating widget
-                            Toast.makeText(this@FloatingViewService, "click!", Toast.LENGTH_SHORT)
-                                .show()
+                            if (isViewCollapsed == true) {
+                                //When user clicks on the image view of the collapsed layout,
+                                //visibility of the collapsed layout will be changed to "View.GONE"
+                                //and expanded view will become visible.
+                                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility =
+                                    View.GONE
+                                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility =
+                                    View.VISIBLE
+
+                            }
+
                         } else {
                             // remove widget
                             if (layoutParams.y > height * 0.6) {
@@ -146,6 +156,19 @@ class FloatingViewService : Service()
                 return false
             }
         })
+        mFloatingView?.findViewById<View>(R.id.close_button1).let {
+            it?.setOnClickListener {
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+
+
+            }
+        }
+
+
+        // view should be collapsed at th start
+        isViewCollapsed = true
+
 
         return START_STICKY
     }
@@ -159,6 +182,7 @@ class FloatingViewService : Service()
             windowManager?.removeView(imageClose)
         }
     }
+}
 //
 //    var volume: ImageView? = null
 //    var control_center: ImageView? = null
@@ -202,20 +226,20 @@ class FloatingViewService : Service()
 //    private var volumeexpandedView: View? = null
 //    private var controlcenterexpandedView: View? = null
 
-    //Variable to store brightness value
+//Variable to store brightness value
 //    private var brightness = 0
 
-    //Content resolver used as a handle to the system's settings
+//Content resolver used as a handle to the system's settings
 //    private val cResolver: ContentResolver? = null
 
-    //Window object, that will store a reference to the current window
+//Window object, that will store a reference to the current window
 //    private val window: Window? = null
 //    private var mWindowManager: WindowManager? = null
 //    private var mFloatingView: View? = null
 //
 
 
-    //
+//
 //    @SuppressLint("InflateParams")
 //    override fun onCreate() {
 //        super.onCreate()
@@ -231,19 +255,13 @@ class FloatingViewService : Service()
 //            PixelFormat.TRANSLUCENT
 //        )
 //
-//        //Specify the view position
-//        params.gravity = Gravity.TOP or Gravity.LEFT
-//        //Initially view will be added to top-left corner
-//        //TODO: jaye in ro bayad toye safhe avazesh konam.
-//        params.x = 0
-//        params.y = 100
 //
-//        //Add the view to the window
-//        mWindowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-//        mWindowManager!!.addView(mFloatingView, params)
 //
-//        collapsedView = mFloatingView?.findViewById(R.id.collapse_view)
-//        mainexpandedView = mFloatingView?.findViewById(R.id.main_expanded_container)
+//
+//
+//
+//        collapsedView = mFloatingView?.findViewById(R.id.collapsed_view)
+//        mainexpandedView = mFloatingView?.findViewById(R.id.expanded_view)
 //        volumeexpandedView = mFloatingView?.findViewById(R.id.volume_expanded_container)
 //        controlcenterexpandedView =
 //            mFloatingView?.findViewById(R.id.control_center_expanded_container)
@@ -332,7 +350,7 @@ class FloatingViewService : Service()
 //                            val Xdiff = (event.rawX - initialTouchX).toInt()
 //                            val Ydiff = (event.rawY - initialTouchY).toInt()
 //
-//                            //The check for Xdiff <10 && YDiff< 10 because sometime elements moves a little while clicking.
+//                            //The check for Xdiff <10 && YDiff< 10 because sometime elements move a little while clicking.
 //                            //So that is click event.
 //                            if (Xdiff < 10 && Ydiff < 10) {
 //                                if (isViewCollapsed) {
@@ -558,7 +576,7 @@ class FloatingViewService : Service()
 //     * @return true if the floating view is collapsed.
 //     */
 //    private val isViewCollapsed: Boolean
-//        get() = mFloatingView == null || mFloatingView!!.findViewById<View>(R.id.collapse_view).visibility == View.VISIBLE
+//        get() = mFloatingView == null || mFloatingView!!.findViewById<View>(R.id.collapsed_view).visibility == View.VISIBLE
 //
 //    private fun manochehridamghani() {
 //        //in 17+ android APIs , we use intent for leading the user to airplane section in settings.
@@ -690,4 +708,3 @@ class FloatingViewService : Service()
 //        i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output))
 //        startActivity(Intent.createChooser(i, "یک برنامه عکاسی را انتخاب کنید."))
 //    }
-}

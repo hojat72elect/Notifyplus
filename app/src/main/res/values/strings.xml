@@ -22,7 +22,7 @@
     <string name="send_to">share this app with your friends</string>
     <string name="share_text">Open your favorite apps in a split second!!!</string>
     <string name="query_hint">search app\'s name:</string>
-    <string name="control_center">Floating control center</string>
+    <string name="floating_control_center">Floating control center</string>
     <string name="toggle_control_center">Turn on/off floating control center</string>
     <string name="_8">8</string>
     <string name="_7">7</string>
@@ -36,4 +36,10 @@
     <string name="github_handle">https://github.com/hojat72elect</string>
     <string name="dev_intro">Developed by "Hojat Ghasemi" \nFollow me on social media</string>
     <string name="app_icons">Icons for each installed app on your device</string>
+    <string name="brightness_level">brightness level</string>
+    <string name="airplane_mode">airplane mode</string>
+    <string name="volume_control">Volume</string>
+    <string name="control_center">Control center</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
 </resources>

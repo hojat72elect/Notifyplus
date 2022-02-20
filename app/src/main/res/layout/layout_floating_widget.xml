@@ -13,7 +13,7 @@
 
         <!--View while view is collapsed-->
         <RelativeLayout
-            android:id="@+id/collapse_view"
+            android:id="@+id/collapsed_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -28,22 +28,13 @@
                 android:src="@mipmap/ic_launcher"
                 tools:ignore="ContentDescription" />
 
-            <!--Close button-->
-            <ImageView
-                android:id="@+id/close_btn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="45dp"
-                android:background="@drawable/button_floating_widget"
-                android:src="@drawable/ic_close"
-                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 
         <!--View while view is expanded-->
 
         <LinearLayout
-            android:id="@+id/main_expanded_container"
+            android:id="@+id/expanded_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/floating_widget_drawable"
@@ -80,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="تنظیم صدا"
+                        android:text="@string/volume_control"
                         android:textColor="#ff000000" />
 
                 </LinearLayout>
@@ -89,8 +80,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
                     android:layout_margin="10dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -110,7 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="مرکز کنترل"
+                        android:text="@string/control_center"
                         android:textColor="#ff000000" />
 
                 </LinearLayout>
@@ -129,8 +120,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="10dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -150,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="ایمیل"
+                        android:text="@string/email"
                         android:textColor="#ff000000" />
 
 
@@ -160,8 +151,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="10dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -182,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:alpha="0.5"
-                        android:text="تلفن"
+                        android:text="@string/phone"
                         android:textColor="#ff000000" />
 
                 </LinearLayout>
@@ -240,8 +231,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
                     android:layout_margin="10dp"
 
                     android:gravity="center_horizontal"
@@ -297,8 +288,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="10dp"
 
                     android:gravity="center_horizontal"
@@ -329,8 +320,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_margin="10dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -381,10 +372,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -412,10 +403,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -444,10 +435,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -476,10 +467,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -499,7 +490,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="هواپیما"
+                            android:text="@string/airplane_mode"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>
@@ -518,10 +509,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -549,10 +540,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -581,10 +572,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -623,6 +614,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:alpha="0.5"
+                        android:contentDescription="@string/brightness_level"
                         android:src="@drawable/night_brightness" />
 
                     <SeekBar
@@ -656,8 +648,8 @@
                     android:id="@+id/close"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:alpha="0.5"
                     android:background="@drawable/button_floating_widget"
                     android:src="@drawable/ic_close" />
