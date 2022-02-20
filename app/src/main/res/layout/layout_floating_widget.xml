@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/floating_widget_drawable"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="">
 
             <RelativeLayout
                 android:layout_width="200dp"
@@ -398,7 +398,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="بلوتوث"
+                            android:text="@string/bluetooth"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>
@@ -429,7 +429,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="wifi"
+                            android:text="@string/wifi"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>
@@ -461,7 +461,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="چرخش"
+                            android:text="@string/rotate"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>
@@ -534,7 +534,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="باتری"
+                            android:text="@string/battery"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>
@@ -566,7 +566,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="دوربین"
+                            android:text="@string/camera"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>
@@ -598,7 +598,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:alpha="0.5"
-                            android:text="ماشین حساب"
+                            android:text="@string/calculator"
                             android:textColor="#ff000000" />
 
                     </LinearLayout>

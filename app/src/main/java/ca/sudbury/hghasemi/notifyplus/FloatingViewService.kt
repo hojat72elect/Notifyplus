@@ -117,16 +117,12 @@ class FloatingViewService : Service()
                         if (clickDuration < MAX_CLICK_DURATION) {
                             // user clicked on the floating widget
                             if (isViewCollapsed == true) {
-                                //When user clicks on the image view of the collapsed layout,
-                                //visibility of the collapsed layout will be changed to "View.GONE"
-                                //and expanded view will become visible.
+                                // Show the main expanded view
                                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility =
                                     View.GONE
                                 mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility =
                                     View.VISIBLE
-
                             }
-
                         } else {
                             // remove widget
                             if (layoutParams.y > height * 0.6) {
@@ -287,15 +283,13 @@ class FloatingViewService : Service()
 //    @SuppressLint("InflateParams")
 //    override fun onCreate() {
 //
-//        collapsedView = mFloatingView?.findViewById(R.id.collapsed_view)
+
 //        mainexpandedView = mFloatingView?.findViewById(R.id.expanded_view)
 //        volumeexpandedView = mFloatingView?.findViewById(R.id.volume_expanded_container)
 //        controlcenterexpandedView =
 //            mFloatingView?.findViewById(R.id.control_center_expanded_container)
-//
-//        volume = mFloatingView?.findViewById(R.id.volume)
-//        control_center = mFloatingView?.findViewById(R.id.control_center)
-//        close_button1 = mFloatingView?.findViewById(R.id.close_button1)
+
+
 //        mail = mFloatingView?.findViewById(R.id.mail)
 //        phone = mFloatingView?.findViewById(R.id.phone)
 //        volume_down = mFloatingView?.findViewById(R.id.volume_down)
@@ -322,8 +316,7 @@ class FloatingViewService : Service()
 //        maryamheydarzadeh()
 //
 //
-//        volume?.setOnClickListener(this)
-//        control_center?.setOnClickListener(this)
+
 //        close_button1?.setOnClickListener(this)
 //        mail?.setOnClickListener(this)
 //        phone?.setOnClickListener(this)
@@ -374,41 +367,16 @@ class FloatingViewService : Service()
 //                            return true
 //                        }
 //                        MotionEvent.ACTION_UP -> {
-//                            val Xdiff = (event.rawX - initialTouchX).toInt()
-//                            val Ydiff = (event.rawY - initialTouchY).toInt()
-//
-//                            //The check for Xdiff <10 && YDiff< 10 because sometime elements move a little while clicking.
-//                            //So that is click event.
-//                            if (Xdiff < 10 && Ydiff < 10) {
-//                                if (isViewCollapsed) {
-//                                    //When user clicks on the image view of the collapsed layout,
-//                                    //visibility of the collapsed layout will be changed to "View.GONE"
-//                                    //and expanded view will become visible.
+
+
+//                                    // The animations for when user opens the main view by clicking on the floating widget.
 //                                    val floating_tool_appear = AnimationUtils.loadAnimation(
 //                                        applicationContext, R.anim.floating_tool_animation_appear
 //                                    )
-//                                    collapsedView?.visibility = View.GONE
-//                                    mainexpandedView?.visibility = View.VISIBLE
 //                                    mainexpandedView?.startAnimation(floating_tool_appear)
-//                                }
-//                            }
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_MOVE -> {
-//                            //Calculate the X and Y coordinates of the view.
-//                            params.x = initialX + (event.rawX - initialTouchX).toInt()
-//                            params.y = initialY + (event.rawY - initialTouchY).toInt()
 //
-//                            //Update the layout with new X & Y coordinate
-//                            mWindowManager!!.updateViewLayout(mFloatingView, params)
-//                            return true
-//                        }
-//                    }
-//                    return false
-//                }
-//            })
-//    }
-//
+
+
 //    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
 //        if (fromUser) {
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
@@ -446,16 +414,16 @@ class FloatingViewService : Service()
 
 
 //    override fun onClick(v: View) {
-//        if (v === closeButtonCollapsed) {
-//            stopSelf()
-//        } else if (v === close_button1) {
+
+
+// Animation for collapsing the main expanded view into floating widget button
 //            val floating_tool_disappear = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.floating_tool_animation_disappear
 //            )
 //            mainexpandedView!!.startAnimation(floating_tool_disappear)
-//            mainexpandedView!!.visibility = View.GONE
-//            collapsedView!!.visibility = View.VISIBLE
-//        } else if (v === volume) {
+
+
+// Animation for going from main expanded view to volume control expanded view
 //            val volume_tool_appear = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.volume_control_animation_appear
 //            )
@@ -463,10 +431,10 @@ class FloatingViewService : Service()
 //                applicationContext, R.anim.main_disappears_in_volume
 //            )
 //            mainexpandedView!!.startAnimation(main_tool_disappear_in_volume)
-//            mainexpandedView!!.visibility = View.GONE
-//            volumeexpandedView!!.visibility = View.VISIBLE
 //            volumeexpandedView!!.startAnimation(volume_tool_appear)
-//        } else if (v === control_center) {
+
+
+// Animation for going from main expanded view to control center expanded view.
 //            val main_tool_disappear_in_control_center = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.main_disappears_in_control_center
 //            )
@@ -474,19 +442,18 @@ class FloatingViewService : Service()
 //                applicationContext, R.anim.control_center_animation_appear
 //            )
 //            mainexpandedView!!.startAnimation(main_tool_disappear_in_control_center)
-//            mainexpandedView!!.visibility = View.GONE
-//            controlcenterexpandedView!!.visibility = View.VISIBLE
 //            controlcenterexpandedView!!.startAnimation(control_center_appear)
-//            maryamheydarzadeh()
-//        } else if (v === mail) {
-//            //todo safhe ra khamosh konid.
+
+
+//              if (v === mail) {
+//            // safhe ra khamosh konid.
 //            //  Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
 //            pabloneroda("mail")
 //        } else if (v === phone) {
 //            pabloneroda("phone")
 //            //  Toast.makeText(getApplicationContext(), "تلفن", Toast.LENGTH_SHORT).show();
 //            //  molavi();
-//            //todo: cheragh ghove ra roshan konid
+//            //: cheragh ghove ra roshan konid
 //        } else if (v === volume_down) {
 //            //khajokermani()
 //            //seda ra kam mikonim.
@@ -513,14 +480,17 @@ class FloatingViewService : Service()
 //        } else if (v === vibrate) {
 //            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
 //            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
-//        } else if (v === closeButton) {
+//        }
+
+
+//          Animation for collapsing the volume control view
 //            val volume_close = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.floating_tool_animation_disappear
 //            )
 //            volumeexpandedView!!.startAnimation(volume_close)
-//            volumeexpandedView!!.visibility = View.GONE
-//            collapsedView!!.visibility = View.VISIBLE
-//        } else if (v === back_button) {
+
+
+//              Animation for going from volume control view to main expanded view
 //            val volume_disappear = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.volume_control_animation_disappear
 //            )
@@ -528,17 +498,17 @@ class FloatingViewService : Service()
 //                applicationContext, R.anim.main_appears_in_volume
 //            )
 //            volumeexpandedView!!.startAnimation(volume_disappear)
-//            volumeexpandedView!!.visibility = View.GONE
-//            mainexpandedView!!.visibility = View.VISIBLE
 //            mainexpandedView!!.startAnimation(main_appear_in_volume)
-//        } else if (v === close) {
+
+
+// Animation for collapsing the control center view to the floating widget.
 //            val control_center_close = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.floating_tool_animation_disappear
 //            )
 //            controlcenterexpandedView!!.startAnimation(control_center_close)
-//            controlcenterexpandedView!!.visibility = View.GONE
-//            collapsedView!!.visibility = View.VISIBLE
-//        } else if (v === back) {
+
+
+// Animation for going from control center view to main expanded view.
 //            val control_center_disappear = AnimationUtils.loadAnimation(
 //                applicationContext, R.anim.control_center_animation_disappear
 //            )
@@ -546,15 +516,15 @@ class FloatingViewService : Service()
 //                applicationContext, R.anim.main_disappears_in_control_center
 //            )
 //            controlcenterexpandedView!!.startAnimation(control_center_disappear)
-//            controlcenterexpandedView!!.visibility = View.GONE
-//            mainexpandedView!!.visibility = View.VISIBLE
 //            mainexpandedView!!.startAnimation(main_appear_in_control_center)
-//        } else if (v === bluetooth) {
+
+
+//        if (v === bluetooth) {
 //            nimaushij()
 //        } else if (v === wifi) {
 //            dehkhoda()
 //        } else if (v === rotate) {
-//            //todo ejaze rotate kardan ra be karbar bedahid.
+//            // ejaze rotate kardan ra be karbar bedahid.
 //            //  Toast.makeText(getApplicationContext(), "چرخش", Toast.LENGTH_SHORT).show();
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
 //                !Settings.System.canWrite(applicationContext)
@@ -566,26 +536,27 @@ class FloatingViewService : Service()
 //                sanaiyi()
 //            }
 //        } else if (v === airplane) {
-//            //todo halat havapeyma ra roshan konid.
+//            // halat havapeyma ra roshan konid.
 //            //  Toast.makeText(getApplicationContext(), "هواپیما", Toast.LENGTH_SHORT).show();
 //            manochehridamghani()
 //        } else if (v === battery) {
-//            //todo tanzimate batri ra emal konid.
+//            // tanzimate batri ra emal konid.
 //            //     Toast.makeText(getApplicationContext(), "باتری", Toast.LENGTH_SHORT).show();
 //        } else if (v === camera) {
-//            //todo doorbin ra farakhani konid.
+//            // doorbin ra farakhani konid.
 //            //  Toast.makeText(getApplicationContext(), "دوربین", Toast.LENGTH_SHORT).show();
 //            //  nezamiganjei();
 //            pabloneroda("camera")
 //        } else if (v === calculator) {
-//            //todo mashin hesab ra farakhani konid.
+//            // mashin hesab ra farakhani konid.
 //            //  Toast.makeText(getApplicationContext(), "ماشین حساب", Toast.LENGTH_SHORT).show();
 //            pabloneroda("calcul")
 //        }
 //    }
 
-//
+
 //    private fun maryamheydarzadeh() {
+// this method should be called whenever the control center expanded view is opened.
 //        //we adopt the seekbar for the current brightness level of screen.
 //        try {
 //            brighval!!.progress = Settings.System.getInt(
@@ -607,7 +578,7 @@ class FloatingViewService : Service()
 //
 //    private fun manochehridamghani() {
 //        //in 17+ android APIs , we use intent for leading the user to airplane section in settings.
-//        //todo : do the toggling of airplane mode.
+//        // : do the toggling of airplane mode.
 //        try {
 //            val intent = Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS)
 //            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -668,14 +639,14 @@ class FloatingViewService : Service()
 //    }
 //
 //    private fun dehkhoda() {
-//        //todo wifi ra roshan konid.
+//        // wifi ra roshan konid.
 //        //  Toast.makeText(getApplicationContext(), "wifi", Toast.LENGTH_SHORT).show();
 //        val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
 //        wifi.isWifiEnabled = !wifi.isWifiEnabled
 //    }
 //
 //    private fun nimaushij() {
-//        //todo bluetooth ra roshan konid.
+//        // bluetooth ra roshan konid.
 //        //  Toast.makeText(getApplicationContext(), "بلوتوث", Toast.LENGTH_SHORT).show();
 //        val btAdapter = BluetoothAdapter.getDefaultAdapter()
 //        if (btAdapter == null) {
@@ -726,8 +697,8 @@ class FloatingViewService : Service()
 //
 //    private fun nezamiganjei() {
 //        //dorbin ra farakhani mikonad.
-//        //todo: 1-I should add the current time of system to the name of stored picture and save it to app's exclusive folder.
-//        //todo: 2-in API 23+ systems , i should ask for user's permission , manually.
+//        //: 1-I should add the current time of system to the name of stored picture and save it to app's exclusive folder.
+//        //: 2-in API 23+ systems , i should ask for user's permission , manually.
 //        var output: File? = null
 //        val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 //        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)

@@ -37,7 +37,7 @@
     <string name="dev_intro">Developed by "Hojat Ghasemi" \nFollow me on social media</string>
     <string name="app_icons">Icons for each installed app on your device</string>
     <string name="brightness_level">brightness level</string>
-    <string name="airplane_mode">airplane mode</string>
+    <string name="airplane_mode">Airplane Mode</string>
     <string name="volume_control">Volume</string>
     <string name="control_center">Control center</string>
     <string name="phone">Phone</string>
@@ -46,4 +46,10 @@
     <string name="mute">Mute</string>
     <string name="volume_down">Volume Down</string>
     <string name="volume_up">Volume Up</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="wifi">Wifi</string>
+    <string name="rotate">Rotate</string>
+    <string name="battery">Battery</string>
+    <string name="camera">Camera</string>
+    <string name="calculator">Calculator</string>
 </resources>
