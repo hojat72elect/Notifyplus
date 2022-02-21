@@ -343,9 +343,6 @@ class FloatingViewService : Service()
 
 
 //    var volume: ImageView? = null
-
-//    var mail: ImageView? = null
-//    var phone: ImageView? = null
 //    var volume_down: ImageView? = null
 //    var volume_up: ImageView? = null
 //    var mute: ImageView? = null
@@ -354,11 +351,6 @@ class FloatingViewService : Service()
 //    var wifi: ImageView? = null
 //    var rotate: ImageView? = null
 //    var airplane: ImageView? = null
-//    var battery: ImageView? = null
-//    var camera: ImageView? = null
-//    var calculator: ImageView? = null
-
-
 //    private var brighval: SeekBar? = null
 
 
@@ -378,8 +370,6 @@ class FloatingViewService : Service()
 //
 
 
-//        mail = mFloatingView?.findViewById(R.id.mail)
-//        phone = mFloatingView?.findViewById(R.id.phone)
 //        volume_down = mFloatingView?.findViewById(R.id.volume_down)
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        mute = mFloatingView?.findViewById(R.id.mute)
@@ -388,26 +378,16 @@ class FloatingViewService : Service()
 //        wifi = mFloatingView?.findViewById(R.id.wifi)
 //        rotate = mFloatingView?.findViewById(R.id.rotate)
 //        airplane = mFloatingView?.findViewById(R.id.airplane)
-//        battery = mFloatingView?.findViewById(R.id.battery)
-//        camera = mFloatingView?.findViewById(R.id.camera)
-//        calculator = mFloatingView?.findViewById(R.id.calculator)
-//
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
 //        maryamheydarzadeh()
-//
-//
 
-//        mail?.setOnClickListener(this)
-//        phone?.setOnClickListener(this)
+
 //        bluetooth?.setOnClickListener(this)
 //        wifi?.setOnClickListener(this)
 //        rotate?.setOnClickListener(this)
 //        airplane?.setOnClickListener(this)
-//        battery?.setOnClickListener(this)
-//        camera?.setOnClickListener(this)
-//        calculator?.setOnClickListener(this)
 //        volume_down?.setOnClickListener(this)
 //        volume_up?.setOnClickListener(this)
 //        mute?.setOnClickListener(this)
@@ -490,16 +470,7 @@ class FloatingViewService : Service()
 //            controlcenterexpandedView!!.startAnimation(control_center_appear)
 
 
-//              if (v === mail) {
-//            // safhe ra khamosh konid.
-//            //  Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
-//            pabloneroda("mail")
-//        } else if (v === phone) {
-//            pabloneroda("phone")
-//            //  Toast.makeText(getApplicationContext(), "تلفن", Toast.LENGTH_SHORT).show();
-//            //  molavi();
-//            //: cheragh ghove ra roshan konid
-//        } else if (v === volume_down) {
+//              if (v === volume_down) {
 //            //khajokermani()
 //            //seda ra kam mikonim.
 //            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
@@ -584,15 +555,6 @@ class FloatingViewService : Service()
 //            // halat havapeyma ra roshan konid.
 //            //  Toast.makeText(getApplicationContext(), "هواپیما", Toast.LENGTH_SHORT).show();
 //            manochehridamghani()
-//        } else if (v === camera) {
-//            // doorbin ra farakhani konid.
-//            //  Toast.makeText(getApplicationContext(), "دوربین", Toast.LENGTH_SHORT).show();
-//            //  nezamiganjei();
-//            pabloneroda("camera")
-//        } else if (v === calculator) {
-//            // mashin hesab ra farakhani konid.
-//            //  Toast.makeText(getApplicationContext(), "ماشین حساب", Toast.LENGTH_SHORT).show();
-//            pabloneroda("calcul")
 //        }
 //    }
 
@@ -697,14 +659,3 @@ class FloatingViewService : Service()
 //
 
 
-//    private fun nezamiganjei() {
-//        //dorbin ra farakhani mikonad.
-//        //: 1-I should add the current time of system to the name of stored picture and save it to app's exclusive folder.
-//        //: 2-in API 23+ systems , i should ask for user's permission , manually.
-//        var output: File? = null
-//        val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-//        output = File(dir, "CameraContentDemo.jpeg")
-//        i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output))
-//        startActivity(Intent.createChooser(i, "یک برنامه عکاسی را انتخاب کنید."))
-//    }
