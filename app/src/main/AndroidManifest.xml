@@ -50,7 +50,6 @@
         <service
             android:name=".NotificationService"
             android:foregroundServiceType="dataSync" />
-
         <service
             android:name=".FloatingViewService"
             android:enabled="true" />

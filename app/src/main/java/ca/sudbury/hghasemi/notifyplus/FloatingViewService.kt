@@ -2,13 +2,19 @@ package ca.sudbury.hghasemi.notifyplus
 
 import android.annotation.SuppressLint
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.PixelFormat
+import android.os.BatteryManager
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.ImageView
+import android.widget.TextView
 import java.util.*
 
 
@@ -19,6 +25,9 @@ Contact the author at "https://github.com/hojat72elect"
 class FloatingViewService : Service()
 //    , View.OnClickListener, OnSeekBarChangeListener
 {
+
+
+    var batteryStatus: TextView? = null // shows the battery percentage
 
     private var windowManager: WindowManager? = null
     private var mFloatingView: View? = null
@@ -48,6 +57,8 @@ class FloatingViewService : Service()
 
         // inflating the widget's layout
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null)
+
+        batteryStatus = mFloatingView?.findViewById(R.id.battery_tv)
 
         //Add the view to the window.
         val layoutParams = WindowManager.LayoutParams(
@@ -205,8 +216,10 @@ class FloatingViewService : Service()
 
         }
 
+        // registering receiver for battery status
+        registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
-        // view should be collapsed at th start
+        // view should be collapsed at the start
         isViewCollapsed = true
 
 
@@ -222,11 +235,33 @@ class FloatingViewService : Service()
             windowManager?.removeView(imageClose)
         }
     }
+
+    /**
+     * This BroadcastReceiver receives current percent of battery and loads it into a
+     * TextView in our floating widget.
+     */
+    private val batteryListener: BroadcastReceiver = object : BroadcastReceiver() {
+        @SuppressLint("SetTextI18n")
+        override fun onReceive(context: Context, intent: Intent) {
+            try {
+                val chargedPercent =
+                    (intent.getIntExtra(
+                        BatteryManager.EXTRA_LEVEL,
+                        -1
+                    )) * 100 / (intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1))
+                batteryStatus?.text = "$chargedPercent%"
+            } catch (e: Exception) {
+                Log.e("FloatViewService", "error receiving battery status: ${e.message}")
+            }
+        }
+
+    }
+
 }
-//
+
+
 //    var volume: ImageView? = null
-//    var control_center: ImageView? = null
-//    var close_button1: ImageView? = null
+
 //    var mail: ImageView? = null
 //    var phone: ImageView? = null
 //    var volume_down: ImageView? = null
@@ -240,33 +275,12 @@ class FloatingViewService : Service()
 //    var battery: ImageView? = null
 //    var camera: ImageView? = null
 //    var calculator: ImageView? = null
-//    var close: ImageView? = null
-//    var back: ImageView? = null
-//    var closeButton: ImageView? = null
-//    var closeButtonCollapsed: ImageView? = null
-//    var back_button: ImageView? = null
-//    var batterystate: TextView? = null
-//
-//    private val batteryRcv: BroadcastReceiver = object : BroadcastReceiver() {
-//        override fun onReceive(context: Context, intent: Intent) {
-//            try {
-//                val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-//                val maxValue = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-//                val chargedPct = level * 100 / maxValue
-//                val batteryInfo = "$chargedPct%"
-//                batterystate!!.text = batteryInfo
-//            } catch (e: Exception) {
-//                Log.e("khata dar battery", "Battery receiver failed: ", e)
-//            }
-//        }
-//    }
-//    private var brighval: SeekBar? = null
-//    private var collapsedView: View? = null
-//    private var mainexpandedView: View? = null
-//    private var volumeexpandedView: View? = null
-//    private var controlcenterexpandedView: View? = null
 
-//Variable to store brightness value
+
+//    private var brighval: SeekBar? = null
+
+
+//Variable to store brightness level
 //    private var brightness = 0
 
 //Content resolver used as a handle to the system's settings
@@ -278,16 +292,8 @@ class FloatingViewService : Service()
 //    private var mFloatingView: View? = null
 //
 
-
-//
-//    @SuppressLint("InflateParams")
 //    override fun onCreate() {
 //
-
-//        mainexpandedView = mFloatingView?.findViewById(R.id.expanded_view)
-//        volumeexpandedView = mFloatingView?.findViewById(R.id.volume_expanded_container)
-//        controlcenterexpandedView =
-//            mFloatingView?.findViewById(R.id.control_center_expanded_container)
 
 
 //        mail = mFloatingView?.findViewById(R.id.mail)
@@ -303,12 +309,6 @@ class FloatingViewService : Service()
 //        battery = mFloatingView?.findViewById(R.id.battery)
 //        camera = mFloatingView?.findViewById(R.id.camera)
 //        calculator = mFloatingView?.findViewById(R.id.calculator)
-//        close = mFloatingView?.findViewById(R.id.close)
-//        back = mFloatingView?.findViewById(R.id.back)
-//        closeButton = mFloatingView?.findViewById(R.id.close_button)
-//        closeButtonCollapsed = mFloatingView?.findViewById(R.id.close_btn)
-//        back_button = mFloatingView?.findViewById(R.id.back_button)
-//        batterystate = mFloatingView?.findViewById(R.id.battery_tv)
 //
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
@@ -317,7 +317,6 @@ class FloatingViewService : Service()
 //
 //
 
-//        close_button1?.setOnClickListener(this)
 //        mail?.setOnClickListener(this)
 //        phone?.setOnClickListener(this)
 //        bluetooth?.setOnClickListener(this)
@@ -327,46 +326,11 @@ class FloatingViewService : Service()
 //        battery?.setOnClickListener(this)
 //        camera?.setOnClickListener(this)
 //        calculator?.setOnClickListener(this)
-//        close?.setOnClickListener(this)
-//        back?.setOnClickListener(this)
-//        closeButton?.setOnClickListener(this)
-//        closeButtonCollapsed?.setOnClickListener(this)
 //        volume_down?.setOnClickListener(this)
 //        volume_up?.setOnClickListener(this)
 //        mute?.setOnClickListener(this)
 //        vibrate?.setOnClickListener(this)
-//        back_button?.setOnClickListener(this)
-//        try {
-//            registerReceiver(batteryRcv, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-//
-//        } catch (e: Exception) {
-//            Log.e("khata dar battery!", "Failed to register receiver")
-//        }
-//
-//
-//        //Drag and move floating view using user's touch action.
-//        mFloatingView?.findViewById<View>(R.id.root_container)
-//            ?.setOnTouchListener(object : OnTouchListener {
-//                private var initialX = 0
-//                private var initialY = 0
-//                private var initialTouchX = 0f
-//                private var initialTouchY = 0f
-//
-//                @SuppressLint("ClickableViewAccessibility")
-//                override fun onTouch(v: View, event: MotionEvent): Boolean {
-//                    when (event.action) {
-//                        MotionEvent.ACTION_DOWN -> {
-//
-//                            //remember the initial position.
-//                            initialX = params.x
-//                            initialY = params.y
-//
-//                            //get the touch location
-//                            initialTouchX = event.rawX
-//                            initialTouchY = event.rawY
-//                            return true
-//                        }
-//                        MotionEvent.ACTION_UP -> {
+
 
 
 //                                    // The animations for when user opens the main view by clicking on the floating widget.
@@ -539,9 +503,6 @@ class FloatingViewService : Service()
 //            // halat havapeyma ra roshan konid.
 //            //  Toast.makeText(getApplicationContext(), "هواپیما", Toast.LENGTH_SHORT).show();
 //            manochehridamghani()
-//        } else if (v === battery) {
-//            // tanzimate batri ra emal konid.
-//            //     Toast.makeText(getApplicationContext(), "باتری", Toast.LENGTH_SHORT).show();
 //        } else if (v === camera) {
 //            // doorbin ra farakhani konid.
 //            //  Toast.makeText(getApplicationContext(), "دوربین", Toast.LENGTH_SHORT).show();
@@ -567,15 +528,7 @@ class FloatingViewService : Service()
 //        } catch (e: Exception) {
 //        }
 //    }
-//
-//    /**
-//     * Detect if the floating view is collapsed or expanded.
-//     *
-//     * @return true if the floating view is collapsed.
-//     */
-//    private val isViewCollapsed: Boolean
-//        get() = mFloatingView == null || mFloatingView!!.findViewById<View>(R.id.collapsed_view).visibility == View.VISIBLE
-//
+
 //    private fun manochehridamghani() {
 //        //in 17+ android APIs , we use intent for leading the user to airplane section in settings.
 //        // : do the toggling of airplane mode.

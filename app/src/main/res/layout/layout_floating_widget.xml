@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/floating_widget_drawable"
             android:orientation="horizontal"
-            android:visibility="">
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="200dp"
