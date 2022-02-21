@@ -244,6 +244,17 @@ class FloatingViewService : Service()
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
             }
         }
+        mFloatingView?.findViewById<View>(R.id.calculator).let {
+            it?.setOnClickListener {
+                // Fire up an intent for opening calculator app
+                fireIntent("calculator", this.packageManager, this)
+                // Collapse the widget
+                mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
+                    View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+            }
+        }
+
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
