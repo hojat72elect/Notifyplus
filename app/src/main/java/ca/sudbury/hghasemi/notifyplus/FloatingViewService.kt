@@ -28,7 +28,6 @@ class FloatingViewService : Service()
 //    , View.OnClickListener, OnSeekBarChangeListener
 {
 
-
     var batteryStatus: TextView? = null // shows the battery percentage
 
     private var windowManager: WindowManager? = null
@@ -227,6 +226,16 @@ class FloatingViewService : Service()
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
             }
         }
+        mFloatingView?.findViewById<View>(R.id.mail).let {
+            it?.setOnClickListener {
+                // Fire up an intent for opening email app
+                fireIntent("mail", this.packageManager, this)
+                // Collapse the widget
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+            }
+        }
+
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -268,6 +277,48 @@ class FloatingViewService : Service()
         }
 
     }
+
+    /**
+     * Just give it the name of the app you wanna run, it fires an intent for calling that app.
+     */
+    @SuppressLint("QueryPermissionsNeeded")
+    private fun fireIntent(searchQuery: String, pm: PackageManager, service: Service) {
+
+        val items = ArrayList<HashMap<String, Any>>()
+        for (packageInfo in pm.getInstalledPackages(0)) {
+            if (packageInfo.packageName.lowercase(Locale.getDefault())
+                    .contains(searchQuery) || packageInfo.applicationInfo.loadLabel(pm)
+                    .toString().lowercase(Locale.getDefault()).contains(searchQuery)
+            ) {
+                val map = HashMap<String, Any>().let {
+                    it["appName"] = packageInfo.applicationInfo.loadLabel(pm)
+                    it["packageName"] = packageInfo.packageName
+                    it
+                }
+                items.add(map)
+            }
+        }
+
+        if (items.size >= 1) {
+
+            for (c in 0..items.size) {
+                val myintent = pm.getLaunchIntentForPackage((items[c]["packageName"] as String?)!!)
+                if (myintent != null) {
+                    service.startActivity(myintent)
+                    break
+                }
+            }
+        } else {
+            // Application not found
+            Toast.makeText(
+                service.applicationContext,
+                "Couldn't find a suitable app for this action",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
+    }
+
 
 }
 
@@ -625,47 +676,6 @@ class FloatingViewService : Service()
 //        }
 //    }
 //
-
-/**
- * Just give it the name of the app you wanna run, it fires an intent for calling that app.
- */
-@SuppressLint("QueryPermissionsNeeded")
-private fun fireIntent(searchQuery: String, pm: PackageManager, service: Service) {
-
-    val items = ArrayList<HashMap<String, Any>>()
-    for (packageInfo in pm.getInstalledPackages(0)) {
-        if (packageInfo.packageName.lowercase(Locale.getDefault())
-                .contains(searchQuery) || packageInfo.applicationInfo.loadLabel(pm)
-                .toString().lowercase(Locale.getDefault()).contains(searchQuery)
-        ) {
-            val map = HashMap<String, Any>().let {
-                it["appName"] = packageInfo.applicationInfo.loadLabel(pm)
-                it["packageName"] = packageInfo.packageName
-                it
-            }
-            items.add(map)
-        }
-    }
-
-    if (items.size >= 1) {
-
-        for (c in 0..items.size) {
-            val myintent = pm.getLaunchIntentForPackage((items[c]["packageName"] as String?)!!)
-            if (myintent != null) {
-                service.startActivity(myintent)
-                break
-            }
-        }
-    } else {
-        // Application not found
-        Toast.makeText(
-            service.applicationContext,
-            "Couldn't find a suitable app for this action",
-            Toast.LENGTH_SHORT
-        )
-            .show()
-    }
-}
 
 
 //    private fun nezamiganjei() {
