@@ -235,7 +235,15 @@ class FloatingViewService : Service()
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
             }
         }
-
+        mFloatingView?.findViewById<View>(R.id.phone).let {
+            it?.setOnClickListener {
+                // Fire up an intent for opening telephone app
+                fireIntent("phone", this.packageManager, this)
+                // Collapse the widget
+                mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
