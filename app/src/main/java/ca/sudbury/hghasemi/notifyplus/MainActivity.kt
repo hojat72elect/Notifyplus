@@ -3,6 +3,7 @@ package ca.sudbury.hghasemi.notifyplus
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -22,8 +23,8 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.navigation.NavigationView
 
 /**
- First created by Hojat Ghasemi on Saturday , 11 March 2017.
- Contact the author at "https://github.com/hojat72elect"
+First created by Hojat Ghasemi on Saturday , 11 March 2017.
+Contact the author at "https://github.com/hojat72elect"
  */
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
@@ -259,28 +260,60 @@ class MainActivity : AppCompatActivity(),
         // Update the background drawable of all buttons in main UI according to SharedPrefs
         val packageManager = applicationContext.packageManager
         ab1?.background = firstButtonSharedPref?.getString(firstButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab2?.background = secondButtonSharedPref?.getString(secondButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab3?.background = thirdButtonSharedPref?.getString(thirdButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab4?.background = fourthButtonSharedPref?.getString(fourthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab5?.background = fifthButtonSharedPref?.getString(fifthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab6?.background = sixthButtonSharedPref?.getString(sixthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab7?.background = seventhButtonSharedPref?.getString(seventhButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
         ab8?.background = eighthButtonSharedPref?.getString(eighthButtonWriteKey, null).let {
-            packageManager.getApplicationIcon(it ?: this.packageName)
+            try {
+                packageManager.getApplicationIcon(it ?: this.packageName)
+            } catch (e: PackageManager.NameNotFoundException) {
+                packageManager.getApplicationIcon(this.packageName)
+            }
         }
 
         // Update the state of notification switch according to SharedPref

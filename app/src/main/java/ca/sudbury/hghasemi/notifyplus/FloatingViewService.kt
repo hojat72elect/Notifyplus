@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.PixelFormat
 import android.os.BatteryManager
 import android.os.Build
@@ -15,6 +16,7 @@ import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import java.util.*
 
 
@@ -215,6 +217,16 @@ class FloatingViewService : Service()
             }
 
         }
+        mFloatingView?.findViewById<View>(R.id.camera).let {
+            it?.setOnClickListener {
+                // fire up an intent for opening device's camera
+                fireIntent("camera", this.packageManager, this)
+                // collapse the widget
+                mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
+                    View.GONE
+                mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -330,7 +342,6 @@ class FloatingViewService : Service()
 //        volume_up?.setOnClickListener(this)
 //        mute?.setOnClickListener(this)
 //        vibrate?.setOnClickListener(this)
-
 
 
 //                                    // The animations for when user opens the main view by clicking on the floating widget.
@@ -614,40 +625,49 @@ class FloatingViewService : Service()
 //        }
 //    }
 //
-//    @SuppressLint("QueryPermissionsNeeded")
-//    private fun pabloneroda(search: String) {
-//        //calls the calculator
-//        val items = ArrayList<HashMap<String, Any>>()
-//        val pm = packageManager
-//        val packs = pm.getInstalledPackages(0)
-//        for (pi in packs) {
-//            if (pi.packageName.lowercase(Locale.getDefault())
-//                    .contains(search) || pi.applicationInfo.loadLabel(pm)
-//                    .toString().lowercase(Locale.getDefault()).contains(search)
-//            ) {
-//                val map = HashMap<String, Any>()
-//                map["appName"] = pi.applicationInfo.loadLabel(pm)
-//                map["packageName"] = pi.packageName
-//                items.add(map)
-//            }
-//        }
-//
-//        if (items.size >= 1) {
-//
-//            for (c in 0..items.size) {
-//                val myintent = pm.getLaunchIntentForPackage((items[c]["packageName"] as String?)!!)
-//                if (myintent != null) {
-//                    startActivity(myintent)
-//                    break
-//                }
-//            }
-//        } else {
-//            // Application not found
-//            Toast.makeText(applicationContext, "برنامه ی مناسبی پیدا نشد.", Toast.LENGTH_SHORT)
-//                .show()
-//        }
-//    }
-//
+
+/**
+ * Just give it the name of the app you wanna run, it fires an intent for calling that app.
+ */
+@SuppressLint("QueryPermissionsNeeded")
+private fun fireIntent(searchQuery: String, pm: PackageManager, service: Service) {
+
+    val items = ArrayList<HashMap<String, Any>>()
+    for (packageInfo in pm.getInstalledPackages(0)) {
+        if (packageInfo.packageName.lowercase(Locale.getDefault())
+                .contains(searchQuery) || packageInfo.applicationInfo.loadLabel(pm)
+                .toString().lowercase(Locale.getDefault()).contains(searchQuery)
+        ) {
+            val map = HashMap<String, Any>().let {
+                it["appName"] = packageInfo.applicationInfo.loadLabel(pm)
+                it["packageName"] = packageInfo.packageName
+                it
+            }
+            items.add(map)
+        }
+    }
+
+    if (items.size >= 1) {
+
+        for (c in 0..items.size) {
+            val myintent = pm.getLaunchIntentForPackage((items[c]["packageName"] as String?)!!)
+            if (myintent != null) {
+                service.startActivity(myintent)
+                break
+            }
+        }
+    } else {
+        // Application not found
+        Toast.makeText(
+            service.applicationContext,
+            "Couldn't find a suitable app for this action",
+            Toast.LENGTH_SHORT
+        )
+            .show()
+    }
+}
+
+
 //    private fun nezamiganjei() {
 //        //dorbin ra farakhani mikonad.
 //        //: 1-I should add the current time of system to the name of stored picture and save it to app's exclusive folder.
