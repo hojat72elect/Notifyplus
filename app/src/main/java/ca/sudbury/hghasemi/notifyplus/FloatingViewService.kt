@@ -315,6 +315,7 @@ class FloatingViewService : Service()
             }
         }
 
+
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
@@ -406,7 +407,6 @@ class FloatingViewService : Service()
 //    var volume_up: ImageView? = null
 //    var mute: ImageView? = null
 //    var vibrate: ImageView? = null
-//    var wifi: ImageView? = null
 //    var rotate: ImageView? = null
 //    var airplane: ImageView? = null
 //    private var brighval: SeekBar? = null
@@ -432,7 +432,6 @@ class FloatingViewService : Service()
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        mute = mFloatingView?.findViewById(R.id.mute)
 //        vibrate = mFloatingView?.findViewById(R.id.vibrate)
-//        wifi = mFloatingView?.findViewById(R.id.wifi)
 //        rotate = mFloatingView?.findViewById(R.id.rotate)
 //        airplane = mFloatingView?.findViewById(R.id.airplane)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
@@ -441,7 +440,6 @@ class FloatingViewService : Service()
 //        maryamheydarzadeh()
 
 
-//        wifi?.setOnClickListener(this)
 //        rotate?.setOnClickListener(this)
 //        airplane?.setOnClickListener(this)
 //        volume_down?.setOnClickListener(this)
@@ -590,9 +588,7 @@ class FloatingViewService : Service()
 //            controlcenterexpandedView!!.startAnimation(control_center_disappear)
 //            mainexpandedView!!.startAnimation(main_appear_in_control_center)
 
-// if (v === wifi) {
-//            dehkhoda()
-//        } else if (v === rotate) {
+//  if (v === rotate) {
 //            // ejaze rotate kardan ra be karbar bedahid.
 //            //  Toast.makeText(getApplicationContext(), "چرخش", Toast.LENGTH_SHORT).show();
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
@@ -687,12 +683,3 @@ class FloatingViewService : Service()
 //        }
 //    }
 //
-//    private fun dehkhoda() {
-//        // wifi ra roshan konid.
-//        //  Toast.makeText(getApplicationContext(), "wifi", Toast.LENGTH_SHORT).show();
-//        val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-//        wifi.isWifiEnabled = !wifi.isWifiEnabled
-//    }
-
-//
-
