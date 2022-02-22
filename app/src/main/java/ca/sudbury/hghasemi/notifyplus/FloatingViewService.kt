@@ -1,7 +1,9 @@
 package ca.sudbury.hghasemi.notifyplus
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Service
+import android.bluetooth.BluetoothManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -17,6 +19,7 @@ import android.view.View.OnTouchListener
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import java.util.*
 
 
@@ -28,6 +31,7 @@ class FloatingViewService : Service()
 //    , View.OnClickListener, OnSeekBarChangeListener
 {
 
+    val REQUEST_CODE_BLUETOOTH = 101
     var batteryStatus: TextView? = null // shows the battery percentage
 
     private var windowManager: WindowManager? = null
@@ -254,7 +258,64 @@ class FloatingViewService : Service()
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
             }
         }
+        mFloatingView?.findViewById<View>(R.id.bluetooth).let {
+            it?.setOnClickListener {
+                // Turn on/off the bluetooth
+                val btAdapter = (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
 
+
+                if (btAdapter == null) {
+                    Toast.makeText(
+                        this.applicationContext,
+                        "Bluetooth not available!!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // Bluetooth hardware available
+                    // The conditions in "if" clause below are nothing special, I'm just
+                    // checking if 3 bluetooth permissions are granted or not.
+                    if (ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH
+                        ) == PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.BLUETOOTH_ADMIN
+                        ) == PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(
+                            this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // User has already granted the bluetooth permissions
+                        if (btAdapter.isEnabled) {
+                            btAdapter.disable()
+                            // clean the highlighted key
+                            mFloatingView?.findViewById<View>(R.id.bluetooth)
+                                ?.setBackgroundColor(resources.getColor(android.R.color.white))
+                        } else {
+                            btAdapter.enable()
+                            // highlight the bluetooth key
+                            mFloatingView?.findViewById<View>(R.id.bluetooth)
+                                ?.setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
+                        }
+                    } else {
+                        // Simply ask for permissions and collapse the widget
+                        // We don't need to listen for the result of this permission request.
+                        ActivityCompat.requestPermissions(
+                            MainActivity(),
+                            arrayOf(
+                                Manifest.permission.BLUETOOTH,
+                                Manifest.permission.BLUETOOTH_ADMIN,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            ), REQUEST_CODE_BLUETOOTH
+                        )
+                    }
+
+
+                }
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -347,7 +408,6 @@ class FloatingViewService : Service()
 //    var volume_up: ImageView? = null
 //    var mute: ImageView? = null
 //    var vibrate: ImageView? = null
-//    var bluetooth: ImageView? = null
 //    var wifi: ImageView? = null
 //    var rotate: ImageView? = null
 //    var airplane: ImageView? = null
@@ -374,7 +434,6 @@ class FloatingViewService : Service()
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        mute = mFloatingView?.findViewById(R.id.mute)
 //        vibrate = mFloatingView?.findViewById(R.id.vibrate)
-//        bluetooth = mFloatingView?.findViewById(R.id.bluetooth)
 //        wifi = mFloatingView?.findViewById(R.id.wifi)
 //        rotate = mFloatingView?.findViewById(R.id.rotate)
 //        airplane = mFloatingView?.findViewById(R.id.airplane)
@@ -384,7 +443,6 @@ class FloatingViewService : Service()
 //        maryamheydarzadeh()
 
 
-//        bluetooth?.setOnClickListener(this)
 //        wifi?.setOnClickListener(this)
 //        rotate?.setOnClickListener(this)
 //        airplane?.setOnClickListener(this)
@@ -534,10 +592,7 @@ class FloatingViewService : Service()
 //            controlcenterexpandedView!!.startAnimation(control_center_disappear)
 //            mainexpandedView!!.startAnimation(main_appear_in_control_center)
 
-
-//        if (v === bluetooth) {
-//            nimaushij()
-//        } else if (v === wifi) {
+// if (v === wifi) {
 //            dehkhoda()
 //        } else if (v === rotate) {
 //            // ejaze rotate kardan ra be karbar bedahid.
@@ -640,22 +695,28 @@ class FloatingViewService : Service()
 //        val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
 //        wifi.isWifiEnabled = !wifi.isWifiEnabled
 //    }
-//
-//    private fun nimaushij() {
-//        // bluetooth ra roshan konid.
-//        //  Toast.makeText(getApplicationContext(), "بلوتوث", Toast.LENGTH_SHORT).show();
-//        val btAdapter = BluetoothAdapter.getDefaultAdapter()
-//        if (btAdapter == null) {
-//            Toast.makeText(applicationContext, "بلوتوث ندارید!", Toast.LENGTH_SHORT).show()
-//        } else {
-//            // bt available
-//            if (btAdapter.isEnabled) {
-////                btAdapter.disable();
-//            } else {
-////                btAdapter.enable();
-//            }
-//        }
-//    }
+
 //
 
 
+/*
+* This is how you check for bluetooth permission
+*
+*  if (ActivityCompat.checkSelfPermission(
+                                this,
+                                Manifest.permission.BLUETOOTH_CONNECT
+                            ) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return
+                        }
+*
+*
+*
+* */
