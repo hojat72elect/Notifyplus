@@ -4,10 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Service
 import android.bluetooth.BluetoothManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.PixelFormat
 import android.net.Uri
@@ -359,7 +356,23 @@ class FloatingViewService : Service()
                 }
             }
         }
-
+        mFloatingView?.findViewById<View>(R.id.airplane).let {
+            it?.setOnClickListener {
+                try {
+                    startActivity(Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                } catch (e: ActivityNotFoundException) {
+                    try {
+                        startActivity(Intent("android.settings.WIRELESS_SETTINGS").setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    } catch (ex: ActivityNotFoundException) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Your device doesn't support this feature",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -452,7 +465,6 @@ class FloatingViewService : Service()
 //    var volume_up: ImageView? = null
 //    var mute: ImageView? = null
 //    var vibrate: ImageView? = null
-//    var airplane: ImageView? = null
 //    private var brighval: SeekBar? = null
 
 
@@ -476,14 +488,12 @@ class FloatingViewService : Service()
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        mute = mFloatingView?.findViewById(R.id.mute)
 //        vibrate = mFloatingView?.findViewById(R.id.vibrate)
-//        airplane = mFloatingView?.findViewById(R.id.airplane)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
 //        maryamheydarzadeh()
 
 
-//        airplane?.setOnClickListener(this)
 //        volume_down?.setOnClickListener(this)
 //        volume_up?.setOnClickListener(this)
 //        mute?.setOnClickListener(this)
@@ -631,14 +641,6 @@ class FloatingViewService : Service()
 //            mainexpandedView!!.startAnimation(main_appear_in_control_center)
 
 
-//        } else if (v === airplane) {
-//            // halat havapeyma ra roshan konid.
-//            //  Toast.makeText(getApplicationContext(), "هواپیما", Toast.LENGTH_SHORT).show();
-//            manochehridamghani()
-//        }
-//    }
-
-
 //    private fun maryamheydarzadeh() {
 // this method should be called whenever the control center expanded view is opened.
 //        //we adopt the seekbar for the current brightness level of screen.
@@ -652,27 +654,6 @@ class FloatingViewService : Service()
 //        }
 //    }
 
-//    private fun manochehridamghani() {
-//        //in 17+ android APIs , we use intent for leading the user to airplane section in settings.
-//        // : do the toggling of airplane mode.
-//        try {
-//            val intent = Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(intent)
-//        } catch (e: ActivityNotFoundException) {
-//            try {
-//                val intent = Intent("android.settings.WIRELESS_SETTINGS")
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                startActivity(intent)
-//            } catch (ex: ActivityNotFoundException) {
-//                Toast.makeText(
-//                    applicationContext,
-//                    "دستگاه شما از این قابلیت پشتیبانی نمی کند.",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
 
 //    @RequiresApi(Build.VERSION_CODES.M)
 //    private fun onsori(toast: Int) {
