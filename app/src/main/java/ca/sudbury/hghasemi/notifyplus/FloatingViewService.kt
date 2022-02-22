@@ -10,9 +10,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.PixelFormat
+import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
 import android.os.IBinder
+import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.view.View.OnTouchListener
@@ -314,6 +316,49 @@ class FloatingViewService : Service()
                 }
             }
         }
+        mFloatingView?.findViewById<View>(R.id.rotate).let {
+            it?.setOnClickListener {
+                // first check if you have the permission for writing to system settings
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                    !Settings.System.canWrite(applicationContext)
+                ) {
+                    // Just ask the user to grant permissions
+                    val writeSystemSettingsIntent = Intent(
+                        Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                        Uri.parse("package:$packageName")
+                    )
+                    startActivity(writeSystemSettingsIntent)
+                    Toast.makeText(
+                        applicationContext,
+                        "please accept the permissions to the app first",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // Read the current state of auto rotation and toggle it.
+                    if (Settings.System.getInt(
+                            applicationContext.contentResolver,
+                            Settings.System.ACCELEROMETER_ROTATION,
+                            1
+                        ) == 1
+                    ) {
+                        Settings.System.putInt(
+                            applicationContext.contentResolver,
+                            Settings.System.ACCELEROMETER_ROTATION, 0
+                        )
+                        mFloatingView?.findViewById<View>(R.id.rotate)
+                            ?.setBackgroundColor(resources.getColor(android.R.color.white))
+                    } else {
+                        Settings.System.putInt(
+                            applicationContext.contentResolver,
+                            Settings.System.ACCELEROMETER_ROTATION,
+                            1
+                        )
+                        mFloatingView?.findViewById<View>(R.id.rotate)
+                            ?.setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
+                    }
+                }
+            }
+        }
 
 
         // registering receiver for battery status
@@ -407,7 +452,6 @@ class FloatingViewService : Service()
 //    var volume_up: ImageView? = null
 //    var mute: ImageView? = null
 //    var vibrate: ImageView? = null
-//    var rotate: ImageView? = null
 //    var airplane: ImageView? = null
 //    private var brighval: SeekBar? = null
 
@@ -432,7 +476,6 @@ class FloatingViewService : Service()
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        mute = mFloatingView?.findViewById(R.id.mute)
 //        vibrate = mFloatingView?.findViewById(R.id.vibrate)
-//        rotate = mFloatingView?.findViewById(R.id.rotate)
 //        airplane = mFloatingView?.findViewById(R.id.airplane)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
@@ -440,7 +483,6 @@ class FloatingViewService : Service()
 //        maryamheydarzadeh()
 
 
-//        rotate?.setOnClickListener(this)
 //        airplane?.setOnClickListener(this)
 //        volume_down?.setOnClickListener(this)
 //        volume_up?.setOnClickListener(this)
@@ -588,18 +630,7 @@ class FloatingViewService : Service()
 //            controlcenterexpandedView!!.startAnimation(control_center_disappear)
 //            mainexpandedView!!.startAnimation(main_appear_in_control_center)
 
-//  if (v === rotate) {
-//            // ejaze rotate kardan ra be karbar bedahid.
-//            //  Toast.makeText(getApplicationContext(), "چرخش", Toast.LENGTH_SHORT).show();
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-//                !Settings.System.canWrite(applicationContext)
-//            ) {
-//                //If the "write settings" permission is not available open the settings screen
-//                //to grant the permission.
-//                onsori(1)
-//            } else {
-//                sanaiyi()
-//            }
+
 //        } else if (v === airplane) {
 //            // halat havapeyma ra roshan konid.
 //            //  Toast.makeText(getApplicationContext(), "هواپیما", Toast.LENGTH_SHORT).show();
@@ -658,28 +689,6 @@ class FloatingViewService : Service()
 //                "please accept the permissions to the app first",
 //                Toast.LENGTH_LONG
 //            ).show()
-//        }
-//    }
-//
-//    private fun sanaiyi() {
-//        //this method toggles the state of auto rotation in device.
-//        if (Settings.System.getInt(
-//                applicationContext.contentResolver,
-//                Settings.System.ACCELEROMETER_ROTATION,
-//                1
-//            ) == 1
-//        ) {
-//            Settings.System.putInt(
-//                applicationContext.contentResolver,
-//                Settings.System.ACCELEROMETER_ROTATION,
-//                0
-//            )
-//        } else {
-//            Settings.System.putInt(
-//                applicationContext.contentResolver,
-//                Settings.System.ACCELEROMETER_ROTATION,
-//                1
-//            )
 //        }
 //    }
 //
