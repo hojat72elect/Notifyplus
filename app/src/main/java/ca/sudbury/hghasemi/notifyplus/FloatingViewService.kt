@@ -429,11 +429,22 @@ class FloatingViewService : Service()
 
                     }
                 } catch (e: SecurityException) {
-                    Toast.makeText(
-                        this.applicationContext,
-                        "Security measures on your device do not allow this feature to work :(",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        val audioManager =
+                            applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
+                        (audioManager).adjustSuggestedStreamVolume(
+                            AudioManager.ADJUST_TOGGLE_MUTE,
+                            AudioManager.USE_DEFAULT_STREAM_TYPE,
+                            AudioManager.FLAG_SHOW_UI
+                        )
+                        if (audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT) {
+                            mFloatingView?.findViewById<View>(R.id.mute)
+                                ?.setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
+                        } else {
+                            mFloatingView?.findViewById<View>(R.id.mute)
+                                ?.setBackgroundColor(resources.getColor(android.R.color.white))
+                        }
+                    }
                 }
             }
         }
@@ -573,14 +584,6 @@ class FloatingViewService : Service()
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
 //        maryamheydarzadeh()
-
-
-//                                    // The animations for when user opens the main view by clicking on the floating widget.
-//                                    val floating_tool_appear = AnimationUtils.loadAnimation(
-//                                        applicationContext, R.anim.floating_tool_animation_appear
-//                                    )
-//                                    mainexpandedView?.startAnimation(floating_tool_appear)
-//
 
 
 //    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
