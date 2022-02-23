@@ -51,4 +51,5 @@
     <string name="battery">Battery</string>
     <string name="camera">Camera</string>
     <string name="calculator">Calculator</string>
+    <string name="increase_volume">Increase volume</string>
 </resources>

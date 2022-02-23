@@ -437,6 +437,17 @@ class FloatingViewService : Service()
                 }
             }
         }
+        mFloatingView?.findViewById<View>(R.id.volume_up).let {
+            it?.setOnClickListener {
+                val audioManager =
+                    applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
+                audioManager.adjustSuggestedStreamVolume(
+                    AudioManager.ADJUST_RAISE,
+                    AudioManager.USE_DEFAULT_STREAM_TYPE,
+                    AudioManager.FLAG_SHOW_UI
+                )
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -525,9 +536,7 @@ class FloatingViewService : Service()
 }
 
 
-//    var volume: ImageView? = null
 //    var volume_down: ImageView? = null
-//    var volume_up: ImageView? = null
 
 //    private var brighval: SeekBar? = null
 
@@ -549,7 +558,6 @@ class FloatingViewService : Service()
 
 
 //        volume_down = mFloatingView?.findViewById(R.id.volume_down)
-//        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
@@ -557,7 +565,6 @@ class FloatingViewService : Service()
 
 
 //        volume_down?.setOnClickListener(this)
-//        volume_up?.setOnClickListener(this)
 
 //                                    // The animations for when user opens the main view by clicking on the floating widget.
 //                                    val floating_tool_appear = AnimationUtils.loadAnimation(
@@ -606,35 +613,6 @@ class FloatingViewService : Service()
 //    override fun onClick(v: View) {
 
 
-// Animation for collapsing the main expanded view into floating widget button
-//            val floating_tool_disappear = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.floating_tool_animation_disappear
-//            )
-//            mainexpandedView!!.startAnimation(floating_tool_disappear)
-
-
-// Animation for going from main expanded view to volume control expanded view
-//            val volume_tool_appear = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.volume_control_animation_appear
-//            )
-//            val main_tool_disappear_in_volume = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.main_disappears_in_volume
-//            )
-//            mainexpandedView!!.startAnimation(main_tool_disappear_in_volume)
-//            volumeexpandedView!!.startAnimation(volume_tool_appear)
-
-
-// Animation for going from main expanded view to control center expanded view.
-//            val main_tool_disappear_in_control_center = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.main_disappears_in_control_center
-//            )
-//            val control_center_appear = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.control_center_animation_appear
-//            )
-//            mainexpandedView!!.startAnimation(main_tool_disappear_in_control_center)
-//            controlcenterexpandedView!!.startAnimation(control_center_appear)
-
-
 //              if (v === volume_down) {
 //            //khajokermani()
 //            //seda ra kam mikonim.
@@ -644,52 +622,7 @@ class FloatingViewService : Service()
 //                AudioManager.USE_DEFAULT_STREAM_TYPE,
 //                AudioManager.FLAG_SHOW_UI
 //            )
-//        } else if (v === volume_up) {
-//            //eghballahouri()
-//            //seda ra ziad mikonim.
-//            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
-//            audioManager.adjustSuggestedStreamVolume(
-//                AudioManager.ADJUST_RAISE,
-//                AudioManager.USE_DEFAULT_STREAM_TYPE,
-//                AudioManager.FLAG_SHOW_UI
-//            )
-//            }
-
-
-//          Animation for collapsing the volume control view
-//            val volume_close = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.floating_tool_animation_disappear
-//            )
-//            volumeexpandedView!!.startAnimation(volume_close)
-
-
-//              Animation for going from volume control view to main expanded view
-//            val volume_disappear = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.volume_control_animation_disappear
-//            )
-//            val main_appear_in_volume = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.main_appears_in_volume
-//            )
-//            volumeexpandedView!!.startAnimation(volume_disappear)
-//            mainexpandedView!!.startAnimation(main_appear_in_volume)
-
-
-// Animation for collapsing the control center view to the floating widget.
-//            val control_center_close = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.floating_tool_animation_disappear
-//            )
-//            controlcenterexpandedView!!.startAnimation(control_center_close)
-
-
-// Animation for going from control center view to main expanded view.
-//            val control_center_disappear = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.control_center_animation_disappear
-//            )
-//            val main_appear_in_control_center = AnimationUtils.loadAnimation(
-//                applicationContext, R.anim.main_disappears_in_control_center
-//            )
-//            controlcenterexpandedView!!.startAnimation(control_center_disappear)
-//            mainexpandedView!!.startAnimation(main_appear_in_control_center)
+//        }
 
 
 //    private fun maryamheydarzadeh() {
