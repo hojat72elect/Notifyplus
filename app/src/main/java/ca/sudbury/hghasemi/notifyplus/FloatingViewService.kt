@@ -391,6 +391,52 @@ class FloatingViewService : Service()
                 }
             }
         }
+        mFloatingView?.findViewById<View>(R.id.mute).let {
+            it?.setOnClickListener {
+                try {
+                    // first of all, check if you have permission for writing
+                    // to system settings (you need to do it for API 23+)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        !Settings.System.canWrite(applicationContext)
+                    ) {
+                        // Just ask the user to grant permissions
+                        val writeSystemSettingsIntent = Intent(
+                            Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                            Uri.parse("package:$packageName")
+                        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(writeSystemSettingsIntent)
+                        Toast.makeText(
+                            applicationContext,
+                            "please accept the permissions to the app first",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        //user has already granted the permission to write into settings
+                        val audioManager =
+                            applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
+                        if (audioManager.ringerMode != AudioManager.RINGER_MODE_SILENT) {
+                            // Device isn't in silent mode
+                            audioManager.ringerMode = AudioManager.RINGER_MODE_SILENT
+                            mFloatingView?.findViewById<View>(R.id.mute)
+                                ?.setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
+                        } else {
+                            // Device is already in silent mode
+                            audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
+                            mFloatingView?.findViewById<View>(R.id.mute)
+                                ?.setBackgroundColor(resources.getColor(android.R.color.white))
+                        }
+
+
+                    }
+                } catch (e: SecurityException) {
+                    Toast.makeText(
+                        this.applicationContext,
+                        "Security measures on your device do not allow this feature to work :(",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -404,6 +450,7 @@ class FloatingViewService : Service()
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterReceiver(batteryListener)
         if (mFloatingView != null) {
             windowManager?.removeView(mFloatingView)
         }
@@ -466,7 +513,7 @@ class FloatingViewService : Service()
         } else {
             // Application not found
             Toast.makeText(
-                service.applicationContext,
+                applicationContext,
                 "Couldn't find a suitable app for this action",
                 Toast.LENGTH_SHORT
             )
@@ -481,7 +528,7 @@ class FloatingViewService : Service()
 //    var volume: ImageView? = null
 //    var volume_down: ImageView? = null
 //    var volume_up: ImageView? = null
-//    var mute: ImageView? = null
+
 //    private var brighval: SeekBar? = null
 
 
@@ -503,7 +550,6 @@ class FloatingViewService : Service()
 
 //        volume_down = mFloatingView?.findViewById(R.id.volume_down)
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
-//        mute = mFloatingView?.findViewById(R.id.mute)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
@@ -512,7 +558,6 @@ class FloatingViewService : Service()
 
 //        volume_down?.setOnClickListener(this)
 //        volume_up?.setOnClickListener(this)
-//        mute?.setOnClickListener(this)
 
 //                                    // The animations for when user opens the main view by clicking on the floating widget.
 //                                    val floating_tool_appear = AnimationUtils.loadAnimation(
@@ -608,11 +653,7 @@ class FloatingViewService : Service()
 //                AudioManager.USE_DEFAULT_STREAM_TYPE,
 //                AudioManager.FLAG_SHOW_UI
 //            )
-//        } else if (v === mute) {
-//            //fakhreldineraghi()
-//            //mute the phone with no vibration
-//            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
-//            audioManager.ringerMode = AudioManager.RINGER_MODE_SILENT
+//            }
 
 
 //          Animation for collapsing the volume control view

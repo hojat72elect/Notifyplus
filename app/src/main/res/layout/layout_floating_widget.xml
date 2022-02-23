@@ -239,7 +239,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_margin="10dp"
-
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -307,6 +306,7 @@
                         android:layout_height="50dp"
                         android:alpha="0.5"
                         android:background="@drawable/button_floating_widget"
+                        android:contentDescription="@string/mute"
                         android:src="@drawable/mute" />
 
                     <TextView
