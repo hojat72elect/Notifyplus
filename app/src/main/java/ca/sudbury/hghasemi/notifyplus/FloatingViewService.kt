@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.PixelFormat
+import android.media.AudioManager
 import android.net.Uri
 import android.os.BatteryManager
 import android.os.Build
@@ -373,6 +374,23 @@ class FloatingViewService : Service()
                 }
             }
         }
+        mFloatingView?.findViewById<View>(R.id.vibrate).let {
+            it?.setOnClickListener {
+                val audioManager =
+                    applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
+                if (audioManager.ringerMode != AudioManager.RINGER_MODE_VIBRATE) {
+                    // Device isn't in vibration mode
+                    audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+                    mFloatingView?.findViewById<View>(R.id.vibrate)
+                        ?.setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
+                } else {
+                    // Device is already in vibration mode
+                    audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
+                    mFloatingView?.findViewById<View>(R.id.vibrate)
+                        ?.setBackgroundColor(resources.getColor(android.R.color.white))
+                }
+            }
+        }
 
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
@@ -464,7 +482,6 @@ class FloatingViewService : Service()
 //    var volume_down: ImageView? = null
 //    var volume_up: ImageView? = null
 //    var mute: ImageView? = null
-//    var vibrate: ImageView? = null
 //    private var brighval: SeekBar? = null
 
 
@@ -487,7 +504,6 @@ class FloatingViewService : Service()
 //        volume_down = mFloatingView?.findViewById(R.id.volume_down)
 //        volume_up = mFloatingView?.findViewById(R.id.volume_up)
 //        mute = mFloatingView?.findViewById(R.id.mute)
-//        vibrate = mFloatingView?.findViewById(R.id.vibrate)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
@@ -497,8 +513,6 @@ class FloatingViewService : Service()
 //        volume_down?.setOnClickListener(this)
 //        volume_up?.setOnClickListener(this)
 //        mute?.setOnClickListener(this)
-//        vibrate?.setOnClickListener(this)
-
 
 //                                    // The animations for when user opens the main view by clicking on the floating widget.
 //                                    val floating_tool_appear = AnimationUtils.loadAnimation(
@@ -599,10 +613,6 @@ class FloatingViewService : Service()
 //            //mute the phone with no vibration
 //            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
 //            audioManager.ringerMode = AudioManager.RINGER_MODE_SILENT
-//        } else if (v === vibrate) {
-//            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
-//            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
-//        }
 
 
 //          Animation for collapsing the volume control view
