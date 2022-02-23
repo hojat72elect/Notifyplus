@@ -446,6 +446,20 @@ class FloatingViewService : Service()
                     AudioManager.USE_DEFAULT_STREAM_TYPE,
                     AudioManager.FLAG_SHOW_UI
                 )
+
+            }
+        }
+        mFloatingView?.findViewById<View>(R.id.volume_down).let {
+            it?.setOnClickListener {
+
+                val audioManager =
+                    applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
+                audioManager.adjustSuggestedStreamVolume(
+                    AudioManager.ADJUST_LOWER,
+                    AudioManager.USE_DEFAULT_STREAM_TYPE,
+                    AudioManager.FLAG_SHOW_UI
+                )
+
             }
         }
 
@@ -536,8 +550,6 @@ class FloatingViewService : Service()
 }
 
 
-//    var volume_down: ImageView? = null
-
 //    private var brighval: SeekBar? = null
 
 
@@ -557,14 +569,11 @@ class FloatingViewService : Service()
 //
 
 
-//        volume_down = mFloatingView?.findViewById(R.id.volume_down)
 //        brighval = mFloatingView?.findViewById(R.id.seekBar1)
 //        brighval?.max = 255
 //        brighval?.setOnSeekBarChangeListener(this)
 //        maryamheydarzadeh()
 
-
-//        volume_down?.setOnClickListener(this)
 
 //                                    // The animations for when user opens the main view by clicking on the floating widget.
 //                                    val floating_tool_appear = AnimationUtils.loadAnimation(
@@ -611,18 +620,6 @@ class FloatingViewService : Service()
 
 
 //    override fun onClick(v: View) {
-
-
-//              if (v === volume_down) {
-//            //khajokermani()
-//            //seda ra kam mikonim.
-//            val audioManager = applicationContext.getSystemService(AUDIO_SERVICE) as AudioManager
-//            audioManager.adjustSuggestedStreamVolume(
-//                AudioManager.ADJUST_LOWER,
-//                AudioManager.USE_DEFAULT_STREAM_TYPE,
-//                AudioManager.FLAG_SHOW_UI
-//            )
-//        }
 
 
 //    private fun maryamheydarzadeh() {
