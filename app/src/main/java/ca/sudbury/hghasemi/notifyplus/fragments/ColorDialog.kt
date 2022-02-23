@@ -1,4 +1,4 @@
-package ca.sudbury.hghasemi.notifyplus
+package ca.sudbury.hghasemi.notifyplus.fragments
 
 
 import android.app.AlertDialog
@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.DialogFragment
+import ca.sudbury.hghasemi.notifyplus.R
 import ca.sudbury.hghasemi.notifyplus.utils.ColorPalette
 import uz.shift.colorpicker.LineColorPicker
 

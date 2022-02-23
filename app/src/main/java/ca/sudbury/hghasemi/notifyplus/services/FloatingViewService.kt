@@ -1,4 +1,4 @@
-package ca.sudbury.hghasemi.notifyplus
+package ca.sudbury.hghasemi.notifyplus.services
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -17,9 +17,12 @@ import android.util.Log
 import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import ca.sudbury.hghasemi.notifyplus.MainActivity
+import ca.sudbury.hghasemi.notifyplus.R
 import java.util.*
 
 
@@ -27,9 +30,7 @@ import java.util.*
 First created by Hojat Ghasemi on Sunday, 4th June 2017.
 Contact the author at "https://github.com/hojat72elect"
  */
-class FloatingViewService : Service()
-//    , View.OnClickListener, OnSeekBarChangeListener
-{
+class FloatingViewService : Service() {
 
     val REQUEST_CODE_BLUETOOTH = 101
     var batteryStatus: TextView? = null // shows the battery percentage
@@ -42,7 +43,7 @@ class FloatingViewService : Service()
     private var isViewCollapsed: Boolean? =
         null // notifies whether the widget is collapsed or expanded
 
-
+    private var brightnessSeekBar: SeekBar? = null // the seekbar for controlling screen brightness
     /**
      * We're not doing anything in this function, we just have to
      * override it as an abstract method of Service class.
@@ -474,16 +475,64 @@ class FloatingViewService : Service()
             }
         }
 
+        // Registering the seekbar for brightness control
+        brightnessSeekBar = mFloatingView?.findViewById(R.id.seekBar1)
+        brightnessSeekBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    // user has changed the seekbar
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                        && !Settings.System.canWrite(applicationContext)
+                    ) {
+                        // Just ask the user to grant permissions
+                        val writeSystemSettingsIntent = Intent(
+                            Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                            Uri.parse("package:$packageName")
+                        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(writeSystemSettingsIntent)
+                        Toast.makeText(
+                            applicationContext,
+                            "please accept the permissions to the app first",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // Change the brightness according to seekbar
+                        Settings.System.putInt(
+                            applicationContext.contentResolver,
+                            Settings.System.SCREEN_BRIGHTNESS,
+                            progress
+                        )
+
+
+                    }
+                } else {
+                    // my own code has changed the seekbar
+                }
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
         // registering receiver for battery status
         registerReceiver(batteryListener, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         // view should be collapsed at the start
         isViewCollapsed = true
 
+        // Update the seekbar with the current brightness level
+        // of the screen
+        brightnessSeekBar?.progress = Settings.System.getInt(
+            applicationContext.contentResolver,
+            Settings.System.SCREEN_BRIGHTNESS,
+            0
+        )
 
         return START_STICKY
     }
-
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(batteryListener)
@@ -494,7 +543,6 @@ class FloatingViewService : Service()
             windowManager?.removeView(imageClose)
         }
     }
-
     /**
      * This BroadcastReceiver receives current percent of battery and loads it into a
      * TextView in our floating widget.
@@ -515,7 +563,6 @@ class FloatingViewService : Service()
         }
 
     }
-
     /**
      * Just give it the name of the app you wanna run, it fires an intent for calling that app.
      */
@@ -556,104 +603,4 @@ class FloatingViewService : Service()
                 .show()
         }
     }
-
-
 }
-
-
-//    private var brighval: SeekBar? = null
-
-
-//Variable to store brightness level
-//    private var brightness = 0
-
-//Content resolver used as a handle to the system's settings
-//    private val cResolver: ContentResolver? = null
-
-//Window object, that will store a reference to the current window
-//    private val window: Window? = null
-//    private var mWindowManager: WindowManager? = null
-//    private var mFloatingView: View? = null
-//
-
-//    override fun onCreate() {
-//
-
-
-//        brighval = mFloatingView?.findViewById(R.id.seekBar1)
-//        brighval?.max = 255
-//        brighval?.setOnSeekBarChangeListener(this)
-//        maryamheydarzadeh()
-
-
-//    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-//        if (fromUser) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-//                !Settings.System.canWrite(applicationContext)
-//            ) {
-//                //If the "write settings" permission is not available open the settings screen
-//                //to grant the permission.
-//                onsori(0)
-//            } else {
-//                brightness = brighval!!.progress
-//                if (brightness < 0) {
-//                    brightness = 0
-//                } else if (brightness > 255) {
-//                    brightness = 255
-//                }
-//                val cResolver = this.applicationContext.contentResolver
-//                Settings.System.putInt(cResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
-//
-//
-//                /*    Intent intent = new Intent(getBaseContext(), DummyBrightnessActivity.class);
-//            //    Log.d("brightend", String.valueOf(brightness / (float)255));
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this is important
-//            //in the next line 'brightness' should be a float number between 0.0 and 1.0
-//            intent.putExtra("brightness value", brightness / (float) 255);
-//            startActivity(intent);
-//
-//*/
-//            }
-//        }
-//    }
-//
-//    override fun onStartTrackingTouch(seekBar: SeekBar) {}
-//    override fun onStopTrackingTouch(seekBar: SeekBar) {}
-//
-
-
-//    override fun onClick(v: View) {
-
-
-//    private fun maryamheydarzadeh() {
-// this method should be called whenever the control center expanded view is opened.
-//        //we adopt the seekbar for the current brightness level of screen.
-//        try {
-//            brighval!!.progress = Settings.System.getInt(
-//                applicationContext.contentResolver,
-//                Settings.System.SCREEN_BRIGHTNESS,
-//                0
-//            ) //////////////////////////////////////
-//        } catch (e: Exception) {
-//        }
-//    }
-
-
-//    @RequiresApi(Build.VERSION_CODES.M)
-//    private fun onsori(toast: Int) {
-//        //this method asks for user's permission for write on settings in android 23(6.0 marshmallow) and above.
-//        val intent = Intent(
-//            Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse(
-//                "package:$packageName"
-//            )
-//        )
-//        startActivity(intent)
-//        if (toast == 1) {
-//            Toast.makeText(
-//                applicationContext,
-//                "please accept the permissions to the app first",
-//                Toast.LENGTH_LONG
-//            ).show()
-//        }
-//    }
-//

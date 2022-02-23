@@ -1,4 +1,4 @@
-package ca.sudbury.hghasemi.notifyplus
+package ca.sudbury.hghasemi.notifyplus.fragments
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -16,6 +16,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import ca.sudbury.hghasemi.notifyplus.ApkListAdapter
+import ca.sudbury.hghasemi.notifyplus.MainActivity
+import ca.sudbury.hghasemi.notifyplus.R
 
 /**
  * First created by Hojat Ghasemi on 16th March 2017.

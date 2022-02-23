@@ -20,6 +20,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
+import ca.sudbury.hghasemi.notifyplus.fragments.AppsDialog
+import ca.sudbury.hghasemi.notifyplus.fragments.ColorDialog
+import ca.sudbury.hghasemi.notifyplus.fragments.ContactUsDialogFragment
+import ca.sudbury.hghasemi.notifyplus.fragments.HelpDialogFragment
+import ca.sudbury.hghasemi.notifyplus.services.FloatingViewService
+import ca.sudbury.hghasemi.notifyplus.services.NotificationService
 import com.google.android.material.navigation.NavigationView
 
 /**

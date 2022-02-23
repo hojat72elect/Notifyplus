@@ -1,10 +1,11 @@
-package ca.sudbury.hghasemi.notifyplus
+package ca.sudbury.hghasemi.notifyplus.fragments
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import ca.sudbury.hghasemi.notifyplus.R
 
 /**
  * Created by Hojat Ghasemi at 2022-02-06

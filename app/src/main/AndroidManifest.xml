@@ -48,10 +48,10 @@
         </activity>
 
         <service
-            android:name=".NotificationService"
+            android:name=".services.NotificationService"
             android:foregroundServiceType="dataSync" />
         <service
-            android:name=".FloatingViewService"
+            android:name=".services.FloatingViewService"
             android:enabled="true" />
 
 

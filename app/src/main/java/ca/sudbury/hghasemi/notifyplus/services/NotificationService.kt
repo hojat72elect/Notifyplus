@@ -1,4 +1,4 @@
-package ca.sudbury.hghasemi.notifyplus
+package ca.sudbury.hghasemi.notifyplus.services
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.IBinder
 import android.widget.RemoteViews
 import androidx.annotation.RequiresApi
+import ca.sudbury.hghasemi.notifyplus.R
 
 /**
  * Created by Hojat_Ghasemi on 13 March 2017 in Kerman.
