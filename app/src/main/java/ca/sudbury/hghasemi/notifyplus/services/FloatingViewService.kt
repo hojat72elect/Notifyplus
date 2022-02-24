@@ -22,7 +22,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import ca.sudbury.hghasemi.notifyplus.MainActivity
 import ca.sudbury.hghasemi.notifyplus.R
 import java.util.*
 
@@ -33,7 +32,6 @@ Contact the author at "https://github.com/hojat72elect"
  */
 class FloatingViewService : Service() {
 
-    val REQUEST_CODE_BLUETOOTH = 101
     var batteryStatus: TextView? = null // shows the battery percentage
     private var windowManager: WindowManager? = null
     private var mFloatingView: View? = null
@@ -299,16 +297,13 @@ class FloatingViewService : Service() {
                                 ?.setBackgroundColor(resources.getColor(android.R.color.holo_blue_bright))
                         }
                     } else {
-                        // Simply ask for permissions and collapse the widget
-                        // We don't need to listen for the result of this permission request.
-                        ActivityCompat.requestPermissions(
-                            MainActivity(),
-                            arrayOf(
-                                Manifest.permission.BLUETOOTH,
-                                Manifest.permission.BLUETOOTH_ADMIN,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            ), REQUEST_CODE_BLUETOOTH
-                        )
+                        // You can't normally ask for permissions from a service; just ask user to
+                        // accept them in the app's settings
+                        Toast.makeText(
+                            applicationContext,
+                            "Please go to app's settings page and accept the required permissions first!",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
@@ -507,7 +502,11 @@ class FloatingViewService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(batteryListener)
+        try {
+            unregisterReceiver(batteryListener)
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+        }
         if (mFloatingView != null) {
             windowManager?.removeView(mFloatingView)
         }

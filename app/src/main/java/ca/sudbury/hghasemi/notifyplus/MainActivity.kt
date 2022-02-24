@@ -1,5 +1,6 @@
 package ca.sudbury.hghasemi.notifyplus
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(),
     AppsDialog.AppsDialogListener {
 
     private val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
+    private val REQUEST_CODE_BLUETOOTH = 101
 
     // The LinearLayout that contains the buttons
     // (the background color will be applied to this layout)
@@ -172,6 +175,34 @@ class MainActivity : AppCompatActivity(),
         }
         floatingControlCenterToggle?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                // first check for bluetooth permissions
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.BLUETOOTH
+                    ) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.BLUETOOTH_ADMIN
+                    ) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ){
+                    // ask user to accept those permissions
+                                            ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(
+                                Manifest.permission.BLUETOOTH,
+                                Manifest.permission.BLUETOOTH_ADMIN,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            ), REQUEST_CODE_BLUETOOTH
+                        )
+
+
+                }
+
+                // then check for permission to draw over other apps
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                     !Settings.canDrawOverlays(applicationContext)
                 ) {
