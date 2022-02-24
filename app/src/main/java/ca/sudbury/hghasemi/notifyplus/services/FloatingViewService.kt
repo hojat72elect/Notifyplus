@@ -541,39 +541,20 @@ class FloatingViewService : Service() {
      */
     @SuppressLint("QueryPermissionsNeeded")
     private fun fireIntent(searchQuery: String, pm: PackageManager, service: Service) {
-
-        val items = ArrayList<HashMap<String, Any>>()
         for (packageInfo in pm.getInstalledPackages(0)) {
-            if (packageInfo.packageName.lowercase(Locale.getDefault())
-                    .contains(searchQuery) || packageInfo.applicationInfo.loadLabel(pm)
-                    .toString().lowercase(Locale.getDefault()).contains(searchQuery)
+            // going through all the installed apps on device and check their "PackageInfo"
+            if ((packageInfo.packageName.lowercase(Locale.getDefault())).contains(searchQuery) ||
+                packageInfo.applicationInfo.loadLabel(pm).toString()
+                    .lowercase(Locale.getDefault())
+                    .contains(searchQuery)
             ) {
-                val map = HashMap<String, Any>().let {
-                    it["appName"] = packageInfo.applicationInfo.loadLabel(pm)
-                    it["packageName"] = packageInfo.packageName
-                    it
-                }
-                items.add(map)
-            }
-        }
-
-        if (items.size >= 1) {
-
-            for (c in 0..items.size) {
-                val myintent = pm.getLaunchIntentForPackage((items[c]["packageName"] as String?)!!)
-                if (myintent != null) {
-                    service.startActivity(myintent)
+                // Either the package or app name contain the search query
+                val intent = pm.getLaunchIntentForPackage(packageInfo.packageName.toString())
+                if (intent != null) {
+                    service.startActivity(intent) // just open up the first match you find and get out of the function
                     break
                 }
             }
-        } else {
-            // Application not found
-            Toast.makeText(
-                applicationContext,
-                "Couldn't find a suitable app for this action",
-                Toast.LENGTH_SHORT
-            )
-                .show()
         }
     }
 
