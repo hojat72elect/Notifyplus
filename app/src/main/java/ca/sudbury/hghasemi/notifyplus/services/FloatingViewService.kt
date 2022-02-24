@@ -20,6 +20,7 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import ca.sudbury.hghasemi.notifyplus.MainActivity
 import ca.sudbury.hghasemi.notifyplus.R
@@ -34,7 +35,6 @@ class FloatingViewService : Service() {
 
     val REQUEST_CODE_BLUETOOTH = 101
     var batteryStatus: TextView? = null // shows the battery percentage
-
     private var windowManager: WindowManager? = null
     private var mFloatingView: View? = null
     var imageClose: ImageView? = null
@@ -42,8 +42,8 @@ class FloatingViewService : Service() {
     private var height = 0f
     private var isViewCollapsed: Boolean? =
         null // notifies whether the widget is collapsed or expanded
-
     private var brightnessSeekBar: SeekBar? = null // the seekbar for controlling screen brightness
+
     /**
      * We're not doing anything in this function, we just have to
      * override it as an abstract method of Service class.
@@ -80,7 +80,7 @@ class FloatingViewService : Service() {
         layoutParams.x = 0
         layoutParams.y = 100
 
-        // layout params for close button
+        // layout params for the close button
         val imageParams = WindowManager.LayoutParams(
             140,
             140,
@@ -310,8 +310,6 @@ class FloatingViewService : Service() {
                             ), REQUEST_CODE_BLUETOOTH
                         )
                     }
-
-
                 }
             }
         }
@@ -322,16 +320,7 @@ class FloatingViewService : Service() {
                     !Settings.System.canWrite(applicationContext)
                 ) {
                     // Just ask the user to grant permissions
-                    val writeSystemSettingsIntent = Intent(
-                        Settings.ACTION_MANAGE_WRITE_SETTINGS,
-                        Uri.parse("package:$packageName")
-                    )
-                    startActivity(writeSystemSettingsIntent)
-                    Toast.makeText(
-                        applicationContext,
-                        "please accept the permissions to the app first",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    askForWriteSystemSettingsPermission()
                 } else {
                     // Read the current state of auto rotation and toggle it.
                     if (Settings.System.getInt(
@@ -401,16 +390,7 @@ class FloatingViewService : Service() {
                         !Settings.System.canWrite(applicationContext)
                     ) {
                         // Just ask the user to grant permissions
-                        val writeSystemSettingsIntent = Intent(
-                            Settings.ACTION_MANAGE_WRITE_SETTINGS,
-                            Uri.parse("package:$packageName")
-                        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(writeSystemSettingsIntent)
-                        Toast.makeText(
-                            applicationContext,
-                            "please accept the permissions to the app first",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        askForWriteSystemSettingsPermission()
                     } else {
                         //user has already granted the permission to write into settings
                         val audioManager =
@@ -485,16 +465,7 @@ class FloatingViewService : Service() {
                         && !Settings.System.canWrite(applicationContext)
                     ) {
                         // Just ask the user to grant permissions
-                        val writeSystemSettingsIntent = Intent(
-                            Settings.ACTION_MANAGE_WRITE_SETTINGS,
-                            Uri.parse("package:$packageName")
-                        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(writeSystemSettingsIntent)
-                        Toast.makeText(
-                            applicationContext,
-                            "please accept the permissions to the app first",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        askForWriteSystemSettingsPermission()
                     } else {
                         // Change the brightness according to seekbar
                         Settings.System.putInt(
@@ -533,6 +504,7 @@ class FloatingViewService : Service() {
 
         return START_STICKY
     }
+
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(batteryListener)
@@ -543,6 +515,7 @@ class FloatingViewService : Service() {
             windowManager?.removeView(imageClose)
         }
     }
+
     /**
      * This BroadcastReceiver receives current percent of battery and loads it into a
      * TextView in our floating widget.
@@ -563,6 +536,7 @@ class FloatingViewService : Service() {
         }
 
     }
+
     /**
      * Just give it the name of the app you wanna run, it fires an intent for calling that app.
      */
@@ -602,5 +576,24 @@ class FloatingViewService : Service() {
             )
                 .show()
         }
+    }
+
+    /**
+     *  Calling this function will simply prompt the user to give us the
+     *  permission to overwrite system settings.
+     */
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun askForWriteSystemSettingsPermission() {
+        // Just ask the user to grant permissions
+        val writeSystemSettingsIntent = Intent(
+            Settings.ACTION_MANAGE_WRITE_SETTINGS,
+            Uri.parse("package:$packageName")
+        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(writeSystemSettingsIntent)
+        Toast.makeText(
+            applicationContext,
+            "please accept the permissions to the app first",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
