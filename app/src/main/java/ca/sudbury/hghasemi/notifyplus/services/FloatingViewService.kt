@@ -137,6 +137,8 @@ class FloatingViewService : Service() {
                                     View.GONE
                                 mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility =
                                     View.VISIBLE
+                                // the widget view is not collapsed any more
+                                isViewCollapsed = false
                             }
                         } else {
                             // remove widget
@@ -171,8 +173,7 @@ class FloatingViewService : Service() {
             it?.setOnClickListener {
                 mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
-
-
+                isViewCollapsed = true
             }
         }
         mFloatingView?.findViewById<View>(R.id.control_center).let {
@@ -202,6 +203,7 @@ class FloatingViewService : Service() {
                 mFloatingView?.findViewById<View>(R.id.volume_expanded_container)?.visibility =
                     View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+                isViewCollapsed = true
             }
         }
         mFloatingView?.findViewById<View>(R.id.back).let {
@@ -216,8 +218,8 @@ class FloatingViewService : Service() {
                 mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
                     View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+                isViewCollapsed = true
             }
-
         }
         mFloatingView?.findViewById<View>(R.id.camera).let {
             it?.setOnClickListener {
@@ -227,6 +229,7 @@ class FloatingViewService : Service() {
                 mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
                     View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+                isViewCollapsed = true
             }
         }
         mFloatingView?.findViewById<View>(R.id.mail).let {
@@ -236,6 +239,7 @@ class FloatingViewService : Service() {
                 // Collapse the widget
                 mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+                isViewCollapsed = true
             }
         }
         mFloatingView?.findViewById<View>(R.id.phone).let {
@@ -245,6 +249,7 @@ class FloatingViewService : Service() {
                 // Collapse the widget
                 mFloatingView?.findViewById<View>(R.id.expanded_view)?.visibility = View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+                isViewCollapsed = true
             }
         }
         mFloatingView?.findViewById<View>(R.id.calculator).let {
@@ -255,6 +260,7 @@ class FloatingViewService : Service() {
                 mFloatingView?.findViewById<View>(R.id.control_center_expanded_container)?.visibility =
                     View.GONE
                 mFloatingView?.findViewById<View>(R.id.collapsed_view)?.visibility = View.VISIBLE
+                isViewCollapsed = true
             }
         }
         mFloatingView?.findViewById<View>(R.id.bluetooth).let {
@@ -471,10 +477,7 @@ class FloatingViewService : Service() {
 
 
                     }
-                } else {
-                    // my own code has changed the seekbar
                 }
-
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}

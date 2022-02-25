@@ -21,7 +21,6 @@
 
             <!--Icon of floating widget -->
             <ImageView
-                android:id="@+id/collapsed_iv"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/button_floating_widget"
@@ -31,8 +30,7 @@
 
         </RelativeLayout>
 
-        <!--View while view is expanded-->
-
+        <!-- The main expanded view-->
         <LinearLayout
             android:id="@+id/expanded_view"
             android:layout_width="wrap_content"
@@ -188,7 +186,7 @@
 
         </LinearLayout>
 
-
+        <!-- The expanded view for controlling volume -->
         <LinearLayout
             android:id="@+id/volume_expanded_container"
             android:layout_width="wrap_content"
@@ -356,6 +354,7 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <!-- The expanded view for control center-->
         <LinearLayout
             android:id="@+id/control_center_expanded_container"
             android:layout_width="wrap_content"
