@@ -188,18 +188,16 @@ class MainActivity : AppCompatActivity(),
                         this,
                         Manifest.permission.ACCESS_COARSE_LOCATION
                     ) != PackageManager.PERMISSION_GRANTED
-                ){
+                ) {
                     // ask user to accept those permissions
-                                            ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(
-                                Manifest.permission.BLUETOOTH,
-                                Manifest.permission.BLUETOOTH_ADMIN,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            ), REQUEST_CODE_BLUETOOTH
-                        )
-
-
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(
+                            Manifest.permission.BLUETOOTH,
+                            Manifest.permission.BLUETOOTH_ADMIN,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ), REQUEST_CODE_BLUETOOTH
+                    )
                 }
 
                 // then check for permission to draw over other apps
@@ -573,7 +571,8 @@ class MainActivity : AppCompatActivity(),
             val notificationIntent = Intent(this, NotificationService::class.java)
             notificationIntent.putExtra("ufa", faveApps)
             notificationIntent.putExtra("viewgroup", remoteView)
-            startService(notificationIntent)
+            startService(notificationIntent) // This service works pretty independently
+            // and doesn't need to communicate with the MainActivity.
         } catch (e: Exception) {
             Toast.makeText(
                 this,
@@ -585,6 +584,9 @@ class MainActivity : AppCompatActivity(),
 
     }
 
+    /**
+     * This service needs to be bound to the MainActivity because it needs to communicate some stuff.
+     */
     private fun startFloatingControlCenter() {
         try {
             startService(Intent(this, FloatingViewService::class.java))
@@ -596,7 +598,5 @@ class MainActivity : AppCompatActivity(),
             )
                 .show()
         }
-
-
     }
 }

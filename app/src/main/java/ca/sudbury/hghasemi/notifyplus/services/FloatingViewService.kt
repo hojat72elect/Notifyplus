@@ -43,8 +43,7 @@ class FloatingViewService : Service() {
     private var brightnessSeekBar: SeekBar? = null // the seekbar for controlling screen brightness
 
     /**
-     * We're not doing anything in this function, we just have to
-     * override it as an abstract method of Service class.
+     * it's used for when an activity binds to this service
      */
     override fun onBind(intent: Intent): IBinder? {
         return null
@@ -144,6 +143,7 @@ class FloatingViewService : Service() {
                             // remove widget
                             if (layoutParams.y > height * 0.6) {
                                 stopSelf()
+                                //todo: tell the MainActivity about it.
                             }
                         }
                         return true
