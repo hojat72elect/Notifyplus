@@ -36,3 +36,8 @@ screenshots of the app:
 <img alt="App image 5" src="ScreenShots/5.jpg" width="19.5%">
 
 </div>
+
+
+-------------------------------------------------
+
+Newer versions of Android have imposed so many <a href="https://developer.android.com/guide/components/activities/background-starts">restrictions on starting activities from background</a>. As a result, it's unjustifiably hard and tedious to improve Notify Plus's performance. And also some issue of this repo (such as issue #5) are hard to resolve. I have decided to stop working full time on this repo and spend my time on other mobile projects I have here. 
